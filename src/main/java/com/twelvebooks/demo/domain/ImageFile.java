@@ -1,8 +1,15 @@
 package com.twelvebooks.demo.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "image_files")
+@Getter
+@Setter
 public class ImageFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
@@ -12,7 +19,6 @@ public class ImageFile {
     private String mimeType;
     private String saveFileName;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private List<User> users;
+    @OneToOne(mappedBy = "imagefile")
+    private User user;
 }
