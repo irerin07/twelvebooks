@@ -1,8 +1,7 @@
 package com.twelvebooks.demo.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 public class ImageFile {
     @Id
@@ -12,4 +11,8 @@ public class ImageFile {
     private long length;
     private String mimeType;
     private String saveFileName;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private List<User> users;
 }

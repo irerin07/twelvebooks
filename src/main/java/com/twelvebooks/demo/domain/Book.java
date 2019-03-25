@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -19,4 +20,8 @@ public class Book {
     private String author;
     private String translator;
     private String thumbnailImage;
+
+    @OneToMany(mappedBy = "book")
+    private List<Challenge> challenges;
+
 }

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "challenges")
@@ -20,4 +21,15 @@ public class Challenge {
     private int days;
     private boolean visibility;
     private boolean finished;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "challenge")
+    private List<Diary> diaries;
 }
