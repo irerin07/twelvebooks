@@ -20,6 +20,7 @@ public class Book {
     private String author;
     private String translator;
     private String thumbnailImage;
+    private String publisher;
 
     @OneToMany(mappedBy = "book")
     private List<Challenge> challenges;
