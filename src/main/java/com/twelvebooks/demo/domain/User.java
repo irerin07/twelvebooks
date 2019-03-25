@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -17,8 +18,8 @@ public class User {
     private long id;
     private String name;
     private String email;
-    private String password;
-    private String createDate;
+    private String passwd;
+    private Date regdate;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_roles",
