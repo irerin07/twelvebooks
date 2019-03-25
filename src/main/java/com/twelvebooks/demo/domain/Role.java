@@ -1,11 +1,15 @@
 package com.twelvebooks.demo.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import sun.plugin2.message.GetAppletMessage;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "roles")
+@Getter
+@Setter
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

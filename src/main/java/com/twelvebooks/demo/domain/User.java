@@ -33,8 +33,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Diary> diaries;
 
-    @OneToMany(mappedBy = "user",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}
-    )
-    private List<ImageFile> imageFiles;
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @JoinColumn(name = "imagefile_id", referencedColumnName = "id")
+    private ImageFile imageFile;
 }
