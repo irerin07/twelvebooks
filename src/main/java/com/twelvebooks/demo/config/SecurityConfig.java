@@ -10,6 +10,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
