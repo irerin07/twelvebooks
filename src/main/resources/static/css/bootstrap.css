@@ -4145,6 +4145,7 @@ input[type="button"].btn-block {
 }
 
 .navbar {
+  width: 100% !important;
   position: relative;
   display: -ms-flexbox;
   display: flex;
@@ -4159,6 +4160,7 @@ input[type="button"].btn-block {
 
 .navbar > .container,
 .navbar > .container-fluid {
+  width: 100% !important;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -5086,7 +5088,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
-  background-color: #e9ecef;
+  background-color: transparent;
   border-radius: 0.3rem;
 }
 
