@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,5 +25,9 @@ public class Book {
 
     @OneToMany(mappedBy = "book")
     private List<Challenge> challenges;
+
+    public Book(){
+        challenges = new ArrayList<>();
+    }
 
 }

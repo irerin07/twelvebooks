@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -37,4 +35,12 @@ public class User {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "imagefile_id", referencedColumnName = "id")
     private ImageFile imageFile;
+
+    public User(){
+        regdate = new Date();
+        roles = new HashSet<>();
+        challenges = new ArrayList<>();
+        diaries = new ArrayList<>();
+    }
+
 }
