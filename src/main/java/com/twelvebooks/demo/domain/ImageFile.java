@@ -19,6 +19,4 @@ public class ImageFile {
     private String mimeType;
     private String saveFileName;
 
-    @OneToOne(mappedBy = "imagefile")
-    private User user;
 }
