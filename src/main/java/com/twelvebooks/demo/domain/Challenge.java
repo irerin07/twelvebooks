@@ -21,7 +21,6 @@ public class Challenge {
     private Date endDate;
     private int days;
     private boolean visibility;
-    private boolean finished;
     private String status;
     @ManyToOne
     @JoinColumn(name = "book_id")
