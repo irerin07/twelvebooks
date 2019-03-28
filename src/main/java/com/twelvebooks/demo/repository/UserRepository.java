@@ -15,4 +15,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //User전체 리스트 가져오기
     @Query("SELECT u FROM User u ORDER BY u.id DESC")
     public List<User> getUsers();
+
 }

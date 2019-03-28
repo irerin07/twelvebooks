@@ -49,7 +49,7 @@
 
 
 <nav class="navbar navbar-expand-sm bg-white navbar-light" style="margin-top: 25px; padding-bottom: 35px;">
-    <i class="fa fa-bars"  style="margin-left: 25px;font-size:30px;"></i>
+    <i class="fa fa-bars" style="margin-left: 25px;font-size:30px;"></i>
 
     <a class="navbar-brand" style="margin-left: 5px" href="#">12 BOOKS</a>
     <!--<button class="navbar-toggler" type="button" data-toggle="collapse" daa-target="#collapsibleNavbar">-->
@@ -70,41 +70,44 @@
 <div class="jumbotron text-center" style="margin-bottom: 25px;">
     <div class="container">
         <div class="row mgTp">
-            <form class="col-md-6 offset-md-3" method="post" action="/users/login">
-                <h3 class="title">로그인</h3>
-                <hr class="divisor">
-                <div class="form-group" style="margin-top: 40px; margin-bottom: 20px;">
+            <form class="col-md-6 offset-md-3" method="post" action="/users/join">
+                <form method="post" th:action="@{/users/join}" th:object="${userJoinForm}" action="#">
+                    <h3 class="title">회원가입</h3>
+                    <hr class="divisor">
+                    <div class="form-group" style="margin-top: 40px; margin-bottom: 20px;">
+                        <input type="email" class="form-control" name="email" placeholder="이메일 주소">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
+                        <input type="password" class="form-control" name="passwd" placeholder="비밀번호" title="비밀번호">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
+                        <input type="password" class="form-control" name="passwd2" placeholder="비밀번호 확인" title="비밀번호">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
+                        <input type="text" class="form-control" name="name" placeholder="이름" title="이름">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
+                        <input type="text" class="form-control" name="comment" placeholder="하고싶은 한마디" title="하고싶은 한마디">
+                    </div>
 
-                    <input type="email" class="form-control" name="email" placeholder="이메일 주소">
-
-
-                </div>
-                <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
-
-                    <input type="password" class="form-control" name="passwd" placeholder="비밀번호" title="비밀번호">
-                </div>
-                <div class="form-check" style="margin-top: 20px; margin-bottom: 40px">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">로그인 유지</label>
-                </div>
-                <input
-                        type="hidden"
-                        th:name="${_csrf.parameterName}"
-                        th:value="${_csrf.token}" />
-                <button type="submit" class="btn btn-dark topBtn"> 로그인</button>
-            </form>
+                    <input
+                            type="hidden"
+                            th:name="${_csrf.parameterName}"
+                            th:value="${_csrf.token}"/>
+                    <button type="submit" class="btn btn-dark topBtn"> 회원가입</button>
+                </form>
         </div>
     </div>
 </div>
 
 <!--<div class="class=jumbotron text-center bgbook" style="margin-bottom: 25px; width: 100%">-->
-    <!--&lt;!&ndash;<img src="../static/images/photo-1490633874781-1c63cc424610.jpg" height="900" width="1350" style="margin-top: 25px; margin-bottom: 25px"/>&ndash;&gt;-->
-    <!--<div class="text">-->
-        <!--<div>-->
-            <!--<h1>1 Month, 1 Book</h1>-->
-            <!--<h3>한달에 한권씩 12권의 책을 읽어 나가기</h3>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--&lt;!&ndash;<img src="../static/images/photo-1490633874781-1c63cc424610.jpg" height="900" width="1350" style="margin-top: 25px; margin-bottom: 25px"/>&ndash;&gt;-->
+<!--<div class="text">-->
+<!--<div>-->
+<!--<h1>1 Month, 1 Book</h1>-->
+<!--<h3>한달에 한권씩 12권의 책을 읽어 나가기</h3>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 
 
