@@ -44,4 +44,7 @@ public class User {
         diaries = new ArrayList<>();
     }
 
+    public void addUserRole(Role role){
+        this.roles.add(role);
+    }
 }
