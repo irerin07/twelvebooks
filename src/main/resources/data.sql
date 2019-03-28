@@ -28,7 +28,7 @@ insert into user_roles(user_id, role_id) values (6, 2);
 insert into user_roles(user_id, role_id) values (7, 2);
 insert into user_roles(user_id, role_id) values (8, 2);
 insert into user_roles(user_id, role_id) values (9, 2);
-insert into user_roles(user_id, role_id) values (100, 2);
+insert into user_roles(user_id, role_id) values (10, 2);
 
 insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id) values(1, '2019-03-25 23:59:59', '2019-04-23 23:59:59',30, 1,  '읽는중', 1, 1);
 insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id) values(2, '2019-03-26 23:59:59', '2019-04-24 23:59:59',30, 1,  '읽는중', 2, 2);
