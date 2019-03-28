@@ -35,7 +35,7 @@ insert into challenges(id, start_date, end_date, days, visibility, status, user_
 insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id) values(3, '2019-03-27 23:59:59', '2019-04-25 23:59:59',30, 0,  '읽는중', 3, 3);
 insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id) values(4, '2019-03-28 23:59:59', '2019-04-26 23:59:59',30, 1,  '읽는중', 4, 4);
 insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id) values(5, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 1,  '읽는중', 5, 5);
-
+insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id) values(6, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 1);
 insert into diaries(id, day, content, user_id, challenge_id) values(1, 1, '자바 존나 어렵네', 1, 1);
 insert into diaries(id, day, content, user_id, challenge_id) values(2, 1, '자바 겁나 어렵네', 2, 2);
 insert into diaries(id, day, content, user_id, challenge_id) values(3, 1, '자바 지젼 어렵네', 3, 3);
