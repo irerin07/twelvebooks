@@ -48,12 +48,15 @@ public class UserController {
 
     @PostMapping("/join")
     public String join(@Valid UserJoinForm userJoinForm, BindingResult bindingResult, HttpSession session){
+
         if(bindingResult.hasErrors()){
+            System.out.println("1");
             return "users/joinform";
         }
 
         if(!userJoinForm.getPasswd().equals(userJoinForm.getPasswd2())){
-            FieldError error = new FieldError("userJoinForm","rePassword",
+            System.out.println("2");
+            FieldError error = new FieldError("userJoinForm","passwd2",
                     "비밀번호가 일치하지 않습니다.");
             bindingResult.addError(error);
             return "users/joinform";
@@ -61,6 +64,7 @@ public class UserController {
 
         User userByEmail = userService.getUserByEmail(userJoinForm.getEmail());
         if(userByEmail!=null){
+            System.out.println("3");
             FieldError error = new FieldError("userJoinForm","email","중복된 이메일이 있습니다");
             bindingResult.addError(error);
             return "users/joinform";
