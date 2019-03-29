@@ -23,19 +23,11 @@ public class DiaryRepositoryTest {
 
     @Test
     public void getDiariesByChallengeId(){
-        List<Diary> diaryList = diaryRepository.getDiariesByChallengeId(1);
+        List<Diary> diaryList = diaryRepository.getDiariesByChallengeId(1L);
 
         for(Diary d : diaryList){
             System.out.println(d.getContent());
         }
     }
 
-    @Test
-    public void getDiariedByUserChallengeId(){
-        List<Diary> diaries = diaryRepository.getDiariesByCIdAndUid(1);
-
-        for(Diary d : diaries){
-            System.out.println(d.getContent());
-        }
-    }
 }
