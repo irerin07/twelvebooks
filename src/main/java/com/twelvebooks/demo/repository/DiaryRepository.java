@@ -15,4 +15,10 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
     //2.User에 해당하는 다이어리 가져오기
     @Query(value = "SELECT d FROM Diary d INNER JOIN FETCH d.user WHERE d.user.id = :id")
     public List<Diary> getDiariesByUserId(@Param("id") long id);
+
+    @Query(value = "SELECT d FROM Diary d " +
+                    "INNER JOIN FETCH d.challenge c " +
+                    "INNER JOIN FETCH c.user u " +
+                    "WHERE u.id = :id")
+    public List<Diary> getDiariesByCIdAndUid(@Param("id") long id);
 }

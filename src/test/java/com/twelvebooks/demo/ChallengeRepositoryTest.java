@@ -23,9 +23,8 @@ public class ChallengeRepositoryTest {
     }
 
     @Test
-    public void getItems() throws Exception{
+    public void getChallengesById() throws Exception{
         List<Challenge> challenges = challengeRepository.getChallenges(1L);
-
         for(Challenge challenge : challenges){
             System.out.println(challenge.getId());
         }

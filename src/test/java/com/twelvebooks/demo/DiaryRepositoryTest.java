@@ -1,0 +1,41 @@
+package com.twelvebooks.demo;
+
+import com.twelvebooks.demo.domain.Diary;
+import com.twelvebooks.demo.repository.DiaryRepository;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class DiaryRepositoryTest {
+    @Autowired
+    DiaryRepository diaryRepository;
+
+    @Test
+    public void init(){
+
+    }
+
+    @Test
+    public void getDiariesByChallengeId(){
+        List<Diary> diaryList = diaryRepository.getDiariesByChallengeId(1);
+
+        for(Diary d : diaryList){
+            System.out.println(d.getContent());
+        }
+    }
+
+    @Test
+    public void getDiariedByUserChallengeId(){
+        List<Diary> diaries = diaryRepository.getDiariesByCIdAndUid(1);
+
+        for(Diary d : diaries){
+            System.out.println(d.getContent());
+        }
+    }
+}

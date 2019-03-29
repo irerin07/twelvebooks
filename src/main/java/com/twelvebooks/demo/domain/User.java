@@ -30,8 +30,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Challenge> challenges;
 
-    @OneToMany(mappedBy = "user")
-    private List<Diary> diaries;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "imagefile_id", referencedColumnName = "id")
@@ -41,7 +39,6 @@ public class User {
         regdate = new Date();
         roles = new HashSet<>();
         challenges = new ArrayList<>();
-        diaries = new ArrayList<>();
     }
 
     public void addUserRole(Role role){
