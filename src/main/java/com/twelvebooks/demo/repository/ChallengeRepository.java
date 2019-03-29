@@ -12,4 +12,5 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     @Query(value = "SELECT c FROM Challenge c INNER JOIN FETCH c.user WHERE c.user.id = :id ORDER BY c.id DESC",
             countQuery = "SELECT count(c) FROM Challenge c")
     public List<Challenge> getChallenges(@Param("id") Long id);
+
 }

@@ -18,9 +18,6 @@ public class Diary {
     private int day;
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
     @ManyToOne
     @JoinColumn(name = "challenge_id")
