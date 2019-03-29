@@ -51,6 +51,13 @@
     .text div {
         color: black;
     }
+
+    .errDiv{
+        font-size: 15px;
+        color: darkred;
+        text-decoration-color: darkred;
+        text-emphasis-color: darkred;
+    }
 </style>
 
 <body>
@@ -84,19 +91,24 @@
                     <hr class="divisor">
                     <div class="form-group" style="margin-top: 40px; margin-bottom: 20px;">
                         <input type="email" class="form-control" name="email" placeholder="이메일 주소">
+                        <div class="errDiv" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     </div>
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
                         <input type="password" class="form-control" name="passwd" placeholder="비밀번호" title="비밀번호">
+                        <div class="errDiv" th:if="${#fields.hasErrors('passwd')}" th:errors="*{passwd}"></div>
                     </div>
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
                         <input type="password" class="form-control" name="passwd2" placeholder="비밀번호 확인" title="비밀번호">
+                        <div class="errDiv" th:if="${#fields.hasErrors('passwd2')}" th:errors="*{passwd2}"></div>
                     </div>
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
                         <input type="text" class="form-control" name="name" placeholder="이름" title="이름">
+                        <div class="errDiv" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                     </div>
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
                         <input type="text" class="form-control" name="comment" placeholder="하고싶은 한마디" title="하고싶은 한마디">
                     </div>
+
 
                     <input
                             type="hidden"
@@ -104,6 +116,7 @@
                             th:value="${_csrf.token}"/>
                     <button type="submit" class="btn btn-dark topBtn"> 회원가입</button>
                 </form>
+            </form>
         </div>
     </div>
 </div>
