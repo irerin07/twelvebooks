@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +9,29 @@
 
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>12 Books</title>
+
     <link rel="shortcut icon" type="image/png" href="../static/images/favicon.ico"/>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="../static/css/bootstrap.css">
-    <link rel="stylesheet" href="../static/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="../static/css/bootstrap-reboot.css">
+    <!--<link rel="stylesheet" th:href="../../static/css/bootstrap.css">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <!--<link rel="stylesheet" th:href="../../static/css/bootstrap-grid.css">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap-grid.css}">
+    <!--<link rel="stylesheet" th:href="../../static/css/bootstrap-reboot.css">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}">
+
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="../static/js/bootstrap.bundle.js"></script>
-    <script src="../static/js/bootstrap.js"></script>
+
+    <script th:src="@{/js/bootstrap.bundle.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 </head>
 <style>
     .bgbook {
-        background-image: url("../static/images/photo-1490633874781-1c63cc424610.jpg");
+        background-image: url("images/photo-1490633874781-1c63cc424610.jpg");
         height: 900px;
         width: 100%;
         background-position: center;
@@ -52,20 +62,32 @@
     <i class="fa fa-bars"  style="margin-left: 25px;font-size:30px;"></i>
 
 
-    <a class="navbar-brand" style="margin-left: 5px" href="#">12 BOOKS</a>
+    <a class="navbar-brand" style="margin-left: 5px" th:href="@{/}">12 BOOKS</a>
     <!--<button class="navbar-toggler" type="button" data-toggle="collapse" daa-target="#collapsibleNavbar">-->
         <!--<span class="navbar-toggler-icon"></span>-->
     <!--</button>-->
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-
-    </div>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar"></div>
     <i class="fa fa-search" style="margin-right: 15px"></i>
+
     <div style="margin-right: 25px; max-width: 150px">
         <input type="text" class="form-control" placeholder="책 검색">
     </div>
-    <div style="margin-right: 25px;">
-        <button type="button" class="btn btn-dark ">시작하기</button>
+
+    <div  sec:authorize="isAnonymous()" style="margin-right: 25px;">
+        <a class="btn btn-dark" th:href="@{/users/login}"> 시작하기</a>
     </div>
+
+    <div  sec:authorize="hasAuthority('ROLE_USER')" style="margin-right: 25px;">
+        <button type="button" class="btn btn-dark ">책 읽기</button>
+    </div>
+
+    <!--<div sec:authorize="isAnonymous()">-->
+        <!--<a class="btn btn-success" th:href="@{/login}">Login</a>-->
+        <!--<a class="btn btn-primary" th:href="@{/register}">Register</a>-->
+    <!--</div>-->
+    <!--<div sec:authorize="isAuthenticated()">-->
+        <!--<a class="btn btn-success"th:href="@{/dashboard}">Dashboard</a>-->
+    <!--</div>-->
 
 </nav>
 

@@ -1,13 +1,13 @@
-insert into users(id, email ,name, comment,  passwd, regdate) values (1, 'counterchord89@gmail.com', '민경수', '만나서 반가워요', '359751', now());
-insert into users(id, email ,name, comment,  passwd, regdate) values (2, 'counterchord79@gmail.com', '김경수', '만나서 반가워요', '359751', now());
-insert into users(id, email ,name, comment,  passwd, regdate) values (3, 'counterchord69@gmail.com', '박경수', '만나서 반가워요', '359751', now());
-insert into users(id, email ,name, comment,  passwd, regdate) values (4, 'counterchord59@gmail.com', '이경수', '만나서 반가워요', '359751', now());
-insert into users(id, email ,name, comment,  passwd, regdate) values (5, 'counterchord49@gmail.com', '홍경수', '만나서 반가워요', '359751', now());
-insert into users(id, email ,name, comment,  passwd, regdate) values (6, 'counterchord39@gmail.com', '서경수', '만나서 반가워요', '359751', now());
-insert into users(id, email ,name, comment,  passwd, regdate) values (7, 'counterchord29@gmail.com', '최경수', '만나서 반가워요', '359751', now());
-insert into users(id, email ,name, comment,  passwd, regdate) values (8, 'counterchord19@gmail.com', '송경수', '만나서 반가워요', '359751', now());
-insert into users(id, email ,name, comment,  passwd, regdate) values (9, 'counterchord09@gmail.com', '조경수', '만나서 반가워요', '359751', now());
-insert into users(id, email ,name, comment,  passwd, regdate) values (10, 'counterchord99@gmail.com', '임경수', '만나서 반가워요', '359751', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (1, 'counterchord89@gmail.com', '민경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (2, 'counterchord79@gmail.com', '김경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (3, 'counterchord69@gmail.com', '박경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (4, 'counterchord59@gmail.com', '이경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (5, 'counterchord49@gmail.com', '홍경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (6, 'counterchord39@gmail.com', '서경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (7, 'counterchord29@gmail.com', '최경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (8, 'counterchord19@gmail.com', '송경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (9, 'counterchord09@gmail.com', '조경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (10, 'counterchord99@gmail.com', '임경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
 
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (1, '9788968481475', '이것이 자바다', '신용권','-', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg', '한빛미디어');
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (2, '9788968481476', '이것도 자바다', '신용만','-', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg', '두빛미디어');

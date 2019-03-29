@@ -14,11 +14,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-       .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .requestMatchers(new AntPathRequestMatcher("/**.html"))
-                .requestMatchers(new AntPathRequestMatcher("/templates/**"))
-                .requestMatchers(new AntPathRequestMatcher("/static/**"))
-                .requestMatchers(new AntPathRequestMatcher("/tmp/**"));
+                .requestMatchers(new AntPathRequestMatcher("/static/**"));
     }
 
     @Override
@@ -26,18 +24,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/main")
+                .logoutSuccessUrl("/")
                 .permitAll().and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/api/comments").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/comments").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/users/delete").permitAll()
                 .antMatchers("/users/join").permitAll()
-                .antMatchers("/users/welcome").permitAll()
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/users/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/posts/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/main").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()
@@ -45,7 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/users/login")
                 .loginPage("/users/login")
                 .usernameParameter("email")
-                .passwordParameter("password")
+                .passwordParameter("passwd")
+                .defaultSuccessUrl("/")
                 .failureUrl("/users/login?fail=true").and().csrf().ignoringAntMatchers("/**");;
     }
 }
