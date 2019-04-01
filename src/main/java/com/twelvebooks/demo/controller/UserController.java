@@ -3,24 +3,24 @@ package com.twelvebooks.demo.controller;
 import com.twelvebooks.demo.domain.Role;
 import com.twelvebooks.demo.domain.User;
 import com.twelvebooks.demo.dto.UserJoinForm;
+import com.twelvebooks.demo.repository.UserRepository;
 import com.twelvebooks.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/users")
@@ -29,6 +29,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/login")
     public String login(
@@ -47,25 +49,25 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(@Valid UserJoinForm userJoinForm, BindingResult bindingResult, HttpSession session){
+    public String join(@Valid UserJoinForm userJoinForm, BindingResult bindingResult, HttpSession session) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             System.out.println("1");
             return "users/joinform";
         }
 
-        if(!userJoinForm.getPasswd().equals(userJoinForm.getPasswd2())){
+        if (!userJoinForm.getPasswd().equals(userJoinForm.getPasswd2())) {
             System.out.println("2");
-            FieldError error = new FieldError("userJoinForm","passwd2",
+            FieldError error = new FieldError("userJoinForm", "passwd2",
                     "비밀번호가 일치하지 않습니다.");
             bindingResult.addError(error);
             return "users/joinform";
         }
 
         User userByEmail = userService.getUserByEmail(userJoinForm.getEmail());
-        if(userByEmail!=null){
+        if (userByEmail != null) {
             System.out.println("3");
-            FieldError error = new FieldError("userJoinForm","email","중복된 이메일이 있습니다");
+            FieldError error = new FieldError("userJoinForm", "email", "중복된 이메일이 있습니다");
             bindingResult.addError(error);
             return "users/joinform";
         }
@@ -86,22 +88,86 @@ public class UserController {
         User saved = userService.addUser(user);
 
 
-
-        return "users/login";
+        return "users/mypage";
     }
 
-        @GetMapping("/welcome")
-        public String welcome () {
-            return "index";
-        }
+    @GetMapping("/mypage")
+    public String mypage(@ModelAttribute("user") @Valid UserJoinForm userJoinForm, BindingResult result, Model model){
 
-        @GetMapping("/challenge")
-        public String challenge () {
-            return "users/challenge";
-        }
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String email = loggedInUser.getName();
 
-        @GetMapping("/delete")
-        public String delete () {
-            return "users/delete";
-        }
+        User user = userService.getUserByEmail(email);
+        String name = user.getName();
+        System.out.println("mypage: " + name);
+        String comment = user.getComment();
+        System.out.println("mypage: " + comment);
+        model.addAttribute("name", name);
+        model.addAttribute("comment", comment);
+        model.addAttribute("email", email);
+
+
+        return "users/mypage";
     }
+
+    @GetMapping("/modify")
+    public String modifyform(){
+        System.out.println("test");
+        return "users/modify";
+    }
+
+//    @GetMapping("/modify")
+//    public String modifyform(@ModelAttribute("user") @Valid UserJoinForm userJoinForm, BindingResult result, Model model){
+//
+//        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+//        String email = loggedInUser.getName();
+//
+//        User user = userService.getUserByEmail(email);
+//        String name = user.getName();
+//        String comment = user.getComment();
+//        model.addAttribute("name", name);
+//        model.addAttribute("comment", comment);
+//        model.addAttribute("email", email);
+//
+//
+//        return "users/modify";
+//    }
+
+    @PostMapping("/modify")
+    public String modify(@RequestParam("name") String name,
+                         @RequestParam("comment") String comment){
+
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String email = loggedInUser.getName();
+
+        System.out.println(name);
+        System.out.println(comment);
+        System.out.println(email);
+
+       User user = userService.getUserByEmail(email);
+
+        System.out.println(user.getName());
+        System.out.println(user.getComment());
+
+        user.setComment(comment);
+        user.setName(name);
+
+        userRepository.save(user);
+
+        System.out.println(user.getName());
+        System.out.println(user.getComment());
+
+        return "redirect:/users/mypage";
+    }
+
+
+    @GetMapping("/challenge")
+    public String challenge() {
+        return "users/challenge";
+    }
+
+    @GetMapping("/delete")
+    public String delete() {
+        return "users/delete";
+    }
+}

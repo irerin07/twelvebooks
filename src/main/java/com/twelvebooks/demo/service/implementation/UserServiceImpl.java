@@ -33,4 +33,5 @@ public class UserServiceImpl implements UserService {
     public Role getUserRole(String roleName) {
         return roleRepository.getRoleByName(roleName);
     }
+
 }

@@ -46,6 +46,8 @@
             opacity: 0.7;
             position: relative;
             top: 100px;
+            margin-top: 20px;
+            margin-bottom: 20px;
 
         }
 
@@ -166,9 +168,24 @@
 <div class="class=jumbotron text-center bgbook" style="margin-bottom: 25px; width: 100%">
     <!--<img src="../static/images/photo-1490633874781-1c63cc424610.jpg" height="900" width="1350" style="margin-top: 25px; margin-bottom: 25px"/>-->
     <div class="text">
-        <div>
-            <h1>1 Month, 1 Book</h1>
-            <h3>한달에 한권씩 12권의 책을 읽어 나가기</h3>
+        <img th:src="@{/images/userprofile/profile-default.png}" height="200" width="200"/>
+    </div>
+    <div class="container text">
+        <div class="row mgTp">
+            <form class="col-md-6 offset-md-3" method="post">
+                <form method="post" th:action="@{/users/modify}"  action="#">
+                    <h3 class="title">정보 수정</h3>
+                    <hr class="divisor">
+                    <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
+                        <input type="text" class="form-control" name="name" placeholder="이름" title="이름">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
+                        <input type="text" class="form-control" name="comment" placeholder="하고싶은 한마디" title="하고싶은 한마디">
+                    </div>
+
+                    <button type="submit" class="btn btn-dark topBtn"> 수정 완료</button>
+                </form>
+            </form>
         </div>
     </div>
 </div>

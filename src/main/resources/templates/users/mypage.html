@@ -46,6 +46,8 @@
             opacity: 0.7;
             position: relative;
             top: 100px;
+            margin-top: 20px;
+            margin-bottom: 20px;
 
         }
 
@@ -166,10 +168,13 @@
 <div class="class=jumbotron text-center bgbook" style="margin-bottom: 25px; width: 100%">
     <!--<img src="../static/images/photo-1490633874781-1c63cc424610.jpg" height="900" width="1350" style="margin-top: 25px; margin-bottom: 25px"/>-->
     <div class="text">
-        <div>
-            <h1>1 Month, 1 Book</h1>
-            <h3>한달에 한권씩 12권의 책을 읽어 나가기</h3>
-        </div>
+        <img th:src="@{/images/userprofile/profile-default.png}" height="200" width="200"/>
+    </div>
+    <div class="text"> <span style="color: black; size: 25px;" th:text="${name}"></span></div>
+    <div class="text"> <span style="color: black; size: 25px;" th:text="${email}"></span></div>
+    <div class="text"> <span style="color: black; size: 25px;" th:text="${comment}"></span></div>
+    <div class="text" style="margin-right: 25px;">
+        <a class="btn btn-dark" th:href="@{/users/modify}"> 정보 수정</a>
     </div>
 </div>
 
