@@ -22,6 +22,7 @@ public class Challenge {
     private int days;
     private boolean visibility;
     private String status;
+
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
