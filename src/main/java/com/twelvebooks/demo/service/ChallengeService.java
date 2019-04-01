@@ -5,7 +5,7 @@ import com.twelvebooks.demo.domain.Challenge;
 import java.util.List;
 
 public interface ChallengeService {
-    public Challenge addChallenge();
+    public Challenge addChallenge(Challenge challlenge);
     public List<Challenge> getChallengesByUserId(long id);
 
 }
