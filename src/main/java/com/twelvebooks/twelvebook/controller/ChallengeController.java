@@ -12,7 +12,6 @@ public class ChallengeController {
 
     @GetMapping("/addform")
     public String addform(){
-
         return "challenges/addform";
     }
 
