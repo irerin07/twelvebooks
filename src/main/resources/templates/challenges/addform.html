@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
     <script th:src="@{/js/bootstrap.bundle.js}"></script>
@@ -43,7 +44,7 @@
             var diff = da2 - da1;
             var cDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
             if(sdd && edd){
-                document.getElementById('days').value = parseInt(diff/cDay)
+                document.getElementById('days').value = parseInt((diff/cDay) + 1)
             }
         }
     </script>
@@ -98,11 +99,29 @@
 
 </nav>
 
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid text-center"  style="width: 75%;">
+
     <div class="col">
         <input type="text" name="search" placeholder="읽을 책을 검색하세요" class="booksearch">
-        <button type="button" class="btn btn-dark">검색</button>
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">검색</button>
     </div>
     <div class="col">
         <!--<form action="/challenges/addform"  enctype="multipart/form-data" method="POST">-->
@@ -157,10 +176,10 @@
             <input type="hidden"
                     th:name="${_csrf.parameterName}"
                     th:value="${_csrf.token}" />
-
             <input type="submit" value="도전 시작" class="btn btn-dark">
             </div>
     </div>
+
 
 </div>
 <!--<div class="class=jumbotron text-center bgbook" style="margin-bottom: 25px; width: 100%">-->
