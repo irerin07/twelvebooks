@@ -29,10 +29,23 @@
     <script>
         $(function() {
             $("#datepicker1, #datepicker2").datepicker({
-                dateFormat: 'yy.mm.dd'
+                dateFormat: 'yy-mm-dd'
             });
         });
 
+        function caldates(){
+            var sdd = document.getElementById("datepicker1").value;
+            var edd = document.getElementById("datepicker2").value;
+            var arr1 = sdd.split('-');
+            var arr2 = edd.split('-');
+            var da1 = new Date(arr1[0], arr1[1], arr1[2]);
+            var da2 = new Date(arr2[0], arr2[1], arr2[2]);
+            var diff = da2 - da1;
+            var cDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+            if(sdd && edd){
+                document.getElementById('days').value = parseInt(diff/cDay)
+            }
+        }
     </script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -117,9 +130,9 @@
                 <div class="col">도전 날짜</div>
                 <div class="col" >
                     <div class="row" style="padding-left : 15%;">
-                        <input type="text" class="form-control" id="datepicker1" style="width:30%;">
+                        <input type="text" class="form-control" id="datepicker1" style="width:30%;" onchange="caldates()">
                         <i class="fas fa-arrow-right"style="padding: 10px;"></i>
-                        <input type="text" class="form-control" id="datepicker2" style="width:30%;">
+                        <input type="text" class="form-control" id="datepicker2" style="width:30%;"onchange="caldates()">
                     </div>
                 </div>
             </div>
@@ -127,7 +140,7 @@
             <div class = "row" style="padding-top: 5%;">
                 <div class="col">도전 일수</div>
                 <div class="col" >
-                    <input type="text" style="padding-left : 10%; width:15%;">일
+                    <input type="text" id="days" size="6" style="text-align:center;">일
                 </div>
             </div>
 
