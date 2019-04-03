@@ -160,6 +160,40 @@ public class UserController {
         return "redirect:/users/mypage";
     }
 
+    @GetMapping("/passwdchange")
+    public String passwdchangeform(Model model){
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String email = loggedInUser.getName();
+
+        User user = userService.getUserByEmail(email);
+
+        String passwd = user.getPasswd();
+
+        model.addAttribute("oldpasswd", passwd);
+
+        return "users/passwdchange";
+    }
+
+    @PostMapping("/passwdchange")
+    public String passwdchange(@RequestParam("newpasswd") String newpasswd,
+                               @RequestParam("newpasswd2") String newpasswd2,
+                               @RequestParam("oldpasswd") String oldpasswd
+    ){
+
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String email = loggedInUser.getName();
+
+        User user = userService.getUserByEmail(email);
+
+        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        String passwd = passwordEncoder.encode(newpasswd);
+
+        userRepository.save(user);
+
+        return "redirect:/users/mypage";
+    }
+
 
     @GetMapping("/challenge")
     public String challenge() {

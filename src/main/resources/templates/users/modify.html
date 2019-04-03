@@ -121,6 +121,7 @@
         <span style="color: whitesmoke" th:text="${#authentication.getName()}"></span>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a th:href="@{/users/mypage}">My Page</a>
+        <a th:href="@{/users/passwdchange}">Password Change</a>
         <a href="#">Library</a>
         <a href="#">Notice</a>
         <div sec:authorize="hasAuthority('ROLE_ADMIN')">
@@ -152,7 +153,7 @@
     </div>
 
     <div sec:authorize="hasAuthority('ROLE_USER')" style="margin-right: 25px;">
-        <button type="button" class="btn btn-dark ">책 읽기</button>
+        <a type="button" class="btn btn-dark " th:href="@{/challenges/addform}">책 읽기</a>
     </div>
 
     <!--<div sec:authorize="isAnonymous()">-->
