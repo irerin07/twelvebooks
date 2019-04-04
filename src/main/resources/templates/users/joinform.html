@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,6 +23,7 @@
 
     <script th:src="@{/js/bootstrap.bundle.js}"></script>
     <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
 
 
 
@@ -58,13 +61,25 @@
         text-decoration-color: darkred;
         text-emphasis-color: darkred;
     }
+
+    .msg {
+        display: none;
+    }
+
+    .error {
+        color: #ff6666;
+    }
+
+    .success {
+        color: #66cc66;
+    }
 </style>
 
 <body>
 
 
 <nav class="navbar navbar-expand-sm bg-white navbar-light" style="margin-top: 25px; padding-bottom: 35px;">
-    <div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav" sec:authorize="hasAuthority('ROLE_USER')">
 
         <img th:src="@{/images/userprofile/profile-default.png}" height="200" width="200"/>
         <span style="color: whitesmoke" th:text="${#authentication.getName()}"></span>
@@ -83,7 +98,7 @@
             <i class="fa fa-bars" style="margin-left: 0px;font-size:30px;"></i>
         </button>
     </div>
-    <!--<i class="fa fa-bars"  style="margin-left: 25px;font-size:30px;"></i>-->
+    <i class="fa fa-bars" style="margin-left: 25px;font-size:30px;"></i>
 
 
     <a class="navbar-brand" style="margin-left: 5px" th:href="@{/}">12 BOOKS</a>
@@ -123,16 +138,22 @@
                     <h3 class="title">회원가입</h3>
                     <hr class="divisor">
                     <div class="form-group" style="margin-top: 40px; margin-bottom: 20px;">
-                        <input type="email" class="form-control" name="email" placeholder="이메일 주소">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="이메일 주소"
+                               title="이메일">
+                        <span class="msg error">Not a valid email address</span>
+                        <span class="msg success">A valid email address!</span>
                         <div class="errDiv" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     </div>
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
-                        <input type="password" class="form-control" name="passwd" placeholder="비밀번호" title="비밀번호">
+                        <input type="password" class="form-control" name="passwd" id="passwd" placeholder="비밀번호"
+                               title="비밀번호">
                         <div class="errDiv" th:if="${#fields.hasErrors('passwd')}" th:errors="*{passwd}"></div>
                     </div>
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
-                        <input type="password" class="form-control" name="passwd2" placeholder="비밀번호 확인" title="비밀번호">
+                        <input type="password" class="form-control" name="passwd2" id="passwd2" placeholder="비밀번호 확인"
+                               title="비밀번호 확인" onkeyup="checkPass(); return false;">
                         <div class="errDiv" th:if="${#fields.hasErrors('passwd2')}" th:errors="*{passwd2}"></div>
+                        <span id="confirmMessage" class="confirmMessage"></span>
                     </div>
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
                         <input type="text" class="form-control" name="name" placeholder="이름" title="이름">
@@ -154,22 +175,6 @@
     </div>
 </div>
 
-<!--<div class="class=jumbotron text-center bgbook" style="margin-bottom: 25px; width: 100%">-->
-<!--&lt;!&ndash;<img src="../static/images/photo-1490633874781-1c63cc424610.jpg" height="900" width="1350" style="margin-top: 25px; margin-bottom: 25px"/>&ndash;&gt;-->
-<!--<div class="text">-->
-<!--<div>-->
-<!--<h1>1 Month, 1 Book</h1>-->
-<!--<h3>한달에 한권씩 12권의 책을 읽어 나가기</h3>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-
-
-<!--<div class="jumbotron text-center" style="margin-bottom:0">-->
-<!--<div class="footer-copyright text-center py-3">© 2019 Copyright:-->
-<!--<a href="https://mdbootstrap.com/education/bootstrap/"> 12books.com</a>-->
-<!--</div>-->
-<!--</div>-->
 
 <footer class="jumbotron page-footer font-small blue pt-4" style="height: 150px">
 
@@ -250,6 +255,62 @@
     <!--&lt;!&ndash; Copyright &ndash;&gt;-->
 
 </footer>
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+
+
+    function checkPass() {
+        //Store the password field objects into variables ...
+        var pass1 = document.getElementById('passwd');
+        var pass2 = document.getElementById('passwd2');
+        //Store the Confimation Message Object ...
+        var message = document.getElementById('confirmMessage');
+        //Set the colors we will be using ...
+        var goodColor = "#66cc66";
+        var badColor = "#ff6666";
+        //Compare the values in the password field
+        //and the confirmation field
+        if (pass1.value == pass2.value) {
+            //The passwords match.
+            //Set the color to the good color and inform
+            //the user that they have entered the correct password
+            message.style.color = goodColor;
+            message.innerHTML = "Passwords Match!"
+        } else {
+            //The passwords do not match.
+            //Set the color to the bad color and
+            //notify the user.
+            message.style.color = badColor;
+            message.innerHTML = "Passwords Do Not Match!"
+        }
+    }
+
+    $('form input[name="email"]').blur(function () {
+        var email = $(this).val();
+        var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+        if (re.test(email)) {
+            $('.msg').hide();
+            $('.success').show();
+        } else {
+            $('.msg').hide();
+            $('.error').show();
+        }
+
+    });
+
+    $(document).ready(function () {
+
+    });
+
+
+
+</script>
 
 </body>
 </html>
