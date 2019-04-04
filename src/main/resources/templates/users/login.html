@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -57,7 +59,7 @@
 
 
 <nav class="navbar navbar-expand-sm bg-white navbar-light" style="margin-top: 25px; padding-bottom: 35px;">
-    <div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav" sec:authorize="hasAuthority('ROLE_USER')">
 
         <img th:src="@{/images/userprofile/profile-default.png}" height="200" width="200"/>
         <span style="color: whitesmoke" th:text="${#authentication.getName()}"></span>

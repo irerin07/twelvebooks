@@ -7,4 +7,5 @@ public interface UserService {
     public User addUser(User user); //회원가입
     public User getUserByEmail(String email); //로그인
     public Role getUserRole(String roleName);
+    public  int emailCheck(String email);
 }

@@ -34,4 +34,11 @@ public class UserServiceImpl implements UserService {
         return roleRepository.getRoleByName(roleName);
     }
 
+    @Override
+    public int emailCheck(String email) {
+        int check = 0;
+        check = userRepository.emailCheck(email);
+        return check;
+    }
+
 }
