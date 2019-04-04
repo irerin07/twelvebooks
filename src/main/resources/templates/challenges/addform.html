@@ -1,57 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>12 Books</title>
-
-    <link rel="shortcut icon" type="image/png" href="../static/images/favicon.ico"/>
-    <!-- Bootstrap -->
-    <!--<link rel="stylesheet" th:href="../../static/css/bootstrap.css">-->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
-    <!--<link rel="stylesheet" th:href="../../static/css/bootstrap-grid.css">-->
-    <link rel="stylesheet" th:href="@{/css/bootstrap-grid.css}">
-    <!--<link rel="stylesheet" th:href="../../static/css/bootstrap-reboot.css">-->
-    <link rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}">
-
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-
-    <script th:src="@{/js/bootstrap.bundle.js}"></script>
-    <script th:src="@{/js/bootstrap.js}"></script>
-
-    <script>
-        $(function() {
-            $("#datepicker1, #datepicker2").datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
-        });
-
-        function caldates(){
-            var sdd = document.getElementById("datepicker1").value;
-            var edd = document.getElementById("datepicker2").value;
-            var arr1 = sdd.split('-');
-            var arr2 = edd.split('-');
-            var da1 = new Date(arr1[0], arr1[1], arr1[2]);
-            var da2 = new Date(arr2[0], arr2[1], arr2[2]);
-            var diff = da2 - da1;
-            var cDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
-            if(sdd && edd){
-                document.getElementById('days').value = parseInt((diff/cDay) + 1)
-            }
-        }
-    </script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<th:block layout:fragment="css">
 <style>
     .booksearch {
         width: 75%;
@@ -78,46 +29,56 @@
     }
 
 </style>
+</th:block>
+<th:block layout:fragment="script">
+<script>
+    $(function() {
+        $("#datepicker1, #datepicker2").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
 
-<body>
+    function caldates(){
+        var sdd = document.getElementById("datepicker1").value;
+        var edd = document.getElementById("datepicker2").value;
+        var arr1 = sdd.split('-');
+        var arr2 = edd.split('-');
+        var da1 = new Date(arr1[0], arr1[1], arr1[2]);
+        var da2 = new Date(arr2[0], arr2[1], arr2[2]);
+        var diff = da2 - da1;
+        var cDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+        if(sdd && edd){
+            document.getElementById('days').value = parseInt((diff/cDay) + 1)
+        }
+    }
+</script>
+</th:block>
 
 
-<nav class="navbar navbar-expand-sm bg-white navbar-light" style="margin-top: 25px; padding-bottom: 35px;">
-    <i class="fa fa-bars"  style="margin-left: 25px;font-size:30px;"></i>
 
-    <a class="navbar-brand" style="margin-left: 5px" th:href="@{/}">12 BOOKS</a>
 
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
 
-    </div>
-    <div style="margin-right: 25px; max-width: 150px">
-        <input type="text" class="form-control" placeholder="Search">
-    </div>
-    <div style="margin-right: 25px;">
-        <button type="button" class="btn btn-dark">시작하기</button>
-    </div>
+<div layout:fragment="content">
+<div class="container-fluid text-center"  style="width: 75%;">
 
-</nav>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container-fluid text-center"  style="width: 75%;">
 
     <div class="col">
         <input type="text" name="search" placeholder="읽을 책을 검색하세요" class="booksearch">
@@ -179,81 +140,6 @@
             <input type="submit" value="도전 시작" class="btn btn-dark">
             </div>
     </div>
-
-
 </div>
-<!--<div class="class=jumbotron text-center bgbook" style="margin-bottom: 25px; width: 100%">-->
-<!--&lt;!&ndash;<img src="../static/images/photo-1490633874781-1c63cc424610.jpg" height="900" width="1350" style="margin-top: 25px; margin-bottom: 25px"/>&ndash;&gt;-->
-<!--<div class="text">-->
-<!--<div>-->
-<!--<h1>1 Month, 1 Book</h1>-->
-<!--<h3>한달에 한권씩 12권의 책을 읽어 나가기</h3>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="jumbotron text-center" style="margin-bottom:0">-->
-<!--<div class="footer-copyright text-center py-3">© 2019 Copyright:-->
-<!--<a href="https://mdbootstrap.com/education/bootstrap/"> 12books.com</a>-->
-<!--</div>-->
-<!--</div>-->
-<footer class="jumbotron page-footer font-small blue pt-4" style="height: 150px">
-    <!-- Footer Links -->
-    <div class="container-fluid text-center text-md-left">
-        <!-- Grid row -->
-        <div class="row">
-            <!-- Grid column -->
-            <div class="col-md-6 mt-md-0 mt-3" style="font-size: 12px;">
-                <!-- Content -->
-                <h5 class="text-uppercase">12 Books</h5>
-                <p>주식회사 12 Books | 서울특별시 강남구 언주로 174길 30 로빈명품관 지하1층 | 사업자등록번호 : 111-11-11111</p>
-                <p>통신판매업 : 2012-서울강남-01897 | 대표: 서청원</p>
-                <p>개인정보관리책임자 : 민경수(help@12books.com)</p>
-            </div>
-            <!-- Grid column -->
-            <hr class="clearfix w-100 d-md-none pb-3">
-            <!-- Grid column -->
-            <!--<div class="col-md-3 mb-md-0 mb-3">-->
-            <!--&lt;!&ndash; Links &ndash;&gt;-->
-            <!--<h5 class="text-uppercase">Links</h5>-->
-            <!--<ul class="list-unstyled">-->
-            <!--<li>-->
-            <!--<a href="#!">Link 1</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a href="#!">Link 2</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a href="#!">Link 3</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</div>-->
-            <!-- Grid column -->
-            <!-- Grid column -->
-            <!--<div class="col-md-3 mb-md-0 mb-3">-->
-            <!--&lt;!&ndash; Links &ndash;&gt;-->
-            <!--<h5 class="text-uppercase">Links</h5>-->
-            <!--<ul class="list-unstyled">-->
-            <!--<li>-->
-            <!--<a href="#!">Link 1</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a href="#!">Link 2</a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a href="#!">Link 3</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</div>-->
-            <!-- Grid column -->
-        </div>
-        <!-- Grid row -->
-    </div>
-    <!-- Footer Links -->
-    <!--&lt;!&ndash; Copyright &ndash;&gt;-->
-    <!--<div class="footer-copyright text-center py-3">© 2018 Copyright:-->
-    <!--<a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>-->
-    <!--</div>-->
-    <!--&lt;!&ndash; Copyright &ndash;&gt;-->
-</footer>
-</body>
+</div>
 </html>
