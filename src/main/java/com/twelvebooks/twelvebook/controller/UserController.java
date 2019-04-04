@@ -88,7 +88,7 @@ public class UserController {
         User saved = userService.addUser(user);
 
 
-        return "users/mypage";
+        return "users/login";
     }
 
     @GetMapping("/mypage")
