@@ -17,7 +17,6 @@
             opacity: 0.7;
             position: relative;
             top: 100px;
-
         }
 
         .text div {
@@ -100,3 +99,26 @@
             .chaddform{
                 text-align: center;
             }
+
+
+
+          /*조인 폼 설정*/
+            .errDiv{
+                    font-size: 15px;
+                    color: darkred;
+                    text-decoration-color: darkred;
+                    text-emphasis-color: darkred;
+                }
+
+                .msg {
+                    display: none;
+                }
+
+                .error {
+                    color: #ff6666;
+                }
+
+                .success {
+                    color: #66cc66;
+                }
+
