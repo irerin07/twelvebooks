@@ -9,6 +9,7 @@ insert into users(id, email ,name, comment,  passwd, regdate) values (8, 'counte
 insert into users(id, email ,name, comment,  passwd, regdate) values (9, 'counterchord09@gmail.com', '조경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
 insert into users(id, email ,name, comment,  passwd, regdate) values (10, 'counterchord99@gmail.com', '임경수', '만나서 반가워요', '{bcrypt}$2a$10$cSJx.TaMP5iKxX2a5omtrulHsNPSsVhtdx.lzS/RO2i24dQuKlOTC', now());
 insert into users(id, email ,name, comment,  passwd, regdate) values (11, 'scw@gmail.com', '서청원', '열심히 읽을게요', '{bcrypt}$2a$10$9R74TwNxnEXENaT6q1cR9.hZaxi2t.HbE4DMvD5j3GX.HMC/l6ZUC', now());
+insert into users(id, email ,name, comment,  passwd, regdate) values (12, 'kdy2353@gmail.com', '감대용', '화이또123456', '{bcrypt}$2a$10$trqJaanvbygn.4th5D4ow.yXsz9/K.Q6ok9ewj3lxAyfqFvF0Yfw2', now());
 
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (1, '9788968481475', '이것이 자바다', '신용권','-', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg', '한빛미디어');
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (2, '9788968481476', '이것도 자바다', '신용만','-', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg', '두빛미디어');
@@ -31,6 +32,8 @@ insert into user_roles(user_id, role_id) values (8, 2);
 insert into user_roles(user_id, role_id) values (9, 2);
 insert into user_roles(user_id, role_id) values (10, 2);
 insert into user_roles(user_id, role_id) values (11, 2);
+insert into user_roles(user_id, role_id) values (12, 1);
+insert into user_roles(user_id, role_id) values (12, 2);
 
 insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id) values(1, '2019-03-25 23:59:59', '2019-04-23 23:59:59',30, 1,  '읽는중', 1, 1);
 insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id) values(2, '2019-03-26 23:59:59', '2019-04-24 23:59:59',30, 1,  '읽는중', 2, 2);
