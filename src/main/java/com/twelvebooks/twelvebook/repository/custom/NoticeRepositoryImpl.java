@@ -4,19 +4,17 @@ import com.twelvebooks.twelvebook.domain.Notice;
 import com.twelvebooks.twelvebook.repository.NoticeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.List;
 
-public class NoticeRepositoryImpl implements NoticeRepository {
+//public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements NoticeRepositoryCustom {
+    public class NoticeRepositoryImpl {
 
 
-    @Override
-    public List<Notice> getNotices(int start, int limit, String searchKind, String searchStr) {
-        return null;
-    }
+//    @Override
+//    public List<Notice> getNotices(int start, int limit, String searchKind, String searchStr) {
+//        return null;
+//    }
 
-    @Override
-    public Notice getNotice(Long id) {
-        return null;
-    }
 }
