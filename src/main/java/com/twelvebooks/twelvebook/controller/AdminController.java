@@ -6,12 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admins")
 @RequiredArgsConstructor
 public class AdminController {
 
-    @GetMapping("/")
+    @GetMapping("/admin")
     public String userList(){
         return "admin/admin";
+    }
+
+    @GetMapping("/challengelist")
+    public String challengelist(){
+        return "admin/challengelist";
     }
 }
