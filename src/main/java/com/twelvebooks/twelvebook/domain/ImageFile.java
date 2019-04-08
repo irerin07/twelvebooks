@@ -18,4 +18,8 @@ public class ImageFile {
     private String mimeType;
     private String saveFileName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "notice_id")
+    private Notice notice;
+
 }

@@ -31,6 +31,9 @@ public class User {
     private List<Challenge> challenges;
 
 
+    @OneToMany(mappedBy = "user")
+    private List<Notice> notices;
+
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "imagefile_id", referencedColumnName = "id")
     private ImageFile imageFile;
