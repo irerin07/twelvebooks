@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/default">
+
 <th:block layout:fragment="css">
 </th:block>
 <th:block layout:fragment="script">
@@ -18,8 +19,10 @@
                     <div class="form-group" style="margin-top: 40px; margin-bottom: 20px;">
                         <input type="email" class="form-control" name="email" id="email" placeholder="이메일 주소"
                                title="이메일">
-                        <span class="msg error">Not a valid email address</span>
-                        <span class="msg success">A valid email address!</span>
+                        <span class="msg error">사용 불가능한 이메일입니다.</span>
+                        <span class="msg success">사용 가능한 이메일입니다.</span>
+                        <span class="msg duplicate">중복된 이메일입니다.</span>
+                        <span class="msg notduplicate">등록되지 않은 이메일입니다.사용 가능합니다..</span>
                         <div class="errDiv" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     </div>
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
@@ -77,27 +80,137 @@
             //The passwords do not match.
             //Set the color to the bad color and
             //notify the user.
+            
             message.style.color = badColor;
             message.innerHTML = "Passwords Do Not Match!"
         }
     }
 
-    $('form input[name="email"]').blur(function () {
-        var email = $(this).val();
-        var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
-        if (re.test(email)) {
-            $('.msg').hide();
-            $('.success').show();
-        } else {
-            $('.msg').hide();
-            $('.error').show();
-        }
-
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
     });
 
     $(document).ready(function () {
 
+        $('form input[name="email"]').blur(function () {
+
+            var email = $(this).val();
+            var userData = {'email': email};
+            var jsonData = JSON.stringify(userData);
+            var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+
+            if (re.test(email)) {
+                $('.msg').hide();
+                $('.success').show();
+                return $.ajax({
+                    type: 'post',
+                    url: '/api/email',
+                    data: jsonData,
+                    async: false,
+                    contentType: "application/json",
+                    error: function (err) {
+                        console.log(err.toString());
+                        alert("서버가 응답하지 않습니다.");
+                        return false;
+                    },
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success: function (data) {
+                        console.log(data);
+
+                        if (data == 0) {
+                            $('.msg').hide();
+                            $('.notduplicate').show();
+                        } else if (data == 1) {
+                            $('.msg').hide();
+                            $('.duplicate').show();
+                        } else {
+                            alert("에러가 발생했습니다!");
+                        }
+                    }
+
+                })
+            }
+            // $.ajax({
+            //     type: 'post',
+            //     url: '/api/email',
+            //     data: jsonData,
+            //     async: false,
+            //     contentType: "application/json",
+            //     error: function (err) {
+            //         console.log(err.toString());
+            //         alert("서버가 응답하지 않습니다. \n 다시 시도해주시기 바랍니다.");
+            //         return false;
+            //     },
+            //     success: function(data){
+            //         if(data == 1){
+            //             $('.msg').hide();
+            //             $('.duplicate').show();
+            //         }else{
+            //             $('.msg').hide();
+            //             $('.notduplicate').show();
+            //         }
+            //     }
+            //
+            // }
+            else {
+                $('.msg').hide();
+                $('.error').show();
+            }
+        });
+
+
+
     });
+
+    // function fn_emailCheck() {
+    //     $('form input[name="email"]').blur(function () {
+    //         var email = $(this).val();
+    //         var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
+    //         if (re.test(email)) {
+    //             $('.msg').hide();
+    //             $('.success').show();
+    //
+    //             $.ajax({
+    //                 url: 'api/email',
+    //                 method: 'POST',
+    //                 data: jsonData,
+    //                 async: false,
+    //                 contentType: "application/json",
+    //                 beforeSend: function (xhr) {
+    //                     xhr.setRequestHeader(header, token);
+    //                 },
+    //                 error: function (err) {
+    //                     console.log(err.toString());
+    //                     alert("서버가 응답하지 않습니다. \n 다시 시도해주시기 바랍니다.");
+    //                     return false;
+    //                 },
+    //                 success: function (data) {
+    //                     if (data == 0) {
+    //                         $('.success').show();
+    //
+    //                     }
+    //
+    //                 }
+    //             });
+    //         } else {
+    //             $('.msg').hide();
+    //             $('.error').show();
+    //         }
+    //
+    //     });
+    //
+    //     $(document).ready(function () {
+    //
+    //     });
+    // }
 
 
 
