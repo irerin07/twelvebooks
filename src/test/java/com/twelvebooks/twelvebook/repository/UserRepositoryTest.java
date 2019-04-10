@@ -1,4 +1,4 @@
-package com.twelvebooks.twelvebook;
+package com.twelvebooks.twelvebook.repository;
 
 import com.twelvebooks.twelvebook.domain.User;
 import com.twelvebooks.twelvebook.repository.UserRepository;

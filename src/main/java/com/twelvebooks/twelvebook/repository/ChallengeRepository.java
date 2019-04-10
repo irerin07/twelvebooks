@@ -13,4 +13,6 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
             countQuery = "SELECT count(c) FROM Challenge c")
     public List<Challenge> getChallenges(@Param("id") Long id);
 
+
+
 }

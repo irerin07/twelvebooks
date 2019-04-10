@@ -6,6 +6,7 @@ import com.twelvebooks.twelvebook.service.ChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +22,15 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     public List<Challenge> getChallengesByUserId(long id) {
-        return null;
+        List<Challenge> challenges = new ArrayList<>();
+        challenges = challengeRepository.getChallenges(id);
+        return challenges;
+    }
+
+    @Override
+    public List<Challenge> getChallengesAll() {
+        List<Challenge> challenges = new ArrayList<>();
+        challenges = challengeRepository.findAll();
+        return challenges;
     }
 }
