@@ -99,13 +99,13 @@
     $(document).ready(function () {
 
         $('form input[name="email"]').blur(function () {
-
             var email = $(this).val();
             var userData = {'email': email};
             var jsonData = JSON.stringify(userData);
             var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
 
             if (re.test(email)) {
+                $('.errDiv').remove();
                 $('.msg').hide();
                 $('.success').show();
                 return $.ajax({
@@ -161,6 +161,7 @@
             //
             // }
             else {
+                $('.errDiv').remove();
                 $('.msg').hide();
                 $('.error').show();
             }
