@@ -1,4 +1,4 @@
-package com.twelvebooks.twelvebook;
+package com.twelvebooks.twelvebook.repository;
 
 import com.twelvebooks.twelvebook.domain.Diary;
 import com.twelvebooks.twelvebook.repository.DiaryRepository;
