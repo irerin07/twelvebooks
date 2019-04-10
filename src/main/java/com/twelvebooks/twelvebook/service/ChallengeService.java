@@ -12,6 +12,6 @@ public interface ChallengeService {
     //admin에서 전체 도전 목록을 가져오는 메소드
     public List<Challenge> getChallengesAll();
 
-
+    public Challenge addChallenge(Challenge challenge);
 
 }
