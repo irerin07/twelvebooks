@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -39,6 +41,13 @@ public class UserServiceImpl implements UserService {
         int check = 0;
         check = userRepository.emailCheck(email);
         return check;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        List<User> users = null;
+        users = userRepository.getUsers();
+        return users;
     }
 
 }

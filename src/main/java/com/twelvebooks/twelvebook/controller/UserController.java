@@ -82,7 +82,7 @@ public class UserController {
         user.addUserRole(userRole);
 
         // insert
-        User saved = userService.addUser(user);
+        userService.addUser(user);
 
 
         return "users/login";
