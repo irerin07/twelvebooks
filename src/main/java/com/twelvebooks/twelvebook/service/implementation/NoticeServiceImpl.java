@@ -19,13 +19,23 @@ public class NoticeServiceImpl implements NoticeService {
         return null;
     }
 
-    @Override
-    @Transactional
-    public List<Notice> noticeList(int page, String searchKind, String searchStr) {
-        int limit = 10;
-        int start = page * limit - limit;
-        return noticeRepository.getNotices(start, limit, searchKind, searchStr);
+//    @Override
+//    @Transactional
+//    public List<Notice> noticeList(int page, String searchKind, String searchStr) {
+//        int limit = 10;
+//        int start = page * limit - limit;
+//        return noticeRepository.getNotices(start, limit, searchKind, searchStr);
+//        return noticeRepository.getNotices(start, limit, searchKind, searchStr);
+//
+//    }
 
+
+    @Override
+    public List<Notice> noticeList(int page) {
+//        int limit = 10;
+//        int start = page * limit - limit;
+//        return noticeRepository.getNotices();
+        return null;
     }
 
     @Override

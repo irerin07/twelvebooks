@@ -47,3 +47,13 @@ insert into diaries(id, day, content,  challenge_id) values(2, 1, '자바 겁나
 insert into diaries(id, day, content,  challenge_id) values(3, 1, '자바 지젼 어렵네',  3);
 insert into diaries(id, day, content,  challenge_id) values(4, 1, '자바 어렵네',  4);
 insert into diaries(id, day, content,  challenge_id) values(5, 1, '자바 존나 쉽네',  5);
+
+insert into notices values(1,'이것이 자바냐',now(),'이것이 자바다',12);
+insert into notices values(2,'이것이 자바니',now(),'이것이 자바다2',12);
+insert into notices values(3,'이것이 자바군',now(),'이것이 자바다3',12);
+insert into notices values(4,'이것이 자바세요',now(),'이것이 자바다4',12);
+insert into notices values(5,'이것이 자바자바',now(),'이것이 자바다5',12);
+insert into notices values(6,'이것이 자바라',now(),'이것이 자바다6',12);
+insert into notices values(7,'이것이 자바뀽',now(),'이것이 자바다7',12);
+insert into notices values(8,'이것이 자바네',now(),'이것이 자바다8',12);
+insert into notices values(9,'이것이 자바지',now(),'이것이 자바다9',12);
