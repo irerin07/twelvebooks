@@ -47,4 +47,20 @@ public class User {
     public void addUserRole(Role role){
         this.roles.add(role);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", comment='" + comment + '\'' +
+                ", email='" + email + '\'' +
+                ", passwd='" + passwd + '\'' +
+                ", regdate=" + regdate +
+                ", roles=" + roles +
+                ", challenges=" + challenges +
+                ", notices=" + notices +
+                ", imageFile=" + imageFile +
+                '}';
+    }
 }

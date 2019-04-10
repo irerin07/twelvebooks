@@ -105,9 +105,9 @@
           /*조인 폼 설정*/
             .errDiv{
                     font-size: 15px;
-                    color: darkred;
-                    text-decoration-color: darkred;
-                    text-emphasis-color: darkred;
+                    color: #ff6666;
+                    text-decoration-color: #ff6666;
+                    text-emphasis-color: #ff6666;
                 }
 
                 .msg {

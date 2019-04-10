@@ -15,12 +15,6 @@ public class ChallengeServiceImpl implements ChallengeService {
     private ChallengeRepository challengeRepository;
 
     @Override
-    public Challenge addChallenge(Challenge challlenge) {
-        Challenge challenge = challengeRepository.save(challlenge);
-        return challenge;
-    }
-
-    @Override
     public List<Challenge> getChallengesByUserId(long id) {
         List<Challenge> challenges = new ArrayList<>();
         challenges = challengeRepository.getChallenges(id);

@@ -10,9 +10,31 @@
 
 <div layout:fragment="content">
     <div class="container-fluid text-center" style="margin-bottom: 25px; width: 100%">
-        <div class="text">
+        <div class="container">
             <div>
                 <h1>관리자 페이지</h1>
+                <div>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col" style="width: 25%">Email</th>
+                            <th scope="col" style="width: 25%">Role</th>
+                            <th scope="col" style="width: 25%">Name</th>
+                            <th scope="col" style="width: 25%">Registered Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="users : ${users}">
+                            <td><span th:text="${users.email}">email</span></td>
+                            <td><span th:text="${users.roles}">roles</span></td>
+                            <td><span th:text="${users.name}">name</span></td>
+                            <td><span th:text="${users.regdate}">regdate</span></td>
+                            <td><button class="btn btn-dark" style="width: 100px; height: 40px;"> 권한 부여</button></td>
+                            <td><button class="btn btn-dark" style="width: 100px; height: 40px;"> 유저 삭제</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

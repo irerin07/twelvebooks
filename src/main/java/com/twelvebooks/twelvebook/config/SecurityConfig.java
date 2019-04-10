@@ -2,6 +2,7 @@ package com.twelvebooks.twelvebook.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -29,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll().and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/api/email").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/email").permitAll()
+                .antMatchers("/api/**").hasRole("USER")
                 .antMatchers("/users/delete").permitAll()
                 .antMatchers("/users/join").permitAll()
                 .antMatchers("/users/login").permitAll()
