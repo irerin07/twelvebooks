@@ -38,11 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN")
 
-                .antMatchers("/notices/noticelist").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/notices/noticedetail").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/notices/noticewrite").hasAnyRole("ADMIN")
-                .antMatchers("/notices/noticemodify").hasAnyRole("ADMIN")
-                .antMatchers("/notices/noticedelete").hasAnyRole("ADMIN")
+                .antMatchers("/notices/list").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/notices/detail").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/notices/write").hasAnyRole("ADMIN")
+                .antMatchers("/notices/modify").hasAnyRole("ADMIN")
+                .antMatchers("/notices/delete").hasAnyRole("ADMIN")
 
                 .anyRequest().fullyAuthenticated()
                 .and()

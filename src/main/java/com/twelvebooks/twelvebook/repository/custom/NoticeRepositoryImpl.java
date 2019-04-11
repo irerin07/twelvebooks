@@ -9,12 +9,17 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import java.util.List;
 
 //public class NoticeRepositoryImpl extends QuerydslRepositorySupport implements NoticeRepositoryCustom {
+
     public class NoticeRepositoryImpl {
-
-
+//    public NoticeRepositoryImpl(){
+//        super(Notice.class);
+//    }
+//
 //    @Override
 //    public List<Notice> getNotices(int start, int limit, String searchKind, String searchStr) {
 //        return null;
 //    }
+//
+
 
 }
