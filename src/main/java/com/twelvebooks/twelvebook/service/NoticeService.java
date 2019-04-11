@@ -10,9 +10,11 @@ public interface NoticeService {
 
 
     public Notice noticeWrite(Notice notice);
-//    public List<Notice> noticeList(int page, String searchKind, String searchStr);
-    public List<Notice> noticeList(int page);
 
+//    public List<Notice> noticeList(int page, String search);
+//    public List<Notice> noticeList(int page);
+
+    public List<Notice> noticeList();
 
     public Notice noticeDetail(Long id);
 

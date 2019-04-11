@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block layout:fragment="css"/>
+</th:block>
+<th:block layout:fragment="script"/>
+</th:script>
+
+<div layout:fragment="content">
+
+    <div class="container-fluid" style="margin-bottom: 25px; width: 100%">
+        <div class="text">
+            <div class="container">
+                <div>
+                    <h1><span th:text="${notice.title}">title</span></h1><br><br>
+                    <div>
+
+
+                             title :    <span th:text="${notice.title}">title</span><br><br>
+                             regdate :   <span th:text="${notice.regdate}">regdate</span><br><br>
+                        <!--이미지 추가해야 함-->
+                             content :   <span th:text="${notice.content}">content</span><br><br>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+        <button type="button" class="btn btn-success" th:href="@{/notices/modify}">수정</button>
+        <button type="button" class="btn btn-success" th:href="@{/notices/delete}">삭제</button>
+    </div>
+    <button type="cancle" class="btn btn-dark">목록</button>
+
+</div>
+
+
+</body>
+</html>

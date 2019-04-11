@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface NoticeRepositoyCustom {
 
-//    public List<Notice> getNotices(int start, int limit, String searchKind, String searchStr);
+//    public List<Notice> getNotices(int start, int limit, String search);
+//    public List<Notice> getNotices(int start, int limit);
 }
