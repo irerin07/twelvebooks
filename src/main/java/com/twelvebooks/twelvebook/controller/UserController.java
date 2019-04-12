@@ -2,6 +2,7 @@ package com.twelvebooks.twelvebook.controller;
 
 import com.twelvebooks.twelvebook.domain.Role;
 import com.twelvebooks.twelvebook.domain.User;
+import com.twelvebooks.twelvebook.dto.PasswdDto;
 import com.twelvebooks.twelvebook.dto.UserJoinForm;
 import com.twelvebooks.twelvebook.repository.UserRepository;
 import com.twelvebooks.twelvebook.service.UserService;
@@ -158,24 +159,22 @@ public class UserController {
     }
 
     @GetMapping("/passwdchange")
-    public String passwdchangeform(Model model){
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String email = loggedInUser.getName();
-
-        User user = userService.getUserByEmail(email);
-
-        String passwd = user.getPasswd();
-
-        model.addAttribute("oldpasswd", passwd);
-
+    public String passwdchangeform(PasswdDto passwdDto, ModelMap modelMap){
+        modelMap.addAttribute("passwdDto", passwdDto);
         return "users/passwdchange";
     }
 
     @PostMapping("/passwdchange")
     public String passwdchange(@RequestParam("newpasswd") String newpasswd,
                                @RequestParam("newpasswd2") String newpasswd2,
-                               @RequestParam("oldpasswd") String oldpasswd
+                               @RequestParam("oldpasswd") String oldpasswd,
+                               @Valid PasswdDto passwdDto,
+                               BindingResult bindingResult
     ){
+
+        if (bindingResult.hasErrors()) {
+            return "users/passwdchange";
+        }
 
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String email = loggedInUser.getName();
@@ -184,8 +183,29 @@ public class UserController {
 
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-        String passwd = passwordEncoder.encode(newpasswd);
+        String oldpass = passwordEncoder.encode(oldpasswd);
+        String newpass = user.getPasswd();
 
+        System.out.println(passwordEncoder.matches(oldpasswd, newpass));
+
+        if(!passwordEncoder.matches(oldpasswd, newpass)){
+            System.out.println("아 좆같네");
+            FieldError error = new FieldError("passwdDto", "oldpasswd",
+                    "비밀번호가 틀립니다.");
+            bindingResult.addError(error);
+            return "users/passwdchange";
+        }
+
+        if (!passwdDto.getNewpasswd().equals(passwdDto.getNewpasswd2())) {
+            FieldError error = new FieldError("passwdDto", "newpasswd2",
+                    "비밀번호가 일치하지 않습니다.");
+            bindingResult.addError(error);
+            return "users/passwdchange";
+        }
+
+
+
+        user.setPasswd(passwordEncoder.encode(newpasswd));
         userRepository.save(user);
 
         return "redirect:/users/mypage";
