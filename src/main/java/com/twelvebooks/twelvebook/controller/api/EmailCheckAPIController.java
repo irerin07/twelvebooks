@@ -21,7 +21,6 @@ public class EmailCheckAPIController {
     @GetMapping
     public User getUserByEmail(@RequestParam(name = "email") String email){
         User user = userService.getUserByEmail(email);
-
         return user;
     }
 
@@ -31,5 +30,4 @@ public class EmailCheckAPIController {
         int emailCheck = userService.emailCheck(emailDto.getEmail());
         return emailCheck;
     }
-
 }

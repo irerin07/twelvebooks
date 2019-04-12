@@ -8,7 +8,7 @@ public class PasswdEncodeTest {
     @Test
     public void encode()throws Exception{
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        String encode = passwordEncoder.encode("1111");
+        String encode = passwordEncoder.encode("359751");
         System.out.println(encode);
     }
 }
