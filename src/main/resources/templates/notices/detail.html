@@ -31,9 +31,10 @@
             </div>
         <button type="cancle" class="btn btn-dark" onclick="location.href='/notices/list'">목록</button>
         <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-            <!--<a th:href="@{'/notices/modify/' + ${notices.id}}">수정 </a>-->
-            <button type="button" class="btn btn-success" onclick="location.href='/notices/modify/${notices.id}'">수정</button>
-            <button type="button" class="btn btn-success" onclick="location.href='@{/notices/delete}'">삭제</button>
+            <a th:href="@{'/notices/modify/' + ${notice.id}}">수정 </a>
+            <a th:href="@{'/notices/delete/' + ${notice.id}}">삭제 </a>
+            <!--<button type="button" class="btn btn-success" onclick="location.href='/notices/modify/${notices.id}'">수정</button>-->
+            <!--<button type="button" class="btn btn-success" onclick="location.href='/notices/delete/${notice.id}/'">삭제</button>-->
         </div>
     </div>
 
