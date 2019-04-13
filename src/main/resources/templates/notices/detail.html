@@ -12,7 +12,7 @@
 <div layout:fragment="content">
 
     <div class="container-fluid" style="margin-bottom: 25px; width: 100%">
-        <div class="text">
+
             <div class="container">
                 <div>
                     <h1><span th:text="${notice.title}">title</span></h1><br><br>
@@ -26,17 +26,17 @@
 
                     </div>
                 </div>
+
+
             </div>
-
+        <button type="cancle" class="btn btn-dark" onclick="location.href='/notices/list'">목록</button>
+        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+            <!--<a th:href="@{'/notices/modify/' + ${notices.id}}">수정 </a>-->
+            <button type="button" class="btn btn-success" onclick="location.href='/notices/modify/${notices.id}'">수정</button>
+            <button type="button" class="btn btn-success" onclick="location.href='@{/notices/delete}'">삭제</button>
         </div>
-
     </div>
 
-    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-        <button type="button" class="btn btn-success" th:href="@{/notices/modify}">수정</button>
-        <button type="button" class="btn btn-success" th:href="@{/notices/delete}">삭제</button>
-    </div>
-    <button type="cancle" class="btn btn-dark">목록</button>
 
 </div>
 

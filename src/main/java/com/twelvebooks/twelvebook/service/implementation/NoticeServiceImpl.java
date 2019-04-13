@@ -19,6 +19,8 @@ public class NoticeServiceImpl implements NoticeService {
     private NoticeRepository noticeRepository;
 
 //    public final static String TITLE_OR_CONTENT_SEARCH = "title_content_search";
+
+
     @Override
     public Notice noticeWrite(Notice notice) {
         return noticeRepository.save(notice);
@@ -47,5 +49,17 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public Notice noticeDetail(Long id) {
         return noticeRepository.getNotice(id);
+    }
+
+    @Override
+    public Notice noticeModify(Notice notice) {
+        return noticeRepository.save(notice);}
+
+
+    @Override
+    public Notice noticeDelete(Notice notice) {
+//        return noticeRepository.delete(notice.getId());
+    return null;
+
     }
 }

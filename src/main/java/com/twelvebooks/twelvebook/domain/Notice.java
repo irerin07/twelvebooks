@@ -36,6 +36,7 @@ public class Notice {
 
     public Notice() {
         imageFiles = new ArrayList<>();
+        regdate = new Date();
     }
 
     public void addImageFile(ImageFile imageFile) {
