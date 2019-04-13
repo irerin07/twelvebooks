@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+<th:block layout:fragment="css"/>
+</th:block>
+<th:block layout:fragment="script"/>
+</th:script>
+
+<div layout:fragment="content">
+    <form  method="post" action="/notices/write" >
+    <div class="form-group">
+        <label for="title">제목</label>
+        <input type="text" class="form-control" id="title" name="title">
+    </div>
+
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+
+
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+    <div class="form-group">
+        <label for="content">내용</label>
+        <textarea class="form-control" rows="5" id="content"  name="content"></textarea>
+    </div>
+
+        <button type="submit" class="btn btn-primary">올리기</button>
+        <button type="cancle" class="btn btn-dark">취소</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
