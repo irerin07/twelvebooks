@@ -13,15 +13,17 @@
     <div class="container text">
         <div class="row mgTp">
             <form class="col-md-6 offset-md-3" method="post">
-                <form method="post" th:action="@{/users/passwdchange}"  action="#">
+                <form method="post" th:action="@{/users/passwdchange}" th:object="${passwdDto}" action="#">
                     <h3 class="title">비밀번호 변경</h3>
                     <hr class="divisor">
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
-                        <input type="password" class="form-control" name="oldpasswd" placeholder="현재 비밀번호" title="현재 비밀번호">
+                        <input type="password" class="form-control" name="oldpasswd" id="oldpasswd" placeholder="현재 비밀번호" title="현재 비밀번호">
+                        <div class="errDiv" th:if="${#fields.hasErrors('oldpasswd')}" th:errors="*{oldpasswd}"></div>
                     </div>
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
                         <input type="password" class="form-control" name="newpasswd" id="newpasswd" placeholder="새로운 비밀번호" title="새로운 비밀번호">
                     </div>
+                    <input type="hidden">
 
                     <div class="form-group" style="margin-top: 20px; margin-bottom: 20px;">
                         <input type="password" class="form-control" name="newpasswd2" id="newpasswd2" placeholder="새로운 비밀번호 확인" title="새로운 비밀번호 확인" onkeyup="checkPass(); return false;">
