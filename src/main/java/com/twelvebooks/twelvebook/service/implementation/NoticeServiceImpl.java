@@ -56,10 +56,10 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeRepository.save(notice);}
 
 
-    @Override
-    public Notice noticeDelete(Notice notice) {
-//        return noticeRepository.delete(notice.getId());
-    return null;
-
-    }
+//    @Override
+//    public Notice noticeDelete(Notice notice) {
+////        return noticeRepository.delete(notice.getId());
+//    return null;
+//
+//    }
 }

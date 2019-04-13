@@ -13,7 +13,7 @@ public interface NoticeService {
 
     public Notice noticeModify(Notice notice);
 
-    public Notice noticeDelete(Notice notice);
+//    public Notice noticeDelete(Notice notice);
 
 //    public List<Notice> noticeList(int page, String search);
 //    public List<Notice> noticeList(int page);

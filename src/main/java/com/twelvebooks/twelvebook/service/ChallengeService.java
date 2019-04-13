@@ -13,6 +13,6 @@ public interface ChallengeService {
     public List<Challenge> getChallengesAll();
 
     //새로운 도전
-    public Challenge addChallenge(Challenge challenge);
+//    public Challenge addChallenge(Challenge challenge);
 
 }

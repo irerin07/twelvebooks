@@ -77,16 +77,16 @@ public class NoticeController {
         return "redirect:/notices/list";
     }
 
-//    @GetMapping("/modify/{id}")
-//    public String modifyform(@PathVariable(name="id")Long id,
-//                             Model model){
-//
-//        Notice notice = noticeService.noticeDetail(id);
-//        model.addAttribute("notice", notice);
-//        return "notices/modify";
-//    }
+    @GetMapping("/modify/{id}")
+    public String modifyform(@PathVariable(name="id")Long id,
+                             Model model){
 
-    @PostMapping("/modify")
+        Notice notice = noticeService.noticeDetail(id);
+        model.addAttribute("notice", notice);
+        return "notices/modify";
+    }
+
+    @PostMapping("/modify/{id}")
     public String noticemodify(
             @RequestParam(name = "title") String title,
             @RequestParam(name = "content") String content
@@ -100,20 +100,15 @@ public class NoticeController {
 
         // 이미지 추가
 
-        noticeService.noticeWrite(notice);
+        noticeService.noticeModify(notice);
         return "redirect:/notices/list";
     }
 
 
-    @GetMapping("/delete")
-    public String delete(@PathVariable(name="id")Long id,
-                         Model model){
-
-        Notice notice = new Notice();
-        notice.setId(id);
-        noticeService.noticeDelete(notice);
-        model.addAttribute("notice", notice);
-        return "notices/list";
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable(name="id") Long id){
+        noticeRepository.deleteById(id);
+        return "redirect:/notices/list";
     }
 
 
