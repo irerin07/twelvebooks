@@ -36,8 +36,7 @@
         </table>
 
         <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-            <a th:href="@{/notices/write}">글쓰기 </a>
-            <button type="button" class="btn btn-success" th:href="@{/notices/write}">글쓰기</button>
+            <button type="button" class="btn btn-success" onclick="location.href='/notices/write'">글쓰기</button>
         </div>
     </div>
 

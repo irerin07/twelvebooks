@@ -12,10 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.websocket.server.PathParam;
@@ -58,9 +55,14 @@ public class NoticeController {
 
 
     @GetMapping("/write")
+    public String writeform(Model model){
+        return "notices/write";
+    }
+
+    @PostMapping("/write")
     public String noticeWrite(
-        @RequestParam(required=false, name = "title") String title,
-        @RequestParam(required=false, name = "content") String content
+        @RequestParam(name = "title") String title,
+        @RequestParam(name = "content") String content
 //        @RequestParam(name = "image") MultipartFile[] images
         ){
 
@@ -72,7 +74,48 @@ public class NoticeController {
              // 이미지 추가
 
              noticeService.noticeWrite(notice);
-        return "redirect:/list";
+        return "redirect:/notices/list";
     }
+
+//    @GetMapping("/modify/{id}")
+//    public String modifyform(@PathVariable(name="id")Long id,
+//                             Model model){
+//
+//        Notice notice = noticeService.noticeDetail(id);
+//        model.addAttribute("notice", notice);
+//        return "notices/modify";
+//    }
+
+    @PostMapping("/modify")
+    public String noticemodify(
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "content") String content
+//        @RequestParam(name = "image") MultipartFile[] images
+    ){
+
+
+        Notice notice = new Notice();
+        notice.setContent(content);
+        notice.setTitle(title);
+
+        // 이미지 추가
+
+        noticeService.noticeWrite(notice);
+        return "redirect:/notices/list";
+    }
+
+
+    @GetMapping("/delete")
+    public String delete(@PathVariable(name="id")Long id,
+                         Model model){
+
+        Notice notice = new Notice();
+        notice.setId(id);
+        noticeService.noticeDelete(notice);
+        model.addAttribute("notice", notice);
+        return "notices/list";
+    }
+
+
 
 }
