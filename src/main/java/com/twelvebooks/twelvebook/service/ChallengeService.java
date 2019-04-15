@@ -15,4 +15,6 @@ public interface ChallengeService {
     //새로운 도전
 //    public Challenge addChallenge(Challenge challenge);
 
+    public Challenge getChallengeDetail(long id);
+
 }

@@ -11,7 +11,7 @@
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a th:href="@{/users/mypage}">My Page</a>
             <a th:href="@{/users/passwdchange}">Password Change</a>
-            <a href="#">Library</a>
+            <a th:href="@{/challenges/library}">Library</a>
             <a th:href="@{/notices/list}">Notice</a>
             <div sec:authorize="hasAuthority('ROLE_ADMIN')">
                 <a th:href="@{/admin/}">Admin</a>
