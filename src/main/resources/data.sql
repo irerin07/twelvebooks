@@ -57,3 +57,7 @@ insert into notices values(6,'이것이 자바라',now(),'이것이 자바다6',
 insert into notices values(7,'이것이 자바뀽',now(),'이것이 자바다7',12);
 insert into notices values(8,'이것이 자바네',now(),'이것이 자바다8',12);
 insert into notices values(9,'이것이 자바지',now(),'이것이 자바다9',12);
+insert into notices values(10,'이것이 자바라',now(),'이것이 자바다10',12);
+insert into notices values(11,'이것이 자바뀽',now(),'이것이 자바다11',12);
+insert into notices values(12,'이것이 자바네',now(),'이것이 자바다12',12);
+insert into notices values(13,'이것이 자바지',now(),'이것이 자바다13',12);

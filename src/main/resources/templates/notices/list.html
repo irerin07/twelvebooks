@@ -25,7 +25,7 @@
             </thead>
             <tbody>
 
-            <tr th:each="notices : ${notices}">
+            <tr th:each="notices : ${noticepage}">
                 <td class="text-center"><span th:text="${notices.id}">id</span></td>
                 <td><a th:text="${notices.title}" th:href="@{'/notices/' + ${notices.id}}">title </a></td>
                     <!--<td><span th:text="${notices.title}" th:href="@{'/notices/' + ${notices.id}}"> title</span></td>-->
@@ -38,6 +38,44 @@
         <div sec:authorize="hasAuthority('ROLE_ADMIN')">
             <button type="button" class="btn btn-success" onclick="location.href='/notices/write'">글쓰기</button>
         </div>
+
+        <!-- 게시판 하단의 페이징 버튼 -->
+        <!--<ul class="pagination justify-content-center" >-->
+            <!--<li class="page-item"><a class="page-link" th:href="@{?page=${notices.number-1}}">Previous</a></li>-->
+            <!--<li class="page-item"><a class="page-link" th:href="@{?page=${notices.number+1}}">Next</a></li>-->
+        <!--</ul>-->
+
+        <ul class="pagination justify-content-center"
+            th:with="start=${T(Math).floor(noticepage.number/10)*10 + 1},
+                    last=(${start + 9 < noticepage.totalPages ? start + 9 : noticepage.totalPages})">
+            <li>
+                <a th:href="@{/notices/list(page=1)}" aria-label="First">
+                    <span aria-hidden="true">First</span>
+                </a>
+            </li>
+
+            <li th:class="${noticepage.first} ? 'disabled'">
+                <a th:href="${noticepage.first} ? '#' :@{/notices/list(page=${notices.number})}" aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+
+            <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == noticepage.number + 1} ? 'active'">
+                <a th:text="${page}" th:href="@{/notices/list(page=${page})}"></a>
+            </li>
+
+            <li th:class="${noticepage.last} ? 'disabled'">
+                <a th:href="${noticepage.last} ? '#' : @{/notices/list(page=${noticepage.number + 2})}" aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/notices/list(page=${noticepage.totalPages})}" aria-label="Last">
+                    <span aria-hidden="true">Last</span>
+                </a>
+            </li>
+        </ul>
     </div>
 
 
