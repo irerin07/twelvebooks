@@ -8,6 +8,10 @@ import com.twelvebooks.twelvebook.service.ImageFileService;
 import com.twelvebooks.twelvebook.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,16 +36,18 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
+//    @GetMapping("/list")
+//    public String noticeList(Model model){
+//        List<Notice> notices = noticeService.noticeList();
+//        model.addAttribute("notices", notices);
+//        return "notices/list";
+//    }
+
     @GetMapping("/list")
-    public String noticeList(Model model){
+    public String noticeList(Model model,@PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC, size = 10) Pageable pageable){
 
-//            @RequestParam(name = "page", required = false, defaultValue = "1") int page
-//            ,
-//            @RequestParam(name = "searchStr", required = false) String search,
-//        List<Notice> notices = noticeService.noticeList(page, search);
-
-        List<Notice> notices = noticeService.noticeList();
-        model.addAttribute("notices", notices);
+        Page<Notice> noticePage = noticeRepository.findAll(pageable);
+        model.addAttribute("noticepage", noticePage);
         return "notices/list";
     }
 
