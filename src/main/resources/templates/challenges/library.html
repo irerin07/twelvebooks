@@ -20,7 +20,9 @@
         </div>
         <div class="text" th:each="chal : ${challengeList}">
             <span th:text="${chal.startDate}">시작일</span>
-            <span th:text="${chal.book}">책</span>
+            <span th:text="${chal.endDate}">종료일</span>
+            <span th:text="${chal.booksTitle}">책</span>
+            <span th:text="${chal.status}">책</span>
         </div>
     </div>
 </div>

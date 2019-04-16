@@ -34,6 +34,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Notice> notices;
 
+    @OneToMany(mappedBy = "user")
+    private List<Bookmark> bookmarks;
+
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "imagefile_id", referencedColumnName = "id")
     private ImageFile imageFile;
@@ -42,6 +45,7 @@ public class User {
         regdate = new Date();
         roles = new HashSet<>();
         challenges = new ArrayList<>();
+        bookmarks = new ArrayList<>();
     }
 
     public void addUserRole(Role role){

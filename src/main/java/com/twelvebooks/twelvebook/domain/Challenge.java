@@ -20,8 +20,10 @@ public class Challenge {
     private Date startDate;
     private Date endDate;
     private int days;
-    private boolean visibility;
+    private String visibility;
     private String status;
+    private String booksTitle;
+    private String thumbnailImage;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")

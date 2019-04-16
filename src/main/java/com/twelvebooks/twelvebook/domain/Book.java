@@ -26,8 +26,12 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<Challenge> challenges;
 
+    @OneToMany(mappedBy = "book")
+    private List<Bookmark> bookmarks;
+
     public Book(){
         challenges = new ArrayList<>();
+        bookmarks = new ArrayList<>();
     }
 
 }
