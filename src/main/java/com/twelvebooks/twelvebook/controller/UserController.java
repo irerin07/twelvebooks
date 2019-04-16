@@ -97,9 +97,7 @@ public class UserController {
 
         User user = userService.getUserByEmail(email);
         String name = user.getName();
-        System.out.println("mypage: " + name);
         String comment = user.getComment();
-        System.out.println("mypage: " + comment);
         model.addAttribute("name", name);
         model.addAttribute("comment", comment);
         model.addAttribute("email", email);

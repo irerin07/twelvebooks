@@ -27,4 +27,11 @@ public class ChallengeServiceImpl implements ChallengeService {
         challenges = challengeRepository.findAll();
         return challenges;
     }
+
+    @Override
+    public Challenge getChallengeDetail(long id) {
+        Challenge challenge = null;
+        challenge = challengeRepository.getChallengeDetail(id);
+        return challenge;
+    }
 }
