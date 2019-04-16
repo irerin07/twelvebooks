@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block layout:fragment="css"/>
+</th:block>
+<th:block layout:fragment="script"/>
+</th:script>
+
+<div layout:fragment="content">
+
+    <div>
+        <div style="text-align:center">
+            <span th:text="${book.title}">title</span><br>
+            <span th:text="${challenge.startDate} '   >   ' ${challenge.endDate}"></span>
+        </div><br><br><br><br><br>
+    </div>
+    <div class="card-deck" th:each="diary : ${diarys}">
+            <div class="card" style="display:inline-block;text-align:center; width:40%">
+                <span th:text="${diary.day}">day</span>
+            </div><div class="card bg-secondary" style="display:inline-block;text-align:left; width: 60%">
+                <div class="card-body text-center">
+                    <p class="card-text" th:text="${diary.content}">content</p>
+                </div>
+            </div>
+    </div>
+    <div>
+    </div>
+</div>
+
+</body>
+</html>
