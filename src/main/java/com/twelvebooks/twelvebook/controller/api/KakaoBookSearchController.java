@@ -17,8 +17,7 @@ public class KakaoBookSearchController {
     KakaoBookApiService kakaoBookApiService;
 
     @RequestMapping(value = "/searchBooks")
-    public Map<String, Object> searchBooks(HttpServletRequest req, HttpServletResponse res,
-                                           @RequestParam("searchWord") String searchWord,
+    public Map<String, Object> searchBooks(@RequestParam("searchWord") String searchWord,
                                            @RequestParam(name = "target", defaultValue = "all") String target,
                                            @RequestParam(name = "category", defaultValue = "") String category,
                                            @RequestParam(name = "page", defaultValue = "1") int page) {
