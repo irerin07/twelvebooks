@@ -10,29 +10,47 @@
 <div layout:fragment="content">
 <div class="container-fluid text-center"  style="width: 75%; margin-bottom:5%;">
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
+
+
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
+
+                <!-- Modal Header -->
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
+
+                <!-- Modal body -->
                 <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                    <div id="books">
+                        <ul class="list-group">
+                        </ul>
+                        <div id="resultMessage">검색된 책이 없어요. 다시 검색하세요.</div>
+                        <div id="results"></div>
+                    </div>
                 </div>
+
+                <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
+
             </div>
         </div>
     </div>
-    <form id="search_form" name = "search"></form>
-    <div class="col">
-        <input type="text" name="searchWord" placeholder="읽을 책을 검색하세요" class="booksearch">
-        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">검색</button>
-    </div>
+
+
+    <form id="search_form" name = "search">
+        <div class="col">
+            <input type="text" name="searchWord" placeholder="읽을 책을 검색하세요" class="booksearch" id="searchWord">
+            <button type="button" class="btn btn-dark" onclick="bookSearch()">검색</button>
+        </div>
+    </form>
     <div class="col">
         <!--<form action="/challenges/addform"  enctype="multipart/form-data" method="POST">-->
         <div class="row">
@@ -95,15 +113,12 @@
             field: document.getElementById('datepicker1'),
             format: 'yy/mm/dd',
             toString(date, format) {
-                // you should do formatting based on the passed format,
-                // but we will just return 'D/M/YYYY' for simplicity
                 const day = date.getDate();
                 const month = date.getMonth() + 1;
                 const year = date.getFullYear();
                 return `${year}/${month}/${day}`;
             },
             parse(dateString, format) {
-                // dateString is the result of `toString` method
                 const parts = dateString.split('/');
                 const day = parseInt(parts[0], 10);
                 const month = parseInt(parts[1], 10) - 1;
@@ -148,6 +163,98 @@
                 document.getElementById('days').value = parseInt((diff/cDay) + 1)
             }
         }
+    </script>
+
+    <script>
+        function bookSearch(page){
+            var page = page ? page : 1;
+            var form = document.getElementById("search_form");
+            // var modal = document.getElementById(modal);
+            if (form.searchWord.value == "") {
+                alert("검색어를 입력하세요");
+            }else{
+                $('#myModal').modal('show');
+                $.ajax({
+                    url : "/api/searchBooks",
+                    data : $(form).serialize(),
+                    beforeSend : function(){
+                        $(form).find("button[type=button]").text("Searching for ...");
+                    },
+                    success :function(res){
+                        if(res.meta.total_count < 1) {
+                            $("#books > ul").html("");
+                            $("#books > #resultMessage").show();
+                        }else{
+                            $("#books > #resultMessage").hide();
+                            console.log(res);
+                            var html = "";
+                            $(res.documents)
+                                .each(
+                                    function(idx) {
+                                        var authors = "", trans = "", thumbnail = "", isbn = "";
+                                        $(this.authors)
+                                            .each(
+                                                function() {
+                                                    authors += (this + " ")
+                                                });
+                                        $(this.translators)
+                                            .each(
+                                                function() {
+                                                    trans += (this + " ")
+                                                });
+                                        if (this.thumbnail) {
+                                            thumbnail = "<img src='"+this.thumbnail+"' width='100'>";
+                                        }
+                                        var arr_isbn = this.isbn.split(" ");
+                                        if(arr_isbn.length>1){
+                                            isbn = arr_isbn[1];
+                                        }else{
+                                            isbn = arr_isbn[0];
+                                        }
+
+                                        html += "<li class='list-group-item'>";
+                                        html += "<dl><dt><a href='./detail?isbn="
+                                            + isbn
+                                            + "'>"
+                                            + this.title
+                                            + " | "
+                                            + this.publisher
+                                            + "</a>"
+                                            +" <button type='button' class='btn btn-primary btn-bookmark add' data-isbn='"+isbn+"'>북마크</button>"
+                                            +"</dt>";
+                                        html += "<div class='left'>"
+                                            + thumbnail
+                                            + "</div><div class='right'>저자: "
+                                            + authors
+                                            // + "<br> 번역자: "
+                                            // + trans
+                                            // + "<br> 상태: "
+                                            // + this.status
+                                            + "</div></dd></dl></li>";
+                                    });
+
+                            if (!res.meta.is_end) {
+                                html += "<li><button class='btn btn-primary btn-lg btn-block' onclick='bookSearch("
+                                    + (page + 1)
+                                    + "); $(this).parent().remove();'>더보기 </button></li>";
+                            }
+                            if (page > 1) {
+                                $("#books > ul").append(html);
+                            } else {
+                                $("#books > ul").html(html);
+                            }
+                        }
+
+
+                    },
+                    complete : function() {
+                        $(form).find("button[type=button]").text("검색");
+                    }
+                })
+
+            }
+        }
+
     </script>
 </div>
 </html>
