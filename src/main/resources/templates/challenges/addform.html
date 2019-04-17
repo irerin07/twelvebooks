@@ -21,7 +21,7 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Modal Heading</h4>
+                    <h3 class="modal-title" >검색 결과</h3>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
 
@@ -51,9 +51,10 @@
             <button type="button" class="btn btn-dark" onclick="bookSearch()">검색</button>
         </div>
     </form>
-    <div class="col">
+    <div class="col ">
         <!--<form action="/challenges/addform"  enctype="multipart/form-data" method="POST">-->
-        <div class="row">
+        <div class="bookinfo row fade" style="display: none;">
+            <!--<div class="bookinfo fade"></div>-->
             <div class="col" style="text-align: center">
                 <img  src="http://placehold.it/200x200" class="img-thumbnail">
             </div>
@@ -208,7 +209,7 @@
                                                     trans += (this + " ")
                                                 });
                                         if (this.thumbnail) {
-                                            thumbnail = "<img src='"+this.thumbnail+"' width='70'>";
+                                            thumbnail = "<img src='"+this.thumbnail+"' width='80'>";
                                         }
                                         var arr_isbn = this.isbn.split(" ");
                                         if(arr_isbn.length>1){
@@ -218,28 +219,32 @@
                                         }
 
                                         html += "<li class='list-group-item'>";
+                                        html += "<div class='row'>";
+                                        html += "<div class='col' >"
+                                            + thumbnail
+                                        html += "<div class='col' >"
+                                            + "저자: "
+                                            + authors
+                                            + "</div></div>"
+                                        html += "<div class='col' style ='padding-top: 5%; width: ' >"
                                         html += "<a href='./detail?isbn="
                                             + isbn
                                             + "'>"
                                             + this.title
                                             + " | "
-                                            + this.publisher
-                                            + "</a>"
-                                            +" <button type='button' class='btn btn-primary btn-bookmark add' data-isbn='"+isbn+"'>북마크</button>"
 
-                                        html += "<div class='left' style=''>"
-                                            + thumbnail
-                                            + "</div><div class='right'>저자: "
-                                            + authors
-                                            // + "<br> 번역자: "
-                                            // + trans
-                                            // + "<br> 상태: "
-                                            // + this.status
+                                            + "</a>"
+
+                                            + this.publisher
+                                                +"</div>"
+                                                + "<div class = col style = 'left : 12%;'>"
+                                            +" <button type='button' class='btn btn-dark btn-sm' data-isbn='"+isbn+"'>북마크</button>"
+                                                + "</div>"
                                             + "</div></li>";
                                     });
 
                             if (!res.meta.is_end) {
-                                html += "<li><button class='btn btn-primary btn-lg btn-block' onclick='bookSearch("
+                                html += "<li style = 'list-style: none'><button class='btn btn-dark btn-lg btn-block' onclick='bookSearch("
                                     + (page + 1)
                                     + "); $(this).parent().remove();'>더보기 </button></li>";
                             }
