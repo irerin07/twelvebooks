@@ -24,14 +24,6 @@ public class BookmarkAPIController {
     @Autowired
     BookmarkRepository bookmarkRepository;
 
-    @GetMapping("/list/{id}")
-    public String bookmarkList(
-            @RequestParam(name="id") Long id,
-            Model model){
-        List<Bookmark> bookmarks = bookmarkService.bookmarkList(id);
-        model.addAttribute("bookmarks", bookmarks);
-        return "bookmark/list";
-    }
 
     @GetMapping("/delete/{id}")
     public String bookmarkdelete(@PathVariable(name="id") Long id){

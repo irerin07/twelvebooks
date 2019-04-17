@@ -31,6 +31,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(Long id) {
+        return userRepository.getUserById(id);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Role getUserRole(String roleName) {
         return roleRepository.getRoleByName(roleName);

@@ -15,18 +15,19 @@
         <table class="table">
             <thead>
             <tr>
-                <th class="text-center" style="width: 15%" >No</th>
-                <th class="text-center" style="width: 35%" >Img</th>
-                <th class="text-center" style="width: 50%" >제목</th>
+                <th class="text-center" style="width: 10%" >선택</th>
+                <th class="text-center" style="width: 30%" >Img</th>
+                <th class="text-center" style="width: 55%" >제목</th>
+                <th class="text-center" style="width: 15%" >삭제</th>
             </tr>
             </thead>
             <tbody>
 
             <tr th:each="bookmarks : ${bookmarks}">
                 <td class="text-center"><span th:text="${bookmarks.id}">id</span></td>
-                <img class="card-img-top" th:src="${bookmarks.thumbnailImage}" alt="Card image cap">
+                <td><img class="card-img-top" th:src="${bookmarks.thumbnailImage}" alt="Card image cap"></td>
                 <td><a th:text="${bookmarks.bookTitle}" th:href="@{'/bookmark/' + ${bookmarks.bookTitle}}">bookTitle</a></td>
-                <td><a th:href="@{'/bookmark/delete/' + ${bookmarks.id}}"><button class="btn danger" style="width: 70px; height: 40px;">삭제</button></a></td>
+                <td><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><button class="btn danger" style="width: 70px; height: 40px;">삭제</button></a></td>
             </tr>
 
             </tbody>

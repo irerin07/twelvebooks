@@ -3,6 +3,7 @@ package com.twelvebooks.twelvebook.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class Notice {
 
     @Lob
     private String content;
+
+    @Type(type = "date")
     private Date regdate;
 
 
