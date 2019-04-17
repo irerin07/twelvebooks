@@ -36,12 +36,12 @@ insert into user_roles(user_id, role_id) values (11, 2);
 insert into user_roles(user_id, role_id) values (12, 1);
 insert into user_roles(user_id, role_id) values (12, 2);
 
-insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id, books_title) values(1, '2019-03-25 23:59:59', '2019-04-23 23:59:59',30, 1,  '읽는중', 1, 1, '이것이 자바다');
-insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id, books_title) values(2, '2019-03-26 23:59:59', '2019-04-24 23:59:59',30, 1,  '읽는중', 2, 2, '이것도 자바다');
-insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id, books_title) values(3, '2019-03-27 23:59:59', '2019-04-25 23:59:59',30, 0,  '읽는중', 3, 3, '이것은 자바다');
-insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id, books_title) values(4, '2019-03-28 23:59:59', '2019-04-26 23:59:59',30, 1,  '읽는중', 4, 4,'이것만이 자바다');
-insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id, books_title) values(5, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 1,  '읽는중', 5, 5, '이것까지 자바다');
-insert into challenges(id, start_date, end_date, days, visibility, status, user_id, book_id, books_title) values(6, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(1, '2019-03-25 23:59:59', '2019-04-23 23:59:59',30, 1,  '읽는중', 1, 1, '이것이 자바다');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(2, '2019-03-26 23:59:59', '2019-04-24 23:59:59',30, 1,  '읽는중', 2, 2, '이것도 자바다');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(3, '2019-03-27 23:59:59', '2019-04-25 23:59:59',30, 0,  '읽는중', 3, 3, '이것은 자바다');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(4, '2019-03-28 23:59:59', '2019-04-26 23:59:59',30, 1,  '읽는중', 4, 4,'이것만이 자바다');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(5, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 1,  '읽는중', 5, 5, '이것까지 자바다');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(6, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다');
 
 insert into diaries(id, day, content,  challenge_id) values(1, 1, '자바 존나 어렵네',  1);
 insert into diaries(id, day, content,  challenge_id) values(2, 1, '자바 겁나 어렵네',  1);

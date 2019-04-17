@@ -1,5 +1,6 @@
 package com.twelvebooks.twelvebook.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,7 @@ public class Book {
     private String publisher;
 
     @OneToMany(mappedBy = "book")
+    @JsonManagedReference
     private List<Challenge> challenges;
 
     @OneToMany(mappedBy = "book")
