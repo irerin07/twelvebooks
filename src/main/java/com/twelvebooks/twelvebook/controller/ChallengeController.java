@@ -37,9 +37,8 @@ public class ChallengeController {
 
         User user = userService.getUserByEmail(email);
 
-        List<Challenge> challengeList = challengeService.getChallengesByUserId(user.getId());
+
         model.addAttribute("user", user);
-        model.addAttribute("challengeList", challengeList);
         return "challenges/library";
     }
 
