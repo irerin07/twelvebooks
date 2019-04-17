@@ -26,7 +26,10 @@ public class DiaryRepositoryTest {
         List<Diary> diaryList = diaryRepository.getDiariesByChallengeId(1L);
 
         for(Diary d : diaryList){
+            System.out.println(d.getDay());
             System.out.println(d.getContent());
+            System.out.println(d.getId());
+            System.out.println();
         }
     }
 

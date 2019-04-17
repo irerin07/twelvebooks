@@ -1,4 +1,11 @@
 
+list{
+ style : none;
+}
+
+a:link{
+    color : black;
+}
 .bgbook {
     background-image: url("../images/photo-1490633874781-1c63cc424610.jpg");
     height: 900px;

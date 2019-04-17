@@ -17,7 +17,6 @@ public class Diary {
     private int day;
     private String content;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "challenge_id")
     @JsonBackReference
