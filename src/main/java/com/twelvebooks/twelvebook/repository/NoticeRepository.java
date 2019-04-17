@@ -15,10 +15,6 @@ public interface NoticeRepository extends JpaRepository<Notice, Long>, NoticeRep
     @Query(value = "SELECT n FROM Notice n ORDER BY n.id DESC", countQuery = "SELECT count(n) FROM Notice n")
     public Page<Notice> getNoticesPage(Pageable pageable);
 
-
-//    @Query(value = "SELECT n FROM Notice n ORDER BY n.id DESC")
-//    public List<Notice> getNotices(int start, int limit);
-
     @Query(value = "SELECT n FROM Notice n ORDER BY n.id DESC")
     public List<Notice> getNotices();
 

@@ -26,15 +26,6 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeRepository.save(notice);
     }
 
-//    @Override
-//    @Transactional
-//    public List<Notice> noticeList(int page, String search) {
-//        int limit = 10;
-//        int start = page * limit - limit;
-//        return noticeRepository.getNotices(start, limit, search);
-//        return noticeRepository.getNotices(start, limit, search);
-//
-//    }
 
     @Override
     public List<Notice> noticeList() {
@@ -56,10 +47,4 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeRepository.save(notice);}
 
 
-//    @Override
-//    public Notice noticeDelete(Notice notice) {
-////        return noticeRepository.delete(notice.getId());
-//    return null;
-//
-//    }
 }

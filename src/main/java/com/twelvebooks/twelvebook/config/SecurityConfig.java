@@ -44,6 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/notices/modify").hasAnyRole("ADMIN")
                 .antMatchers("/notices/delete").hasAnyRole("ADMIN")
 
+                .antMatchers("/bookmark/list").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/bookmark/add").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/bookmark/delete").hasAnyRole("USER", "ADMIN")
+
                 .antMatchers("/challenges/**").hasAnyRole("USER", "ADMIN")
 
                 .anyRequest().fullyAuthenticated()
