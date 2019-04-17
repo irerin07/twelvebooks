@@ -17,6 +17,11 @@ insert into books(id, isbn ,title, author,  translator, thumbnail_image, publish
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (4, '9788968481478', '이것만이 자바다', '신용수','-', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg', '네빛미디어');
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (5, '9788968481479', '이것까지 자바다', '신용민','-', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg', '오빛미디어');
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (6, '9788932027265', '사람, 장소, 환대', '김현경','-', '-', '문학과지성사');
+insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (7, '9788932027266', '사람, 장소, 환대1', '김현경','-', '-', '문학과지성사');
+insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (8, '9788932027267', '사람, 장소, 환대2', '김현경','-', '-', '문학과지성사');
+insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (9, '9788932027268', '사람, 장소, 환대3', '김현경','-', '-', '문학과지성사');
+insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (10, '9788932027269', '사람, 장소, 환대4', '김현경','-', '-', '문학과지성사');
+insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (11, '9788932027270', '사람, 장소, 환대5', '김현경','-', '-', '문학과지성사');
 
 insert into roles(id, name) values(1, 'ADMIN');
 insert into roles(id, name) values(2, 'USER');
@@ -68,3 +73,14 @@ insert into bookmark(id, users_id, books_id, book_title, isbn) values (2,1,2,'�
 insert into bookmark(id, users_id, books_id, book_title, isbn) values (3,2,2,'이것만이 자바다', '9788968481478');
 insert into bookmark(id, users_id, books_id, book_title, isbn) values (4,4,2,'이것까지 자바다', '9788968481479');
 insert into bookmark(id, users_id, books_id, book_title, isbn) values (5,1,6,'사람, 장소, 환대', '9788932027265');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (6,12,1,'이것이 자바다', '9788968481475');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (7,12,2,'이것도 자바다', '9788968481476');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (8,12,3,'이것은 자바다', '9788968481477');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (9,12,4,'이것만이 자바다', '9788968481478');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (10,12,5,'이것까지 자바다', '9788968481479');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (11,12,6,'사람, 장소, 환대', '9788932027265');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (12,12,7,'사람, 장소, 환대1', '9788932027266');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (13,12,8,'사람, 장소, 환대2', '9788932027267');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (14,12,9,'사람, 장소, 환대3', '9788932027268');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (15,12,10,'사람, 장소, 환대4', '9788932027269');
+insert into bookmark(id, users_id, books_id, book_title, isbn) values (16,12,11,'사람, 장소, 환대5', '9788932027270');
