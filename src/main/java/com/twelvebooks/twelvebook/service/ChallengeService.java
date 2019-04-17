@@ -7,7 +7,7 @@ import java.util.List;
 public interface ChallengeService {
 
     //user의 도전 목록 가져오는 메소드
-    public List<Challenge> getChallengesByUserId(long id);
+    public List<Challenge> getChallengesByUserId(long id, String status);
 
     //admin에서 전체 도전 목록을 가져오는 메소드
     public List<Challenge> getChallengesAll();

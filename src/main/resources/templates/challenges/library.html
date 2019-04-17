@@ -16,9 +16,9 @@
         <div class="text-center"><span style="color: black; size: 35px;" th:text="${user.comment}"></span></div>
 
         <div class="text">
-            <a class="btn btn-dark" href="" >읽은 책들</a>
-            <a class="btn btn-dark" href="" >읽고 있는 책들</a>
-            <a class="btn btn-dark" href="">북마크</a>
+            <button class="btn btn-dark" onclick="doneread();">읽은 책들</button>
+            <button class="btn btn-dark" onclick="reading();">읽고 있는 책들</button>
+            <button class="btn btn-dark">북마크</button>
         </div>
         <div class="text" id="challenge">
 
@@ -26,29 +26,73 @@
     </div>
     <script th:inline="javascript">
         /*<![CDATA[*/
-        $(document).ready(function() {
-            var userId =/*[[${user.id}]]*/ 'default';
-            // var userid = document.getElementById('userid');
+        var userId =/*[[${user.id}]]*/ 'default';
+
+        function doneread() {
+            var bookStatus = '완료';
             $.ajax({
                 type: 'get',
-                url:'/api/challenge?userId='+userId,
+                url: '/api/challenge?userId=' + userId + '&bookStatus=' + bookStatus,
                 async: false,
                 contentType: "application/json",
-                error: function(){
+                error: function () {
                     alert('와!에러!와!일해라!');
                 },
-                success: function(data){
+                success: function (data) {
+
                     console.log(data);
-                    for(var i = 0; i < data.length; i++){
-                        var challengeDiv = $('<div class="text-center"> title : ' + data[i].booksTitle + ' start Date: ' + data[i].startDate + ' end date: ' +  data[i].endDate + ' status : ' + data[i].bookStatus +  '</div>');
+                    for (var i = 0; i < data.length; i++) {
+                        var challengeDiv = $('<div class="text-center"> title : ' + data[i].booksTitle + ' start Date: ' + data[i].startDate + ' end date: ' + data[i].endDate + ' status : ' + data[i].bookStatus + '</div>');
                         challengeDiv.appendTo($('#challenge'));
                     }
+                    return false;
                 }
-            })
-        });
-        // function reading() {
-        //     alert('안녕하세요?');
-        // }
+            });
+
+        }
+
+        function reading() {
+
+            var bookStatus = '읽는중';
+            $.ajax({
+                type: 'get',
+                url: '/api/challenge?userId=' + userId + '&bookStatus=' + bookStatus,
+                async: false,
+                contentType: "application/json",
+                error: function () {
+                    alert('와!에러!와!일해라!');
+                },
+                success: function (data) {
+
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var challengeDiv = $('<div class="text-center"> title : ' + data[i].booksTitle + ' start Date: ' + data[i].startDate + ' end date: ' + data[i].endDate + ' status : ' + data[i].bookStatus + '</div>');
+                        challengeDiv.appendTo($('#challenge'));
+                    }
+                    return false;
+                }
+            });
+
+        }
+        // $(document).ready(function() {
+        //     var userId =/*[[${user.id}]]*/ 'default';
+        //     $.ajax({
+        //         type: 'get',
+        //         url:'/api/challenge?userId='+userId,
+        //         async: false,
+        //         contentType: "application/json",
+        //         error: function(){
+        //             alert('와!에러!와!일해라!');
+        //         },
+        //         success: function(data){
+        //             console.log(data);
+        //             for(var i = 0; i < data.length; i++){
+        //                 var challengeDiv = $('<div class="text-center"> title : ' + data[i].booksTitle + ' start Date: ' + data[i].startDate + ' end date: ' +  data[i].endDate + ' status : ' + data[i].bookStatus +  '</div>');
+        //                 challengeDiv.appendTo($('#challenge'));
+        //             }
+        //         }
+        //     })
+        // });
         /*]]>*/
     </script>
 </div>
