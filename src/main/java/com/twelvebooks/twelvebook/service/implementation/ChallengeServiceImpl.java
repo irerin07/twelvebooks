@@ -3,20 +3,24 @@ package com.twelvebooks.twelvebook.service.implementation;
 import com.twelvebooks.twelvebook.domain.Challenge;
 import com.twelvebooks.twelvebook.repository.ChallengeRepository;
 import com.twelvebooks.twelvebook.service.ChallengeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ChallengeServiceImpl implements ChallengeService {
     @Autowired
     private ChallengeRepository challengeRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Challenge> getChallengesByUserId(long id) {
-        List<Challenge> challenges = new ArrayList<>();
+        List<Challenge> challenges = null;
         challenges = challengeRepository.getChallenges(id);
         return challenges;
     }

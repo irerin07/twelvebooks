@@ -14,16 +14,42 @@
         </div>
         <div class="text-center"><span style="color: black; size: 35px;" th:text="${user.name}"></span></div>
         <div class="text-center"><span style="color: black; size: 35px;" th:text="${user.comment}"></span></div>
+
         <div class="text">
-            <a class="btn btn-dark" href="">읽은 책들</a>
-            <a class="btn btn-dark" href="">읽고 있는 책들</a>
+            <a class="btn btn-dark" href="" >읽은 책들</a>
+            <a class="btn btn-dark" href="" >읽고 있는 책들</a>
+            <a class="btn btn-dark" href="">북마크</a>
         </div>
-        <div class="text" th:each="chal : ${challengeList}">
-            <span th:text="${chal.startDate}">시작일</span>
-            <span th:text="${chal.endDate}">종료일</span>
-            <span th:text="${chal.booksTitle}">책</span>
-            <span th:text="${chal.status}">책</span>
+        <div class="text" id="challenge">
+
         </div>
     </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+            var userId =/*[[${user.id}]]*/ 'default';
+            // var userid = document.getElementById('userid');
+            $.ajax({
+                type: 'get',
+                url:'/api/challenge?userId='+userId,
+                async: false,
+                contentType: "application/json",
+                error: function(){
+                    alert('와!에러!와!일해라!');
+                },
+                success: function(data){
+                    console.log(data);
+                    for(var i = 0; i < data.length; i++){
+                        var challengeDiv = $('<div class="text-center"> title : ' + data[i].booksTitle + ' start Date: ' + data[i].startDate + ' end date: ' +  data[i].endDate + ' status : ' + data[i].bookStatus +  '</div>');
+                        challengeDiv.appendTo($('#challenge'));
+                    }
+                }
+            })
+        });
+        // function reading() {
+        //     alert('안녕하세요?');
+        // }
+        /*]]>*/
+    </script>
 </div>
 </html>
