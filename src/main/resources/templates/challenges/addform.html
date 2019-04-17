@@ -26,7 +26,7 @@
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body">
+                <div class="modal-body ">
                     <div id="books">
                         <ul class="list-group">
                         </ul>
@@ -166,6 +166,11 @@
     </script>
 
     <script>
+        // $(document).ready(function () {
+        //     $(".booksearch").keydown(function (key) {
+        //         if (key.keyCode == 13) bookSearch();
+        //     });
+        // });
         function bookSearch(page){
             var page = page ? page : 1;
             var form = document.getElementById("search_form");
@@ -203,7 +208,7 @@
                                                     trans += (this + " ")
                                                 });
                                         if (this.thumbnail) {
-                                            thumbnail = "<img src='"+this.thumbnail+"' width='100'>";
+                                            thumbnail = "<img src='"+this.thumbnail+"' width='70'>";
                                         }
                                         var arr_isbn = this.isbn.split(" ");
                                         if(arr_isbn.length>1){
@@ -213,7 +218,7 @@
                                         }
 
                                         html += "<li class='list-group-item'>";
-                                        html += "<dl><dt><a href='./detail?isbn="
+                                        html += "<a href='./detail?isbn="
                                             + isbn
                                             + "'>"
                                             + this.title
@@ -221,8 +226,8 @@
                                             + this.publisher
                                             + "</a>"
                                             +" <button type='button' class='btn btn-primary btn-bookmark add' data-isbn='"+isbn+"'>북마크</button>"
-                                            +"</dt>";
-                                        html += "<div class='left'>"
+
+                                        html += "<div class='left' style=''>"
                                             + thumbnail
                                             + "</div><div class='right'>저자: "
                                             + authors
@@ -230,7 +235,7 @@
                                             // + trans
                                             // + "<br> 상태: "
                                             // + this.status
-                                            + "</div></dd></dl></li>";
+                                            + "</div></li>";
                                     });
 
                             if (!res.meta.is_end) {
