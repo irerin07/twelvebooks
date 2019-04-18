@@ -16,6 +16,7 @@ public class ChallengeDto {
     private Date startDate;
     private Date endDate;
     private String bookStatus;
+    private String thumbnailImage;
 
 
 }

@@ -41,12 +41,20 @@ insert into user_roles(user_id, role_id) values (11, 2);
 insert into user_roles(user_id, role_id) values (12, 1);
 insert into user_roles(user_id, role_id) values (12, 2);
 
-insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(1, '2019-03-25 23:59:59', '2019-04-23 23:59:59',30, 1,  '읽는중', 1, 1, '이것이 자바다');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(1, '2019-03-25 23:59:59', '2019-04-23 23:59:59',30, 1,  '읽는중', 1, 1, '이것이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
 insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(2, '2019-03-26 23:59:59', '2019-04-24 23:59:59',30, 1,  '읽는중', 2, 2, '이것도 자바다');
 insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(3, '2019-03-27 23:59:59', '2019-04-25 23:59:59',30, 0,  '읽는중', 3, 3, '이것은 자바다');
 insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(4, '2019-03-28 23:59:59', '2019-04-26 23:59:59',30, 1,  '읽는중', 4, 4,'이것만이 자바다');
 insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(5, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 1,  '읽는중', 5, 5, '이것까지 자바다');
-insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title) values(6, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(6, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(7, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '읽는중', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(8, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(9, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '읽는중', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(10, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(11, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '읽는중', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(12, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(13, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
+
 
 insert into diaries(id, day, content,  challenge_id) values(1, 1, '자바 존나 어렵네',  1);
 insert into diaries(id, day, content,  challenge_id) values(2, 1, '자바 겁나 어렵네',  1);
@@ -66,7 +74,7 @@ insert into notices values(9,'이것이 자바지',now(),'이것이 자바다9',
 insert into notices values(10,'이것이 자바라',now(),'이것이 자바다10',12);
 insert into notices values(11,'이것이 자바뀽',now(),'이것이 자바다11',12);
 insert into notices values(12,'이것이 자바네',now(),'이것이 자바다12',12);
-insert into notices values(13,'이것이 자바지 이것이 자바가 아닌지 이것은 자바가 맞는지 이것이 자바가 맞다면 정말 맞는게 맞는건지 자바는 자바가 맞는지',now(),'이것이 자바다13',12);
+insert into notices values(13,'이것이 자바지',now(),'이것이 자바다13',12);
 
 insert into bookmark(id, users_id, books_id, book_title, isbn) values (1,1,2,'이것도 자바다', '9788968481476');
 insert into bookmark(id, users_id, books_id, book_title, isbn) values (2,1,2,'이것도 자바다', '9788968481476');
