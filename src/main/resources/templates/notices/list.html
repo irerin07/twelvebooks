@@ -13,9 +13,9 @@
 
 <div layout:fragment="content">
 
-    <div class="container">
-        <h2>공지사항</h2>
-        <table class="table">
+    <div class="container" style="width: 80%;">
+        <h2 style="text-align: center">공지사항</h2>
+        <table class="table" style="margin-top: 2%">
             <thead>
             <tr>
                 <th class="text-center" style="width: 15%" >No</th>
@@ -27,8 +27,7 @@
 
             <tr th:each="notices : ${noticepage}">
                 <td class="text-center"><span th:text="${notices.id}">id</span></td>
-                <td><a th:text="${notices.title}" th:href="@{'/notices/' + ${notices.id}}">title </a></td>
-                    <!--<td><span th:text="${notices.title}" th:href="@{'/notices/' + ${notices.id}}"> title</span></td>-->
+                    <td style ="padding-left: 10%"><a style="color:black" th:text="${notices.title}" th:href="@{'/notices/' + ${notices.id}}"><span th:text="${notices.title}" > title</span></a></td>
                 <td class="text-center"><span th:text="${notices.regdate}">regdate</span></td>
             </tr>
 
@@ -36,7 +35,7 @@
         </table>
 
         <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-            <button type="button" class="btn btn-success" onclick="location.href='/notices/write'">글쓰기</button>
+            <button type="button" class="btn btn-success" style ="float:right" onclick="location.href='/notices/write'">글쓰기</button>
         </div>
 
         <!-- 게시판 하단의 페이징 버튼 -->

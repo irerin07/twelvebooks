@@ -11,7 +11,7 @@ public interface NoticeService {
 
     public Notice noticeWrite(Notice notice);
 
-    public Notice noticeModify(Notice notice);
+    public Notice noticeModify(Notice notice, Long id);
 
     public List<Notice> noticeList();
 

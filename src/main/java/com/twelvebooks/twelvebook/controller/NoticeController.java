@@ -95,18 +95,18 @@ public class NoticeController {
     @PostMapping("/modify/{id}")
     public String noticemodify(
             @RequestParam(name = "title") String title,
-            @RequestParam(name = "content") String content
+            @RequestParam(name = "content") String content,
+            @PathVariable(name="id")Long id,
+            Notice notice
 //        @RequestParam(name = "image") MultipartFile[] images
     ){
-
-
-        Notice notice = new Notice();
         notice.setContent(content);
         notice.setTitle(title);
 
         // 이미지 추가
 
-        noticeService.noticeModify(notice);
+        noticeService.noticeModify(notice, id);
+//        noticeRepository.save(notice);
         return "redirect:/notices/list";
     }
 

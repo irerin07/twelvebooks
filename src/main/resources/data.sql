@@ -66,7 +66,7 @@ insert into notices values(9,'이것이 자바지',now(),'이것이 자바다9',
 insert into notices values(10,'이것이 자바라',now(),'이것이 자바다10',12);
 insert into notices values(11,'이것이 자바뀽',now(),'이것이 자바다11',12);
 insert into notices values(12,'이것이 자바네',now(),'이것이 자바다12',12);
-insert into notices values(13,'이것이 자바지',now(),'이것이 자바다13',12);
+insert into notices values(13,'이것이 자바지 이것이 자바가 아닌지 이것은 자바가 맞는지 이것이 자바가 맞다면 정말 맞는게 맞는건지 자바는 자바가 맞는지',now(),'이것이 자바다13',12);
 
 insert into bookmark(id, users_id, books_id, book_title, isbn) values (1,1,2,'이것도 자바다', '9788968481476');
 insert into bookmark(id, users_id, books_id, book_title, isbn) values (2,1,2,'이것도 자바다', '9788968481476');
