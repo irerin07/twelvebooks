@@ -9,8 +9,9 @@
 </th:script>
 
 <div layout:fragment="content">
-    <form method="post" action="/notices/modify/{id}">
-        <div class="form-group">
+    <div class = "container" style = "width : 80%">
+    <form method="post" >
+        <div class="form-group" >
             <label for="title">제목</label>
             <input type="text" class="form-control" id="title" name="title" th:text="${notice.title}">
         </div>
@@ -38,7 +39,7 @@
         <button type="cancle" class="btn btn-dark">취소</button>
 
     </form>
-
+    </div>
 
 
 
