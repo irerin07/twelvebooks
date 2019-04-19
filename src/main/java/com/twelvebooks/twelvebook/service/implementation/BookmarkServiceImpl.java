@@ -28,4 +28,10 @@ public class BookmarkServiceImpl implements BookmarkService {
     public Bookmark bookmarkAdd(Bookmark bookmark) {
         return bookmarkRepository.save(bookmark);
     }
+
+
+    @Override
+    public void bookmarkDelete(Long id) {
+        bookmarkRepository.deleteById(id);
+    }
 }

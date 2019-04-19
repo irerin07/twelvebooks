@@ -11,4 +11,6 @@ public interface BookmarkService {
     public List<Bookmark> bookmarkList(Long id);
 
     public Bookmark bookmarkAdd(Bookmark bookmark);
+
+    public void bookmarkDelete(Long id);
 }
