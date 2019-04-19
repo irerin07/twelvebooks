@@ -48,12 +48,13 @@
     <form id="search_form" name = "search">
         <div class="col">
             <input type="text" name="searchWord" placeholder="읽을 책을 검색하세요" class="booksearch" id="searchWord">
+            <input type="hidden" name="page" id="page">
             <button type="button" class="btn btn-dark" onclick="bookSearch()">검색</button>
         </div>
     </form>
     <div class="col ">
         <!--<form action="/challenges/addform"  enctype="multipart/form-data" method="POST">-->
-        <div class="bookinfo row fade" style="display: none;">
+        <div class="bookinfo row" >
             <!--<div class="bookinfo fade"></div>-->
             <div class="col" style="text-align: center">
                 <img  src="http://placehold.it/200x200" class="img-thumbnail">
@@ -167,15 +168,10 @@
     </script>
 
     <script>
-        // $(document).ready(function () {
-        //     $(".booksearch").keydown(function (key) {
-        //         if (key.keyCode == 13) bookSearch();
-        //     });
-        // });
         function bookSearch(page){
-            var page = page ? page : 1;
+            var pg = page ? page : 1;
             var form = document.getElementById("search_form");
-            // var modal = document.getElementById(modal);
+            form.page.value = pg;
             if (form.searchWord.value == "") {
                 alert("검색어를 입력하세요");
             }else{
@@ -227,11 +223,11 @@
                                             + authors
                                             + "</div></div>"
                                         html += "<div class='col' style ='padding-top: 5%; width: ' >"
-                                        html += "<a href='./detail?isbn="
+                                        html += "<a href='javascript:inputBook("+isbn+")"
                                             + isbn
                                             + "'>"
                                             + this.title
-                                            + " | "
+                                            + "  /  "
 
                                             + "</a>"
 
@@ -245,10 +241,10 @@
 
                             if (!res.meta.is_end) {
                                 html += "<li style = 'list-style: none'><button class='btn btn-dark btn-lg btn-block' onclick='bookSearch("
-                                    + (page + 1)
+                                    + (pg + 1)
                                     + "); $(this).parent().remove();'>더보기 </button></li>";
                             }
-                            if (page > 1) {
+                            if (pg > 1) {
                                 $("#books > ul").append(html);
                             } else {
                                 $("#books > ul").html(html);
@@ -265,6 +261,14 @@
             }
         }
 
+        function inputBook(isbn){
+            var bookisbn = isbn;
+
+            $.ajax({
+                url: "api/searchBooks/",
+                action : postMessage()
+        });
+        }
     </script>
 </div>
 </html>
