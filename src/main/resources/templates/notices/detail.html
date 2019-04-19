@@ -11,39 +11,46 @@
 
 <div layout:fragment="content">
 
-    <div class="container-fluid" style="margin-bottom: 25px; width: 100%">
+    <div class="container-fluid" style="width: 80%;">
 
             <div class="container">
                 <div>
-                    <h1><span th:text="${notice.title}">title</span></h1><br><br>
-                    <div>
+                    <h1><span th:text="${notice.title}">title</span></h1><br>
+                        <!--<div style="display:inline; ">-->
+                        <!--<div style='display:inline;float:left; text-align: left;padding-left: 10%; width: 50%'>-->
+                             <!--title :    <span th:text="${notice.title}">title</span><br><br>-->
+                        <!--</div>-->
+                        <div style='float:right; text-align: right; padding-right: 10%;'>
+                             등록일  :    <span th:text="${notice.regdate}">regdate</span>
+                        </div><br><br><br>
 
-                        <div>
-                             title :    <span th:text="${notice.title}">title</span><br><br>
-                        </div>
-                        <div>
-                             regdate :   <span th:text="${notice.regdate}">regdate</span><br><br>
-                        </div>
                         <!--이미지 추가해야 함-->
-                        <div>
-                             content :   <span th:text="${notice.content}">content</span><br><br>
-                        </div>
-                    </div>
                 </div>
+                <H4 style = "padding-left: 3%">내용</H4>
+                <div class = "roundgreen">
+                    <span th:text="${notice.content}">content</span><br><br>
+                </div>
+        <div style="padding-top: 3%">
+        <button  type="cancle" style ="float:right;" class="btn btn-dark" onclick="location.href='/notices/list'">목록</button>
+        <div style ="float:left" sec:authorize="hasAuthority('ROLE_ADMIN')" >
+            <!--<a th:href="@{'/notices/modify/' + ${notice.id}}">수정 </a>-->
+            <!--<a th:href="@{'/notices/delete/' + ${notice.id}}">삭제 </a>-->
+            <!--&lt;!&ndash;<button type="button" class="btn btn-success" onclick="location.href='/notices/modify/'+${notice.id}">수정</button>&ndash;&gt;-->
+            <!--&lt;!&ndash;<button type="button" class="btn btn-success" onclick="location.href='/notices/delete/'+${notice.id}">삭제</button>&ndash;&gt;-->
 
-
-            </div>
-        <button type="cancle" class="btn btn-dark" onclick="location.href='/notices/list'">목록</button>
-        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-            <a th:href="@{'/notices/modify/' + ${notice.id}}">수정 </a>
-            <a th:href="@{'/notices/delete/' + ${notice.id}}">삭제 </a>
-            <!--<button type="button" class="btn btn-success" onclick="location.href='/notices/modify/${notices.id}'">수정</button>-->
-            <!--<button type="button" class="btn btn-success" onclick="location.href='/notices/delete/${notice.id}/'">삭제</button>-->
+            <a th:href="@{'/notices/modify/' + ${notice.id}}"><button type="button" class="btn btn-success" >수정</button></a>
+            <a th:href="@{'/notices/delete/' + ${notice.id}}"><button type="button" class="btn btn-success" >삭제</button></a>
         </div>
+        </div>
+
     </div>
 
 
+    </div>
+
 </div>
+
+
 
 
 </body>

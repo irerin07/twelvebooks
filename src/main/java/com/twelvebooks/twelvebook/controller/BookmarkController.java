@@ -41,7 +41,10 @@ public class BookmarkController {
 
         User user = userService.getUserByEmail(principal.getName());
         List<Bookmark> bookmarks = bookmarkService.bookmarkList(user.getId());
+        User username = userService.getUserById(user.getId());
+
         model.addAttribute("bookmarks", bookmarks);
+        model.addAttribute("username", username);
         return "bookmark/list";
     }
 

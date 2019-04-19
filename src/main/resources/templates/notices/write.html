@@ -9,6 +9,8 @@
 </th:script>
 
 <div layout:fragment="content">
+
+    <div class="container" style="width: 80%;">
     <form  method="post" action="/notices/write" >
     <div class="form-group">
         <label for="title">제목</label>
@@ -34,12 +36,12 @@
         <textarea class="form-control" rows="5" id="content"  name="content"></textarea>
     </div>
 
-        <button type="submit" class="btn btn-primary">올리기</button>
-        <button type="cancle" class="btn btn-dark">취소</button>
+
+        <button type="submit" class="btn btn-primary"style ="float:right">올리기</button>
 
     </form>
-
+        <button type="cancle" class="btn btn-dark" onclick="location.href='/notices/list'" style ="float:right">취소</button>
+    </div>
 </div>
 
-</body>
 </html>

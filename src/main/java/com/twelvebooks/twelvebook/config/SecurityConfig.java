@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/notices/write").hasAnyRole("ADMIN")
                 .antMatchers("/notices/modify").hasAnyRole("ADMIN")
                 .antMatchers("/notices/delete").hasAnyRole("ADMIN")
+                .antMatchers("/notices/modify/**").hasAnyRole("ADMIN")
 
                 .antMatchers("/bookmark/list").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookmark/add").hasAnyRole("USER", "ADMIN")
