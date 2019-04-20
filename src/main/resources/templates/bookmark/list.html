@@ -41,7 +41,9 @@
                 }
             });
         });
+
     </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 
     <div class="container" style="width: 80%;">
         <h2 style = "text-align: center" th:text="${username.name} + ' 님의 북마크'"></h2><br>
@@ -51,7 +53,7 @@
         <table class="table" >
             <thead>
             <tr>
-                <th class="text-center" style="width: 10%" ><input type="checkbox" onClick="toggle(this)" /> Toggle All<br/></th>
+                <th class="text-center" style="width: 10%" ><input type="checkbox" onClick="checkAll()" id ="th_checkAll"/><br/></th>
                 <th class="text-center" style="width: 30%" >Img</th>
                 <th class="text-center" style="width: 55%" >제목</th>
                 <th class="text-center" style="width: 15%" >삭제</th>
@@ -61,10 +63,10 @@
 
 
             <tr th:each="bookmarks : ${bookmarks}">
-                <td style="text-align: center; vertical-align: middle"><input type='checkbox' class="chk" name='chk' id="${bookmarks.id}"  /></td>
+                <td style="text-align: center; vertical-align: middle"><input type='checkbox' class="checkRow" name='checkRow' id="${bookmarks.id}"  /></td>
                 <td style="text-align: center;vertical-align: middle" ><img th:src="${bookmarks.thumbnailImage}" style = "width :90px; "></td>
                 <td style ="padding-left: 7%;vertical-align: middle"><a style="color:black"  th:text="${bookmarks.bookTitle}" th:href="@{'/challenges/addform' + ${bookmarks.isbn}}">bookTitle</a></td>
-                <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon">X</span></a></td>
+                <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon"></span></a></td>
             </tr>
             </tbody>
         </table>
