@@ -11,26 +11,26 @@
 
 <div layout:fragment="content">
 
-    <div class="container-fluid" style="width: 80%;">
+    <div class="container-fluid" style="width: 80%; ">
 
-            <div class="container">
+            <div class="container" >
                 <div>
-                    <h1><span th:text="${notice.title}">title</span></h1><br>
+                    <h1 style="border-bottom: 2px solid lightgreen;"><span th:text="${notice.title}">title</span></h1><br>
                         <!--<div style="display:inline; ">-->
                         <!--<div style='display:inline;float:left; text-align: left;padding-left: 10%; width: 50%'>-->
                              <!--title :    <span th:text="${notice.title}">title</span><br><br>-->
                         <!--</div>-->
-                        <div style='float:right; text-align: right; padding-right: 10%;'>
+                        <div style='float:right; text-align: right; padding-right: 3%;'>
                              등록일  :    <span th:text="${notice.regdate}">regdate</span>
                         </div><br><br><br>
 
                         <!--이미지 추가해야 함-->
                 </div>
                 <H4 style = "padding-left: 3%">내용</H4>
-                <div class = "roundgreen">
+                <div class = "container">
                     <span th:text="${notice.content}">content</span><br><br>
                 </div>
-        <div style="padding-top: 3%">
+        <div style="margin-top: 6%">
         <button  type="cancle" style ="float:right;" class="btn btn-dark" onclick="location.href='/notices/list'">목록</button>
         <div style ="float:left" sec:authorize="hasAuthority('ROLE_ADMIN')" >
             <!--<a th:href="@{'/notices/modify/' + ${notice.id}}">수정 </a>-->
