@@ -54,7 +54,7 @@
     </form>
     <div class="col ">
         <!--<form action="/challenges/addform"  enctype="multipart/form-data" method="POST">-->
-        <div class="bookinfo row " style="display:none;">
+        <div class="bookinfo row d-none" id ="bookinfos">
             <!--<div class="bookinfo fade"></div>-->
             <div class="col" style="text-align: center">
                 <img  src="http://placehold.it/200x200" class="img-thumbnail">
@@ -214,6 +214,11 @@
                                             isbn = arr_isbn[0];
                                         }
 
+                                        var title;
+                                        var arr_title = this.title.split(" ");
+                                        title = arr_title[0];
+
+
                                         html += "<li class='list-group-item'>";
                                         html += "<div class='row'>";
                                         html += "<div class='col' >"
@@ -223,7 +228,7 @@
                                             + authors
                                             + "</div></div>"
                                         html += "<div class='col' style ='padding-top: 5%; width: ' >"
-                                        html += "<a href='javascript:inputBook();"
+                                        html += "<a href='javascript:inputBook("+이것이+");"
                                             // + isbn
                                             + "'>"
                                             + this.title
@@ -261,13 +266,13 @@
             }
         }
 
-        function inputBook(){
-            // const $this = $(this);
-            // const title = $this.data("title");
+        function inputBook(title){
+            var bookisbn = title;
 
             $('#myModal').modal('hide');
-            $('.bookinfo').display('block');
-            console.log(title);
+            $('#bookinfos').removeClass('d-none');
+
+            console.log(bookisbn);
 
         }
     </script>
