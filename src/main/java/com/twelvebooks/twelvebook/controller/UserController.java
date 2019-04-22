@@ -187,7 +187,6 @@ public class UserController {
         System.out.println(passwordEncoder.matches(oldpasswd, newpass));
 
         if(!passwordEncoder.matches(oldpasswd, newpass)){
-            System.out.println("아 좆같네");
             FieldError error = new FieldError("passwdDto", "oldpasswd",
                     "비밀번호가 틀립니다.");
             bindingResult.addError(error);

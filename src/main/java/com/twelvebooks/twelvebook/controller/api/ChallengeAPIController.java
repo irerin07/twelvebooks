@@ -24,14 +24,24 @@ public class ChallengeAPIController {
     UserService userService;
 
     @GetMapping
-    public List<Challenge> getChallenge(@RequestParam(name = "userId") Long id,
-                                        @RequestParam(name ="bookStatus") String status){
-        List<Challenge> list = challengeService.getChallengesByUserId(id, status);
+    public List<Challenge> getChallenge(@RequestParam(name = "userId") Long id
+                                        ){
+        List<Challenge> list = challengeService.getChallengesByUserId(id);
         for(Challenge challenge : list){
             System.out.println(challenge.getBooksTitle());
         }
         return list;
     }
+
+//    @GetMapping
+//    public List<Challenge> getChallenge(@RequestParam(name = "userId") Long id,
+//                                        @RequestParam(name ="bookStatus") String status){
+//        List<Challenge> list = challengeService.getChallengesByUserId(id, status);
+//        for(Challenge challenge : list){
+//            System.out.println(challenge.getBooksTitle());
+//        }
+//        return list;
+//    }
 
 
 }
