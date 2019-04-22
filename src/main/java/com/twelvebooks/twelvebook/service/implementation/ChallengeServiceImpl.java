@@ -19,9 +19,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Challenge> getChallengesByUserId(long id, String status) {
+    public List<Challenge> getChallengesByUserId(long id) {
         List<Challenge> challenges = null;
-        challenges = challengeRepository.getChallenges(id, status);
+        challenges = challengeRepository.getChallenges(id);
         return challenges;
     }
 

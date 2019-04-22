@@ -25,7 +25,7 @@ public class ChallengeRepositoryTest {
 
     @Test
     public void getChallengesById() throws Exception{
-        List<Challenge> challenges = challengeRepository.getChallenges(1L, "완료");
+        List<Challenge> challenges = challengeRepository.getChallenges(1L);
         for(Challenge challenge : challenges){
             System.out.println(challenge.getBooksTitle());
         }

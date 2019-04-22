@@ -16,8 +16,8 @@
         <div class="text-center"style="padding-right: 50%;"><span style="color: black; size: 35px;" th:text="${user.comment}"></span></div>
 
         <div class="text">
-            <button class="btn btn-dark" onclick="reading();">읽고 있는 책들</button>
-            <button class="btn btn-dark" onclick="doneread();">읽은 책들</button>
+            <button id="reading" class="btn btn-dark" onclick="reading();">읽고 있는 책들</button>
+            <button id="doneread" class="btn btn-dark" onclick="doneread();">읽은 책들</button>
         </div>
         <div class="text" style="margin-top: 50px">
             <table>
@@ -39,12 +39,13 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         var userId =/*[[${user.id}]]*/ 'default';
-
+        var chaldata;
         $(document).ready(function() {
+            document.getElementById("reading").style.backgroundColor = "cornflowerblue";
             var bookStatus = '읽는중';
             $.ajax({
                 type: 'get',
-                url: '/api/challenge?userId=' + userId + '&bookStatus=' + bookStatus,
+                url: '/api/challenge?userId=' + userId,
                 async: false,
                 contentType: "application/json",
                 error: function () {
@@ -52,71 +53,59 @@
                 },
                 success: function (data) {
                     $('#challenge').html("");
-                    console.log(data);
+                    chaldata = data;
                     for (var i = 0; i < data.length; i++) {
-                        // var challengeDiv = $('<div class="text-center"> title : ' + data[i].booksTitle + ' start Date: ' + data[i].startDate + ' end date: ' + data[i].endDate + ' status : ' + data[i].bookStatus + ' thumbnail: <img style="width: 150px" src="'+data[i].thumbnailImage+'"/></div>');
-                        var challengeDiv = $(' <tr border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-bottom: 50px; width: 100px;" src="'+data[i].thumbnailImage+'" /></span></td>\n' +
-                            '                    <td><span style="padding-right: 150px;">' +data[i].booksTitle + '</span></td>\n' +
-                            '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
-                            '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>');
-                        challengeDiv.appendTo($('#challenge'));
+                        if (data[i].bookStatus == '읽는중') {
+                            var challengeDiv = $(' <tr border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-bottom: 50px; width: 100px;" src="' + data[i].thumbnailImage + '" /></span></td>\n' +
+                                '                    <td><span style="padding-right: 150px;">'  + data[i].booksTitle + '</span></td>\n' +
+                                '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
+                                '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>');
+                            challengeDiv.appendTo($('#challenge'));
+                        }
                     }
-                    return false;
                 }
+            });
+            $("#demo").on("hide.bs.collapse", function(){
+                $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Open');
+            });
+            $("#demo").on("show.bs.collapse", function(){
+                $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Close');
             });
         });
         function doneread() {
-            var bookStatus = '완료';
-            $.ajax({
-                type: 'get',
-                url: '/api/challenge?userId=' + userId + '&bookStatus=' + bookStatus,
-                async: false,
-                contentType: "application/json",
-                error: function () {
-                    alert('와!에러!와!일해라!');
-                },
-                success: function (data) {
-                    console.log(data);
-                    $('#challenge').html("");
-                    for (var i = 0; i < data.length; i++) {
-                        // var challengeDiv = $('<div class="text-center"> title : ' + data[i].booksTitle + ' start Date: ' + data[i].startDate + ' end date: ' + data[i].endDate + ' status : ' + data[i].bookStatus + ' thumbnail: <img style="width: 150px" src="'+data[i].thumbnailImage+'"/></div>');
-                        var challengeDiv = $(' <tr border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-bottom: 50px; width: 100px;" src="'+data[i].thumbnailImage+'" /></span></td>\n' +
-                            '                    <td><span style="padding-right: 150px;">' +data[i].booksTitle + '</span></td>\n' +
-                            '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
-                            '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>');
-                        challengeDiv.appendTo($('#challenge'));
-                    }
-                    return false;
+            $('#challenge').html("");
+            document.getElementById("doneread").style.backgroundColor = "cornflowerblue";
+            document.getElementById("reading").style.backgroundColor = "";
+            var comp = '완료';
+            console.log(chaldata);
+            for (var i = 0; i < chaldata.length; i++) {
+                if (chaldata[i].bookStatus == '완료') {
+                    console.log(chaldata[i]);
+                    var challengeDiv = $(' <tr border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-bottom: 50px; width: 100px;" src="' + chaldata[i].thumbnailImage + '" /></span></td>\n' +
+                        '                    <td><span style="padding-right: 150px;">'  + chaldata[i].booksTitle + '</span></td>\n' +
+                        '                    <td><span style="padding-right: 150px;">' + chaldata[i].startDate + '</span></td>\n' +
+                        '                    <td><span style="padding-right: 150px;">' + chaldata[i].endDate + '</span></td></tr>');
+                    challengeDiv.appendTo($('#challenge'));
                 }
-            });
+
+            }
         }
 
         function reading() {
-
-            var bookStatus = '읽는중';
-            $.ajax({
-                type: 'get',
-                url: '/api/challenge?userId=' + userId + '&bookStatus=' + bookStatus,
-                async: false,
-                contentType: "application/json",
-                error: function () {
-                    alert('와!에러!와!일해라!');
-                },
-                success: function (data) {
-                    $('#challenge').html("");
-                    console.log(data);
-                    for (var i = 0; i < data.length; i++) {
-                        // var challengeDiv = $('<div class="text-center"> title : ' + data[i].booksTitle + ' start Date: ' + data[i].startDate + ' end date: ' + data[i].endDate + ' status : ' + data[i].bookStatus + ' thumbnail: <img style="width: 150px" src="'+data[i].thumbnailImage+'"/></div>');
-                        var challengeDiv = $(' <tr border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-bottom: 50px; width: 100px;" src="'+data[i].thumbnailImage+'" /></span></td>\n' +
-                            '                    <td><span style="padding-right: 150px;">' +data[i].booksTitle + '</span></td>\n' +
-                            '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
-                            '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>');
-                        challengeDiv.appendTo($('#challenge'));
-                    }
-                    return false;
+            $('#challenge').html("");
+            document.getElementById("doneread").style.backgroundColor = "";
+            document.getElementById("reading").style.backgroundColor = "cornflowerblue";
+            var comp = '완료';
+            console.log(chaldata);
+            for (var i = 0; i < chaldata.length; i++) {
+                if (chaldata[i].bookStatus == '읽는중') {
+                    var challengeDiv = $(' <tr border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-bottom: 50px; width: 100px;" src="' + chaldata[i].thumbnailImage + '" /></span></td>\n' +
+                        '                    <td><span style="padding-right: 150px;">'  + chaldata[i].booksTitle + '</span></td>\n' +
+                        '                    <td><span style="padding-right: 150px;">' + chaldata[i].startDate + '</span></td>\n' +
+                        '                    <td><span style="padding-right: 150px;">' + chaldata[i].endDate + '</span></td></tr>');
+                    challengeDiv.appendTo($('#challenge'));
                 }
-            });
-
+            }
         }
 
         /*]]>*/
