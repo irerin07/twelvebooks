@@ -9,7 +9,6 @@
 </th:script>
 
 <div layout:fragment="content">
-
     <script>
         $(function () {
             $("#deleteButton").click(function () {
@@ -18,7 +17,7 @@
                     checkedAny = true;
                     var listid = $(this).val();
                     $.ajax({
-                        url : '/api/bookmark/'+id,
+                        url : '/api/bookmark/'+listid,
                         method : 'delete',
                         success : function (data) {
                             document.getElementById(listid).remove();
@@ -48,34 +47,33 @@
     <div class="container" style="width: 80%;">
         <h2 style = "text-align: center" th:text="${username.name} + ' 님의 북마크'"></h2><br>
 
-        <form method="post" name='my_form' >
+        <form method="post" id="list" action="#" >
 
         <table class="table" >
             <thead>
             <tr>
                 <th class="text-center" style="width: 10%" ><input type="checkbox" id="checkAll"/><br/></th>
-                <th class="text-center" style="width: 30%" >Img</th>
-                <th class="text-center" style="width: 55%" >제목</th>
+                <th class="text-center" style="width: 30%" >이미지</th>
+                <th class="text-center" style="width: 55%; padding-right: 15%" >제목</th>
                 <th class="text-center" style="width: 15%" >  </th>
             </tr>
             </thead>
             <tbody>
 
+            <tr th:if="${#lists.isEmpty(bookmarks)}">
+                <td colspan="4" style="text-align: center;">북마크가 비어있습니다.</td>
+            </tr>
 
-            <tr th:each="bookmarks : ${bookmarks}">
+            <tr th:if="${not #lists.isEmpty(bookmarks)}" th:each="bookmarks : ${bookmarks}">
                 <td style="text-align: center; vertical-align: middle"><input type='checkbox' name="listId" id="listId" th:value="${bookmarks.id}"/></td>
                 <td style="text-align: center;vertical-align: middle" ><img th:src="${bookmarks.thumbnailImage}" style = "width :90px; "></td>
-                <td style ="padding-left: 7%;vertical-align: middle"><a style="color:black"  th:text="${bookmarks.bookTitle}" th:href="@{'/challenges/addform' + ${bookmarks.isbn}}">bookTitle</a></td>
+                <td style ="vertical-align: middle;text-align: center;padding-right: 15%"><a style="color:black"  th:text="${bookmarks.bookTitle}" th:href="@{'/api/challenges/addform/' + ${bookmarks.isbn}}">bookTitle</a></td>
                 <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon"></span></a></td>
             </tr>
             </tbody>
         </table>
-
-            <div style ="float:left">
-                <input type='button' id="checkAll" onClick="checkAll" value='모두 선택' />
-            </div>
             <div style ="float:right">
-                <button type="submit" class="btn btn-primary">선택 삭제</button>
+                <button  type="button" class="btn btn-primary" id="deleteButton" name="deleteButton">선택 삭제</button>
 
 
             </div>

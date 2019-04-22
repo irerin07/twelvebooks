@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN")
 
+
                 .antMatchers("/notices/list").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/notices/detail").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/notices/write").hasAnyRole("ADMIN")
@@ -45,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/notices/delete").hasAnyRole("ADMIN")
                 .antMatchers("/notices/modify/**").hasAnyRole("ADMIN")
 
+                .antMatchers("/api/bookmark/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookmark/list").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookmark/add").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookmark/delete").hasAnyRole("USER", "ADMIN")

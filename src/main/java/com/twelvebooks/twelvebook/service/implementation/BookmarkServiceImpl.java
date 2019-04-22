@@ -20,8 +20,8 @@ public class BookmarkServiceImpl implements BookmarkService {
     public List<Bookmark> bookmarkList(Long id) {
 
         List<Bookmark> bookmarks = null;
-        bookmarks = bookmarkRepository.getBookmark(id);
-        return bookmarks;
+        return bookmarks = bookmarkRepository.getBookmark(id);
+//        return bookmarks;
     }
 
     @Override
