@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/bookamark")
+@RequestMapping("/api/bookmark")
 @RequiredArgsConstructor
 public class BookmarkAPIController {
 
@@ -34,30 +34,20 @@ public class BookmarkAPIController {
     @Autowired
     UserRepository userRepository;
 
-
-    @GetMapping("/list")
-    public String bookmarkList(Model model, Principal principal){
-
-        User user = userService.getUserByEmail(principal.getName());
-        List<Bookmark> bookmarks = bookmarkService.bookmarkList(user.getId());
-        User username = userService.getUserById(user.getId());
-
-        model.addAttribute("bookmarks", bookmarks);
-        model.addAttribute("username", username);
-        return "bookmark/list";
-    }
-
-
     @GetMapping("/delete/{id}")
-    public String bookmarkdelete(@PathVariable(name="id") Long id){
+    public int bookmarkdelete(@PathVariable(name="id") Long id, Principal principal){
+        User user =  userService.getUserByEmail(principal.getName());
         bookmarkRepository.deleteById(id);
-        return "redirect:/bookmark/list";
+        return bookmarkService.bookmarkList(user.getId()).size();
+//        return "redirect:/bookmark/list";
     }
 
     @DeleteMapping(value = "/{id}")
-    public String delete(@PathVariable(value = "id") Long id){
+    public int delete(@PathVariable(value = "listid") Long id, Principal principal){
+        User user =  userService.getUserByEmail(principal.getName());
         bookmarkService.bookmarkDelete(id);
-        return "redirect:/bookmark/list";
+        return bookmarkService.bookmarkList(user.getId()).size();
+//        return "redirect:/bookmark/list";
     }
 
 
@@ -73,7 +63,7 @@ public class BookmarkAPIController {
         bookmark.setThumbnailImage(thumbnailImage);
 
         bookmarkService.bookmarkAdd(bookmark);
-        return "redirect:/challenges/addform";
+        return "challenges/addform";
     }
 
 
