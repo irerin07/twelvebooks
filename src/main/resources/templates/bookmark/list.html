@@ -53,91 +53,45 @@
         <table class="table" >
             <thead>
             <tr>
-                <th class="text-center" style="width: 10%" ><input type="checkbox" onClick="checkAll()" id ="th_checkAll"/><br/></th>
+                <th class="text-center" style="width: 10%" ><input type="checkbox" id="checkAll"/><br/></th>
                 <th class="text-center" style="width: 30%" >Img</th>
                 <th class="text-center" style="width: 55%" >제목</th>
-                <th class="text-center" style="width: 15%" >삭제</th>
+                <th class="text-center" style="width: 15%" >  </th>
             </tr>
             </thead>
             <tbody>
 
 
             <tr th:each="bookmarks : ${bookmarks}">
-                <td style="text-align: center; vertical-align: middle"><input type='checkbox' class="checkRow" name='checkRow' id="${bookmarks.id}"  /></td>
+                <td style="text-align: center; vertical-align: middle"><input type='checkbox' name="listId" id="listId" th:value="${bookmarks.id}"/></td>
                 <td style="text-align: center;vertical-align: middle" ><img th:src="${bookmarks.thumbnailImage}" style = "width :90px; "></td>
                 <td style ="padding-left: 7%;vertical-align: middle"><a style="color:black"  th:text="${bookmarks.bookTitle}" th:href="@{'/challenges/addform' + ${bookmarks.isbn}}">bookTitle</a></td>
                 <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon"></span></a></td>
             </tr>
             </tbody>
         </table>
+
+            <div style ="float:left">
+                <input type='button' id="checkAll" onClick="checkAll" value='모두 선택' />
+            </div>
             <div style ="float:right">
-                <input type='button' onclick="toggle(this)" value='모두 선택' />
-                <input type="checkbox" onClick="toggle()" /> Toggle All<br/>
-                <input type="checkbox" onClick="toggle(source)" /> Toggle All<br/>
-                <input type="checkbox" id="#th_checkAll"  onclick="checkAll()">
-                <input type="checkbox" class="chk" id="chk_all"/>
                 <button type="submit" class="btn btn-primary">선택 삭제</button>
-                <input type="checkbox" name="all" class="check-all"> <label>Check ALL</label>
-                <th><input type="checkbox" name="" id="checkAll" /></th>
+
 
             </div>
         </form>
-        <input type='button' onClick="toggle(this)"  value='모두 선택' />
     </div>
 
 
 </div>
 
 <script>
-    function checkAll(){
-        if( $("#th_checkAll").is(':checked') ){
-            $("input[name=checkRow]").prop("checked", true);
-        }else{
-            $("input[name=checkRow]").prop("checked", false);
-        }
-    }
 
 
-    function toggle(source) {
-        checkboxes = document.getElementsByName('mycheck');
-        for(var i=0, n=checkboxes.length;i<n;i++) {
-            checkboxes[i].checked = source.checked;
-        }
-    }
 
 
-    // 체크박스 전체선택 및 전체해제
-    $("#chk_all").click(function(){
-        if($("#chk_all").is(":checked")){
-            $(".chk").prop("checked", true);
-        }
-        else{
-            $(".chk").prop("checked", false);
-        }
-    });
 
-    // 한개의 체크박스 선택 해제시 전체선택 체크박스도 해제
-    $(".chk").click(function(){
-        if($("input[name='chk']:checked").length == 3){
-            $("#chk_all").prop("checked", true);
-        }else{
-            $("#chk_all").prop("checked", false);
-        }
-    });
-{
-    $( document ).ready( function() {
-        $( '.check-all' ).click( function() {
-            $( '.chk' ).prop( 'checked', this.checked );
-        } );
-    } );
 
-    if (! $('#checkAll').attr('checked')) {
-        $('.checkSelect').attr('checked', false);
-    }else{
-        $('.checkSelect').attr('checked', 'checked');
-    }
-
-});
 </script>
 </body>
 </html>
