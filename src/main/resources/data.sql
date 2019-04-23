@@ -55,6 +55,7 @@ insert into challenges(id, start_date, end_date, days, visibility, book_status, 
 insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(12, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
 insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(13, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 4, '이것만이 자바다', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg');
 insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(14, '2019-03-29 23:59:59', '2019-04-27 23:59:59',30, 0,    '완료', 1, 6, '사람, 장소, 환대', 'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F495015%3Ftimestamp%3D20190123132318');
+insert into challenges(id, start_date, end_date, days, visibility, book_status, user_id, book_id, books_title, thumbnail_image) values(15, '2019-04-23 23:59:59', '2019-04-27 23:59:59',30, 0,    '읽는중', 1, 6, '사람, 장소, 환대', 'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F495015%3Ftimestamp%3D20190123132318');
 
 
 insert into diaries(id, day, content,  challenge_id) values(1, 1, '자바 존나 어렵네',  1);
