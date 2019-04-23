@@ -39,6 +39,11 @@ a:link{
     cursor: pointer;
 }
 
+.btn:focus, .btn.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
 .sidenav {
     height: 100%;
     width: 0;
