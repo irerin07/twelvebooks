@@ -9,6 +9,7 @@ import com.twelvebooks.twelvebook.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -49,6 +50,7 @@ public class NoticeController {
         Page<Notice> noticePage = noticeRepository.findAll(pageable);
         model.addAttribute("noticepage", noticePage);
         return "notices/list";
+
     }
 
     @GetMapping("/{id}")

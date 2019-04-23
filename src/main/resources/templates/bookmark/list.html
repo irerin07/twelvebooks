@@ -12,25 +12,57 @@
     <script>
         $(function () {
             $("#deleteButton").click(function () {
+                var confirm_val = confirm("정말 삭제하시겠습니까?");
                 var checkedAny = false;
+                if(confirm_val) {
+
+
                 $("input[name=listId]:checked").each(function() {
                     checkedAny = true;
-                    var listid = $(this).val();
+                    var listId = $(this).val();
                     $.ajax({
-                        url : '/api/bookmark/'+listid,
+                        url : '/api/bookmark/'+listId,
                         method : 'delete',
+
                         success : function (data) {
-                            document.getElementById(listid).remove();
+                            document.getElementById(listId).remove();
+
+                            location.href = "/bookmark/list";
                             if(data == 0){
-                                // $("#listBody").append('<tr><td colspan="4" style="text-align: center;">북마가 비어있습니다.</td></tr>');
                             }
                         }
                     });
                 });
                 if(!checkedAny){
-                    alert("아이템을 선택해 주십시오.");
+                    alert("삭제할 책을 선택해주세요");
+                }
+
                 }
             });
+
+            $("#deleteicon").click(function(){
+                var confirm_val = confirm("정말 삭제하시겠습니까?");
+
+                if(confirm_val) {
+                    var checkArr = new Array();
+
+                    checkArr.push($(this).attr("data-bookmarkNum"));
+
+                    $.ajax({
+                        url : "/api/bookmark/delete"+id,
+                        type : "delete",
+                        data : { chbox : checkArr },
+                        success : function(result){
+                            if(result == 1) {
+                                location.href = "/bookmark/list";
+                            } else {
+                                alert("삭제 실패");
+                            }
+                        }
+                    });
+                }
+            });
+
 
             $("#checkAll").click(function(){
                 if($("#checkAll").prop("checked")){
@@ -44,10 +76,10 @@
     </script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 
-    <div class="container" style="width: 80%;">
+    <div class="container" style="width: 70%;">
         <h2 style = "text-align: center" th:text="${username.name} + ' 님의 북마크'"></h2><br>
 
-        <form method="post" id="list" action="#" >
+        <form method="post" id="bookmarklist" action="#" >
 
         <table class="table" >
             <thead>
@@ -64,16 +96,19 @@
                 <td colspan="4" style="text-align: center;">북마크가 비어있습니다.</td>
             </tr>
 
-            <tr th:if="${not #lists.isEmpty(bookmarks)}" th:each="bookmarks : ${bookmarks}">
+            <tr th:if="${not #lists.isEmpty(bookmarks)}" th:attrappend="id=${bookmarks.id}" th:each="bookmarks : ${bookmarks}">
                 <td style="text-align: center; vertical-align: middle"><input type='checkbox' name="listId" id="listId" th:value="${bookmarks.id}"/></td>
                 <td style="text-align: center;vertical-align: middle" ><img th:src="${bookmarks.thumbnailImage}" style = "width :90px; "></td>
-                <td style ="vertical-align: middle;text-align: center;padding-right: 15%"><a style="color:black"  th:text="${bookmarks.bookTitle}" th:href="@{'/api/challenges/addform/' + ${bookmarks.isbn}}">bookTitle</a></td>
-                <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon"></span></a></td>
+                <td style ="vertical-align: middle;text-align: center;padding-right: 15%"><a style="color:black"  th:text="${bookmarks.bookTitle}" th:href="@{'/api/challenges/addform/' + ${bookmarks.book.isbn}}">bookTitle</a></td>
+                <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon"  ></span></a></td>
+                <!--<td style ="vertical-align: middle;text-align: center;"><button  type="button" class ="css-xicon"  id="deleteicon" name="deleteicon" th:data="${bookmarks.id}"></button></td>-->
             </tr>
             </tbody>
         </table>
-            <div style ="float:right">
+            <div class="form-row" style ="float:right">
+                <div class="col">
                 <button  type="button" class="btn btn-primary" id="deleteButton" name="deleteButton">선택 삭제</button>
+                </div>
 
 
             </div>
