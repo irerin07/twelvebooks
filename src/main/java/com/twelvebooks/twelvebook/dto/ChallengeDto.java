@@ -3,7 +3,6 @@ package com.twelvebooks.twelvebook.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Date;
 
@@ -12,11 +11,15 @@ import java.util.Date;
 @ToString
 public class ChallengeDto {
 
+    private String thumbnail;
     private String bookTitle;
-    private Date startDate;
-    private Date endDate;
-    private String bookStatus;
-    private String thumbnailImage;
+    private String author;
+    private String publisher;
+
+    private String startDate;
+    private String endDate;
+    private int days;
+    private String visibility;
 
 
 }

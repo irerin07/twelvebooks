@@ -1,15 +1,15 @@
 package com.twelvebooks.twelvebook.controller.api;
 
 import com.twelvebooks.twelvebook.domain.Challenge;
+import com.twelvebooks.twelvebook.domain.User;
+import com.twelvebooks.twelvebook.dto.ChallengeDto;
 import com.twelvebooks.twelvebook.service.ChallengeService;
 import com.twelvebooks.twelvebook.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -42,6 +42,17 @@ public class ChallengeAPIController {
 //        }
 //        return list;
 //    }
+    @PostMapping
+    public String addChallege(@RequestBody ChallengeDto challengeDto, Principal principal){
+        String email = principal.getName();
+        User user = userService.getUserByEmail(email);
+        Challenge challenge = new Challenge();
 
+
+
+        challengeService.addChallenge(challenge);
+
+        return "ok";
+    }
 
 }

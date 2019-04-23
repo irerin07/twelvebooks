@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface ChallengeService {
 
+    //user의 도전을 추가하는 메소드
+    public Challenge addChallenge(Challenge challenge);
+
     //user의 도전 목록 가져오는 메소드
     public List<Challenge> getChallengesByUserId(long id);
 
