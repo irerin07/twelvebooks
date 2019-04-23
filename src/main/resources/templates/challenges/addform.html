@@ -52,24 +52,22 @@
             <button type="button" class="btn btn-dark" onclick="bookSearch()">검색</button>
         </div>
     </form>
-    <div class="col ">
+
+    <form action="">
+        <div class="col ">
         <!--<form action="/challenges/addform"  enctype="multipart/form-data" method="POST">-->
         <div class="bookinfo row d-none" id ="bookinfos">
             <!--<div class="bookinfo fade"></div>-->
             <div class="col" style="text-align: center">
-                <img  src="http://placehold.it/200x200" class="img-thumbnail">
+                <img  src="http://placehold.it/200x200" class="img-thumbnail" id="ithumbnail" name="thumbnail">
             </div>
             <div class="col">
                 <div class="row">
-                    <div class="col" style="text-align:center; padding-top: 10%;">
-                        <div style="padding-bottom: 10px">제목</div>
-                        <div style="padding-bottom: 10px">작가</div>
-                        <div style="padding-bottom: 10px">출판사</div>
-                    </div>
-                    <div class="col" style="text-align:left; padding-top: 10%;">
-                        <div style="padding-bottom: 10px">이것이 자바다</div>
-                        <div style="padding-bottom: 10px">작가</div>
-                        <div style="padding-bottom: 10px">출판사</div>
+
+                    <div class="col" style="text-align:left; ">
+                        <div style="padding-bottom: 10px"><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">제목</p><p id="booktitle" th:name="booktitle"></p></div>
+                        <div style="padding-bottom: 10px" ><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">작가</p><p id="authors" th:name="authors"></p></div>
+                        <div style="padding-bottom: 10px" ><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">출판사</p><p id="publisher" th:name="publisher"></p></div>
                     </div>
                 </div>
             </div>
@@ -79,9 +77,9 @@
                 <div class="col">도전 날짜</div>
                 <div class="col" >
                     <div class="row" style="padding-left : 15%;">
-                        <input type="text" class="form-control" id="datepicker1" style="width:30%;" onchange="caldates()">
+                        <input type="text" class="form-control" id="datepicker1" style="width:30%;" onchange="caldates()" th:name="startdate">
                         <i class="fas fa-arrow-right"style="padding: 10px;"></i>
-                        <input type="text" class="form-control" id="datepicker2" style="width:30%;" onchange="caldates()">
+                        <input type="text" class="form-control" id="datepicker2" style="width:30%;" onchange="caldates()"th:name="enddate">
                     </div>
                 </div>
             </div>
@@ -89,14 +87,14 @@
             <div class = "row" style="padding-top: 5%;">
                 <div class="col">도전 일수</div>
                 <div class="col" >
-                    <input type="text" id="days" size="6" style="text-align:center;">일
+                    <input type="text" id="days" size="6" style="text-align:center;" th:name="days">일
                 </div>
             </div>
 
             <div class="row" style="padding-top: 5%;">
                 <div class="col">공개여부</div>
                 <div class="col">
-                    <select name="visibility" class="custom-select mb-3" style="width : 30%; padding-left : 10%;">
+                    <select name="visibility" class="custom-select mb-3" style="width : 30%; padding-left : 10%;" th:name="visibility">
                         <option selected value="private">비공개</option>
                         <option value="public">공개</option>
                     </select>
@@ -109,6 +107,7 @@
             <input type="submit" value="도전 시작" class="btn btn-dark">
             </div>
     </div>
+    </form>
 </div>
     <script>
         var picker = new Pikaday({
@@ -157,12 +156,17 @@
             var edd = document.getElementById("datepicker2").value;
             var arr1 = sdd.split('/');
             var arr2 = edd.split('/');
-            var da1 = new Date(arr1[0], arr1[1], arr1[2]);
-            var da2 = new Date(arr2[0], arr2[1], arr2[2]);
+            var da1 = new Date(arr1[0], arr1[1] -1, arr1[2]);
+            console.log("da1 : "+da1);
+            var da2 = new Date(arr2[0], arr2[1] -1, arr2[2]);
+            console.log("da2 : "+da2);
             var diff = da2 - da1;
+            console.log("diff : "+ diff);
             var cDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+            console.log("cDay : "+ cDay);
+            console.log("kkk : "+ diff/cDay)
             if(sdd && edd){
-                document.getElementById('days').value = parseInt((diff/cDay) + 1)
+                document.getElementById('days').value = parseInt((diff/cDay))+1;
             }
         }
     </script>
@@ -214,9 +218,11 @@
                                             isbn = arr_isbn[0];
                                         }
 
-                                        var title;
-                                        var arr_title = this.title.split(" ");
-                                        title = arr_title[0];
+                                        var ititle  =  "\""+this.title+"\"";
+                                        var iauthor  =  "\""+authors+"\"";
+                                        var ipublisher  =  "\""+this.publisher+"\"";
+                                        var ithumbnail =  "\""+this.thumbnail+"\"";
+
 
 
                                         html += "<li class='list-group-item'>";
@@ -228,14 +234,10 @@
                                             + authors
                                             + "</div></div>"
                                         html += "<div class='col' style ='padding-top: 5%; width: ' >"
-                                        html += "<a href='javascript:inputBook("+이것이+");"
-                                            // + isbn
-                                            + "'>"
+                                        html += "<a href='javascript:inputBook("+ititle+","+iauthor+","+ipublisher+","+ithumbnail+");'>"
                                             + this.title
-                                            + "  /  "
-
                                             + "</a>"
-
+                                            + "  /  "
                                             + this.publisher
                                                 +"</div>"
                                                 + "<div class = col style = 'left : 12%;'>"
@@ -266,13 +268,20 @@
             }
         }
 
-        function inputBook(title){
-            var bookisbn = title;
-
+        function inputBook(ititle, iauthor, ipublisher, ithumbnail){
+            var booktitle = ititle;
+            var bookauthor = iauthor;
+            var bookpub = ipublisher;
+            var bookthumb = ithumbnail;
+            console.log(bookthumb);
             $('#myModal').modal('hide');
             $('#bookinfos').removeClass('d-none');
+            $('#booktitle').text(booktitle);
+            $('#authors').text(bookauthor);
+            $('#publisher').text(bookpub);
+            $('#ithumbnail').attr('src', bookthumb);
 
-            console.log(bookisbn);
+
 
         }
     </script>
