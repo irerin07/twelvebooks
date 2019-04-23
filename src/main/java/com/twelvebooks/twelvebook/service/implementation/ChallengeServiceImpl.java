@@ -18,6 +18,13 @@ public class ChallengeServiceImpl implements ChallengeService {
     private ChallengeRepository challengeRepository;
 
     @Override
+    @Transactional
+    public Challenge addChallenge(Challenge challenge) {
+        Challenge addChallenge =  challengeRepository.save(challenge);
+        return addChallenge;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Challenge> getChallengesByUserId(long id) {
         List<Challenge> challenges = null;
@@ -37,5 +44,6 @@ public class ChallengeServiceImpl implements ChallengeService {
         Challenge challenge = null;
         challenge = challengeRepository.getChallengeDetail(id);
         return challenge;
+
     }
 }
