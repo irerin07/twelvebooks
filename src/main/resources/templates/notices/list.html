@@ -27,7 +27,7 @@
 
             <tr th:each="notices : ${noticepage}">
                 <td class="text-center"><span th:text="${notices.id}">id</span></td>
-                    <td style ="padding-left: 10%"><a style="color:black" th:text="${notices.title}" th:href="@{'/notices/' + ${notices.id}}"><span th:text="${notices.title}" > title</span></a></td>
+                    <td style ="padding-left: 10%"><a style="color:black" th:text="${notices.title}" th:href="@{'/notices/' + ${notices.id}}"><b><span  th:text="${notices.title}" > title</span></b></a></td>
                 <td class="text-center"><span th:text="${notices.regdate}">regdate</span></td>
             </tr>
 

@@ -6,8 +6,10 @@
 <header th:fragment="headerFragment">
     <nav class="navbar navbar-expand-sm bg-white navbar-light" style="margin-top: 25px; padding-bottom: 35px;">
         <div id="mySidenav" class="sidenav" sec:authorize="hasAuthority('ROLE_USER')">
+            <div style="text-align: center" >
             <img th:src="@{/images/userprofile/profile-default.png}" height="200" width="200"/>
             <span style="color: whitesmoke" th:text="${#authentication.getName()}"></span>
+            </div>
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a th:href="@{/users/mypage}">My Page</a>
             <a th:href="@{/users/passwdchange}">Password Change</a>

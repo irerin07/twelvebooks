@@ -1,6 +1,8 @@
 package com.twelvebooks.twelvebook.controller.api;
 
 
+import com.twelvebooks.twelvebook.controller.BookmarkController;
+import com.twelvebooks.twelvebook.domain.Book;
 import com.twelvebooks.twelvebook.domain.Bookmark;
 import com.twelvebooks.twelvebook.domain.User;
 import com.twelvebooks.twelvebook.repository.BookmarkRepository;
@@ -13,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -35,19 +40,23 @@ public class BookmarkAPIController {
     UserRepository userRepository;
 
     @GetMapping("/delete/{id}")
-    public int bookmarkdelete(@PathVariable(name="id") Long id, Principal principal){
+    public String bookmarkDelete(@PathVariable(name="id") Long id, Principal principal) {
         User user =  userService.getUserByEmail(principal.getName());
         bookmarkRepository.deleteById(id);
-        return bookmarkService.bookmarkList(user.getId()).size();
-//        return "redirect:/bookmark/list";
+//        return bookmarkService.bookmarkList(user.getId()).size();
+        return "redirect:/bookmark/list";
+
     }
 
+
     @DeleteMapping(value = "/{id}")
-    public int delete(@PathVariable(value = "listid") Long id, Principal principal){
+    public int delete(@PathVariable(value = "id") Long id, Principal principal){
         User user =  userService.getUserByEmail(principal.getName());
         bookmarkService.bookmarkDelete(id);
+
         return bookmarkService.bookmarkList(user.getId()).size();
 //        return "redirect:/bookmark/list";
+//        return list;
     }
 
 
