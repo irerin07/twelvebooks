@@ -10,12 +10,16 @@ import lombok.ToString;
 @ToString
 public class DiaryDto {
 
-    public DiaryDto(String content){
+    public DiaryDto(String content, int day, long chalid){
         this.content = content;
+        this.day = day;
+        this.chalid = chalid;
 
     }
 
     private String content;
+    private int day;
+    private long chalid;
 
 
 
