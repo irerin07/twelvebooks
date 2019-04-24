@@ -5,20 +5,21 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @ToString
 public class DiaryDto {
 
-    public DiaryDto(String content, int day, long chalid){
-        this.content = content;
-        this.day = day;
-        this.chalid = chalid;
-
-    }
+//    public DiaryDto(String content, int days, long chalid){
+//        this.content = content;
+//        this.days = days;
+//        this.chalid = chalid;
+//    }
 
     private String content;
-    private int day;
+    private int days;
     private long chalid;
 
 
