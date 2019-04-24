@@ -21,15 +21,16 @@ public class DiaryAPIController {
 
     @PostMapping
     public void postReview(@RequestBody DiaryDto diaryDto){
-        Diary diary = new Diary();
-        diary.setContent(diaryDto.getContent());
-        System.out.println("DiaryDto: " + diaryDto.getContent());
-        diary.setDay(diaryDto.getDay());
-        System.out.println("DiaryDto: " + diaryDto.getDay());
-        diary.setChallenge(challengeService.getChallengeDetail(diaryDto.getChalid()));
-        System.out.println("DiaryDto: " + diaryDto.getChalid());
+        diaryService.addDiary(diaryDto);
 
-        diaryService.addDiary(diary);
+//        System.out.println("DiaryDto: " + diaryDto.getContent());
+//        System.out.println("DiaryDto: " + diaryDto.getChalid());
+//        System.out.println("DiaryDto: " + diaryDto.getDays());
+//        Diary diary = new Diary();
+//        diary.setContent(diaryDto.getContent());
+//        diary.setDays(diaryDto.getDays());
+//        diary.setChallenge(challengeService.getChallengeDetail(diaryDto.getChalid()));
+//        diaryService.addDiary(diary);
 
 
     }
