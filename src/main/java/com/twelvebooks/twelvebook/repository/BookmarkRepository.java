@@ -13,6 +13,6 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 
     //user id 에 해당하는 bookmark list를 가져온다.
     @Query("SELECT b FROM Bookmark b WHERE b.user.id = :id ORDER BY b.id DESC")
-    public List<Bookmark> getBookmark(@Param("id") Long id);
+    public List<Bookmark> getBookmarks(@Param("id") Long id);
 
 }
