@@ -20,18 +20,21 @@
                 $("input[name=listId]:checked").each(function() {
                     checkedAny = true;
                     var listId = $(this).val();
-                    $.ajax({
-                        url : '/api/bookmark/'+listId,
-                        method : 'delete',
 
-                        success : function (data) {
-                            document.getElementById(listId).remove();
 
-                            location.href = "/bookmark/list";
-                            if(data == 0){
+
+                        $.ajax({
+                            url: '/api/bookmark/' + listId,
+                            method: 'delete',
+
+                            success: function (data) {
+                                document.getElementById(listId).remove();
+                                location.href = "/bookmark/list";
+                                if (data == 0) {
+                                    alert("삭제 실패! 다시 시도해주세요");
+                                }
                             }
-                        }
-                    });
+                        });
                 });
                 if(!checkedAny){
                     alert("삭제할 책을 선택해주세요");
@@ -44,19 +47,15 @@
                 var confirm_val = confirm("정말 삭제하시겠습니까?");
 
                 if(confirm_val) {
-                    var checkArr = new Array();
-
-                    checkArr.push($(this).attr("data-bookmarkNum"));
-
+                    var id = $(this).val();
                     $.ajax({
                         url : "/api/bookmark/delete"+id,
-                        type : "delete",
-                        data : { chbox : checkArr },
+                        type : "get",
                         success : function(result){
                             if(result == 1) {
                                 location.href = "/bookmark/list";
                             } else {
-                                alert("삭제 실패");
+                                alert("삭제 실패! 다시 시도해주세요");
                             }
                         }
                     });
@@ -79,7 +78,7 @@
     <div class="container" style="width: 70%;">
         <h2 style = "text-align: center" th:text="${username.name} + ' 님의 북마크'"></h2><br>
 
-        <form method="post" id="bookmarklist" action="#" >
+        <form method="post" action="#" th:action="@{/api/bookmark}" >
 
         <table class="table" >
             <thead>
@@ -98,9 +97,9 @@
 
             <tr th:if="${not #lists.isEmpty(bookmarks)}" th:attrappend="id=${bookmarks.id}" th:each="bookmarks : ${bookmarks}">
                 <td style="text-align: center; vertical-align: middle"><input type='checkbox' name="listId" id="listId" th:value="${bookmarks.id}"/></td>
-                <td style="text-align: center;vertical-align: middle" ><img th:src="${bookmarks.thumbnailImage}" style = "width :90px; "></td>
-                <td style ="vertical-align: middle;text-align: center;padding-right: 15%"><a style="color:black"  th:text="${bookmarks.bookTitle}" th:href="@{'/api/challenges/addform/' + ${bookmarks.book.isbn}}">bookTitle</a></td>
-                <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon"  ></span></a></td>
+                <td style="text-align: center;vertical-align: middle" ><img th:src="${bookmarks.thumbnailImage}" style = "width :150px; "></td>
+                <td style ="vertical-align: middle;text-align: center;padding-right: 15%"><a style="color:black; font-size: large"  th:text="${bookmarks.bookTitle}" th:href="@{'/api/challenges/addform/' + ${bookmarks.book.isbn}}">bookTitle</a></td>
+                <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon" id="deleteicon" name="deleteicon" ></span></a></td>
                 <!--<td style ="vertical-align: middle;text-align: center;"><button  type="button" class ="css-xicon"  id="deleteicon" name="deleteicon" th:data="${bookmarks.id}"></button></td>-->
             </tr>
             </tbody>
