@@ -21,7 +21,6 @@ public class DiaryAPIController {
 
     @PostMapping
     public void postReview(@RequestBody DiaryDto diaryDto){
-<<<<<<< Updated upstream
         Diary diary = new Diary();
         diary.setContent(diaryDto.getContent());
         System.out.println("DiaryDto: " + diaryDto.getContent());
@@ -31,18 +30,6 @@ public class DiaryAPIController {
         System.out.println("DiaryDto: " + diaryDto.getChalid());
 
         diaryService.addDiary(diary);
-=======
-        diaryService.addDiary(diaryDto);
-
-//        System.out.println("DiaryDto: " + diaryDto.getContent());
-//        System.out.println("DiaryDto: " + diaryDto.getChalid());
-//        System.out.println("DiaryDto: " + diaryDto.getDays());
-//        Diary diary = new Diary();
-//        diary.setContent(diaryDto.getContent());
-//        diary.setDays(diaryDto.getDays());
-//        diary.setChallenge(challengeService.getChallengeDetail(diaryDto.getChalid()));
-//        diaryService.addDiary(diary);
->>>>>>> Stashed changes
 
 
     }
