@@ -40,11 +40,11 @@ public class BookmarkAPIController {
     UserRepository userRepository;
 
     @GetMapping("/delete/{id}")
-    public String bookmarkDelete(@PathVariable(name="id") Long id, Principal principal) {
+    public int bookmarkDelete(@PathVariable(name="id") Long id, Principal principal) {
         User user =  userService.getUserByEmail(principal.getName());
         bookmarkRepository.deleteById(id);
-//        return bookmarkService.bookmarkList(user.getId()).size();
-        return "redirect:/bookmark/list";
+        return bookmarkService.bookmarkList(user.getId()).size();
+//        return "redirect:/bookmark/list";
 
     }
 

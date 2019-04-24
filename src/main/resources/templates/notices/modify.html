@@ -10,7 +10,7 @@
 
 <div layout:fragment="content">
     <div class = "container" style = "width : 80%">
-    <form method="post" >
+    <form method="post" action="#" th:action="@{'/notices/modify/' + ${notice.id}}">
         <div class="form-group" >
             <label for="title">제목</label>
             <textarea type="text" class="form-control" id="title" name="title" rows="1" th:text="${notice.title}"></textarea>
