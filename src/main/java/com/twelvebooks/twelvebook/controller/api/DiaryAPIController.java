@@ -20,8 +20,8 @@ public class DiaryAPIController {
     ChallengeService challengeService;
 
     @PostMapping
-    public void postReview(@RequestBody DiaryDto diaryDto){
-        diaryService.addDiary(diaryDto);
+    public Diary postReview(@RequestBody DiaryDto diaryDto){
+        return diaryService.addDiary(diaryDto);
 
 //        System.out.println("DiaryDto: " + diaryDto.getContent());
 //        System.out.println("DiaryDto: " + diaryDto.getChalid());
@@ -31,7 +31,6 @@ public class DiaryAPIController {
 //        diary.setDays(diaryDto.getDays());
 //        diary.setChallenge(challengeService.getChallengeDetail(diaryDto.getChalid()));
 //        diaryService.addDiary(diary);
-
 
     }
 
