@@ -37,6 +37,7 @@ insert into user_roles(user_id, role_id) values (7, 2);
 insert into user_roles(user_id, role_id) values (8, 2);
 insert into user_roles(user_id, role_id) values (9, 2);
 insert into user_roles(user_id, role_id) values (10, 2);
+insert into user_roles(user_id, role_id) values (11, 1);
 insert into user_roles(user_id, role_id) values (11, 2);
 insert into user_roles(user_id, role_id) values (12, 1);
 insert into user_roles(user_id, role_id) values (12, 2);
