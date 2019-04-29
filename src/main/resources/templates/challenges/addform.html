@@ -45,7 +45,7 @@
         <div class="col">
             <input type="text" name="searchWord" placeholder="읽을 책을 검색하세요" class="booksearch" id="searchWord">
             <input type="hidden" name="page" id="page">
-            <button type="button" class="btn btn-dark" onclick="bookSearch()">검색</button>
+            <button type="button" class="btn btn-dark" onclick="bookSearch()" on>검색</button>
         </div>
     </form>
 
@@ -64,6 +64,7 @@
                         <div style="padding-bottom: 10px"><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">제목</p><p id="booktitle" th:name="booktitle"></p></div>
                         <div style="padding-bottom: 10px" ><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">작가</p><p id="authors" th:name="authors"></p></div>
                         <div style="padding-bottom: 10px" ><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">출판사</p><p id="publisher" th:name="publisher"></p></div>
+                        <div style="padding-bottom: 10px" ><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">isbn</p><p id="bookisbn" th:name="bookisbn"></p></div>
                     </div>
                 </div>
             </div>
@@ -102,7 +103,7 @@
                     th:value="${_csrf.token}" />
             <input type="submit" value="도전 시작" class="btn btn-dark">
             </div>
-    </div>
+        </div>
     </form>
 </div>
     <script>
@@ -230,7 +231,7 @@
                                             + authors
                                             + "</div></div>"
                                         html += "<div class='col' style ='padding-top: 5%; width: ' >"
-                                        html += "<a href='javascript:inputBook("+ititle+","+iauthor+","+ipublisher+","+ithumbnail+");'>"
+                                        html += "<a href='javascript:inputBook("+ititle+","+iauthor+","+ipublisher+","+ithumbnail+","+isbn+");'>"
                                             + this.title
                                             + "</a>"
                                             + "  /  "
@@ -264,17 +265,19 @@
             }
         }
 
-        function inputBook(ititle, iauthor, ipublisher, ithumbnail){
+        function inputBook(ititle, iauthor, ipublisher, ithumbnail, isbn){
             var booktitle = ititle;
             var bookauthor = iauthor;
             var bookpub = ipublisher;
             var bookthumb = ithumbnail;
+            var bookisbn = isbn;
             console.log(bookthumb);
             $('#myModal').modal('hide');
             $('#bookinfos').removeClass('d-none');
             $('#booktitle').text(booktitle);
             $('#authors').text(bookauthor);
             $('#publisher').text(bookpub);
+            $('#bookisbn').text(bookisbn);
             $('#ithumbnail').attr('src', bookthumb);
 
 
