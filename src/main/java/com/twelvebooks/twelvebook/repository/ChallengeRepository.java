@@ -17,7 +17,7 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     public List<Challenge> getChallenges(@Param("id") Long id);
 
     // 2.User에 해당하는 Challenge의 정보를 가져오는 쿼리
-    @Query("SELECT c.startDate, c.endDate, c.days, c.user FROM Challenge c WHERE c.id = :id")
+    @Query("SELECT c FROM Challenge c WHERE c.id = :id")
     public Challenge getChallengeDetail(@Param("id") Long id);
 
 

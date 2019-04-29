@@ -30,9 +30,6 @@ public class ChallengeAPIController {
     public List<Challenge> getChallenge(@RequestParam(name = "userId") Long id
                                         ){
         List<Challenge> list = challengeService.getChallengesByUserId(id);
-        for(Challenge challenge : list){
-            System.out.println(challenge.getBooksTitle());
-        }
         return list;
     }
 

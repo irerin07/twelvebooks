@@ -25,17 +25,24 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     @Transactional
     public Diary addDiary(DiaryDto diarydto) {
-        Challenge challenge = challengeRepository.getChallengeDetail(diarydto.getChalid());
+        long chalId = diarydto.getChalid();
+
+        Challenge challenge = challengeRepository.getChallengeDetail(chalId);
+
         Diary diary = new Diary();
+
         diary.setContent(diarydto.getContent());
         diary.setDays(diarydto.getDays());
         diary.setChallenge(challenge);
+
         Diary save = diaryRepository.save(diary);
+
         return save;
     }
 
     @Override
     public List<Diary> getDiariesByChallengeId(long ChallengeId) {
+
         return null;
     }
 }
