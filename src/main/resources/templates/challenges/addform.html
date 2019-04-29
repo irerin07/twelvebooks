@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
+      layout:decorate="layout/default">
 <th:block layout:fragment="css">
 </th:block>
 <th:block layout:fragment="script">
@@ -9,7 +9,6 @@
 
 <div layout:fragment="content">
 <div class="container-fluid text-center"  style="width: 75%; margin-bottom:5%;">
-
 
     <!-- The Modal -->
     <div class="modal fade" id="myModal">

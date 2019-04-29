@@ -2,7 +2,7 @@
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="layout/default">
+      layout:decorate="layout/default">
 <th:block layout:fragment="css"/>
 </th:block>
 <th:block layout:fragment="script"/>
@@ -11,18 +11,16 @@
 <div layout:fragment="content">
 
     <div class="container" style="width: 80%;">
-    <form  method="post" action="/notices/write" >
+    <form  method="post" action="#" th:action="@{/notices/write}" >
     <div class="form-group">
         <label for="title">제목</label>
         <input type="text" class="form-control" id="title" name="title">
-    </div>
+    </div><br><br>
 
         <div class="custom-file">
             <input type="file" class="custom-file-input" id="customFile">
             <label class="custom-file-label" for="customFile">Choose file</label>
-        </div>
-
-
+        </div><br>
     <script>
         // Add the following code if you want the name of the file appear on select
         $(".custom-file-input").on("change", function() {
@@ -37,11 +35,32 @@
     </div>
 
 
+        <!--<div class="form-group" >-->
+            <!--<div class="container-fluid text-center"  style="width: 75%; margin-bottom:5%;">-->
+                <!--<div class="form-control"  id="content"  name="content"  style="height: 150px;">-->
+                    <!--<p><br></p>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<script>-->
+                <!--var quill = new Quill('#content', {-->
+                    <!--modules: {-->
+                        <!--toolbar: [-->
+                            <!--['bold', 'italic'],-->
+                            <!--['link', 'blockquote', 'code-block', 'image'],-->
+                            <!--[{ list: 'ordered' }, { list: 'bullet' }]-->
+                        <!--]-->
+                    <!--},-->
+                    <!--placeholder: '공지사항 작성',-->
+                    <!--theme: 'snow'  // or 'bubble'-->
+                <!--});-->
+            <!--</script>-->
+        <!--</div>-->
         <button type="submit" class="btn btn-primary"style ="float:right">올리기</button>
 
     </form>
         <button type="cancle" class="btn btn-dark" onclick="location.href='/notices/list'" style ="float:right">취소</button>
     </div>
 </div>
+
 
 </html>
