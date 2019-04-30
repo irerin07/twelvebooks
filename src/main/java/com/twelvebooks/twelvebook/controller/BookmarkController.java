@@ -36,16 +36,27 @@ public class BookmarkController {
     @Autowired
     UserRepository userRepository;
 
+//    @GetMapping("/list")
+//    public String bookmarkList(Model model, Principal principal){
+//
+//        User user = userService.getUserByEmail(principal.getName());
+//        List<Bookmark> bookmarks = bookmarkService.bookmarkList(user.getId());
+//        User username = userService.getUserById(user.getId());
+//
+//        model.addAttribute("bookmarks", bookmarks);
+//        model.addAttribute("username", username);
+//        return "bookmark/list";
+//    }
+
+
     @GetMapping("/list")
-    public String bookmarkList(Model model, Principal principal){
-
+    public String bookmarklist(Model model, Principal principal) {
         User user = userService.getUserByEmail(principal.getName());
-        List<Bookmark> bookmarks = bookmarkService.bookmarkList(user.getId());
         User username = userService.getUserById(user.getId());
-
-        model.addAttribute("bookmarks", bookmarks);
+        List<Bookmark> bookmarks = bookmarkService.selectAllByUserId(user.getId());
         model.addAttribute("username", username);
+        model.addAttribute("bookmarks",bookmarks);
+
         return "bookmark/list";
     }
-
 }
