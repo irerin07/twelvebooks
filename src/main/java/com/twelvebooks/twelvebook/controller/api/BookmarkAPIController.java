@@ -39,24 +39,29 @@ public class BookmarkAPIController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/delete/{id}")
-    public int bookmarkDelete(@PathVariable(name="id") Long id, Principal principal) {
-        User user =  userService.getUserByEmail(principal.getName());
-        bookmarkRepository.deleteById(id);
-        return bookmarkService.bookmarkList(user.getId()).size();
-//        return "redirect:/bookmark/list";
+//    @GetMapping("/delete/{id}")
+//    public int bookmarkDelete(@PathVariable(name="id") Long id, Principal principal) {
+//        User user =  userService.getUserByEmail(principal.getName());
+//        bookmarkRepository.deleteById(id);
+//        return bookmarkService.bookmarkList(user.getId()).size();
+//
+//    }
 
-    }
 
+//    @DeleteMapping(value = "/{id}")
+//    public int delete(@PathVariable(value = "id") Long id, Principal principal){
+//        User user =  userService.getUserByEmail(principal.getName());
+//        bookmarkService.bookmarkDelete(id);
+//
+//        return bookmarkService.bookmarkList(user.getId()).size();
+//
+//    }
 
-    @DeleteMapping(value = "/{id}")
-    public int delete(@PathVariable(value = "id") Long id, Principal principal){
-        User user =  userService.getUserByEmail(principal.getName());
+    @DeleteMapping(value = "/{listId}")
+    public int delete(@PathVariable(value = "listId") Long id, Principal principal){
+        User user = userService.getUserByEmail(principal.getName());
         bookmarkService.bookmarkDelete(id);
-
-        return bookmarkService.bookmarkList(user.getId()).size();
-//        return "redirect:/bookmark/list";
-//        return list;
+        return bookmarkService.selectAllByUserId(user.getId()).size();
     }
 
 

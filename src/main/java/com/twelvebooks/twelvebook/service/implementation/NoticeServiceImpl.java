@@ -22,12 +22,14 @@ public class NoticeServiceImpl implements NoticeService {
 
 
     @Override
+    @Transactional
     public Notice noticeWrite(Notice notice) {
         return noticeRepository.save(notice);
     }
 
 
     @Override
+    @Transactional
     public List<Notice> noticeList() {
 //        int limit = 10;
 //        int start = page * limit - limit;
@@ -38,11 +40,13 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
+    @Transactional
     public Notice noticeDetail(Long id) {
         return noticeRepository.getNotice(id);
     }
 
     @Override
+    @Transactional
     public Notice noticeModify(Notice notice, Long id) {
 
         notice.setId(id);

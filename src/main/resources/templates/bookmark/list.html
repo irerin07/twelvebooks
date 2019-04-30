@@ -15,21 +15,19 @@
                 var confirm_val = confirm("정말 삭제하시겠습니까?");
                 var checkedAny = false;
                 if(confirm_val) {
-
-
                 $("input[name=listId]:checked").each(function() {
                     checkedAny = true;
-                    var listId = $(this).val();
-
+                    var listid = $(this).val();
+                    var arr = new Array();
 
 
                         $.ajax({
-                            url: '/api/bookmark/' + listId,
+                            url: '/api/bookmark/' + listid,
                             method: 'delete',
 
                             success: function (data) {
-                                document.getElementById(listId).remove();
-                                location.href = "/bookmark/list";
+                                document.getElementById(listid).remove();
+                                // location.href = "/bookmark/list";
                                 if (data == 0) {
                                     alert("삭제 실패! 다시 시도해주세요");
                                 }
@@ -47,11 +45,12 @@
                 var confirm_val = confirm("정말 삭제하시겠습니까?");
 
                 if(confirm_val) {
-                    var id = $(this).val();
+                    var listid = $(this).val();
                     $.ajax({
                         url : "/api/bookmark/delete"+id,
                         type : "get",
                         success : function(result){
+                            document.getElementById(listId).remove();
                             if(result == 1) {
                                 location.href = "/bookmark/list";
                             } else {
@@ -96,7 +95,7 @@
             </tr>
 
             <tr th:if="${not #lists.isEmpty(bookmarks)}" th:attrappend="id=${bookmarks.id}" th:each="bookmarks : ${bookmarks}">
-                <td style="text-align: center; vertical-align: middle"><input type='checkbox' name="listId" id="listId" th:value="${bookmarks.id}"/></td>
+                <td style="text-align: center; vertical-align: middle"><input type='checkbox' name="listId" id="listId"/></td>
                 <td style="text-align: center;vertical-align: middle" ><img th:src="${bookmarks.thumbnailImage}" style = "width :150px; "></td>
                 <td style ="vertical-align: middle;text-align: center;padding-right: 15%"><a style="color:black; font-size: large"  th:text="${bookmarks.bookTitle}" th:href="@{'/api/challenges/addform/' + ${bookmarks.book.isbn}}">bookTitle</a></td>
                 <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon" id="deleteicon" name="deleteicon" ></span></a></td>
