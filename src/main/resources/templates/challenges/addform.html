@@ -48,7 +48,7 @@
         </div>
     </form>
 
-    <form action="/challenges/addChallenge" method="post">
+    <form  method="post" id="challengeform">
         <div class="col ">
         <!--<form action="/challenges/addform"  enctype="multipart/form-data" method="POST">-->
         <div class="bookinfo row d-none" id ="bookinfos">
@@ -59,10 +59,28 @@
             <div class="col">
                 <div class="row">
                     <div class="col" style="text-align:left; ">
-                        <div style="padding-bottom: 10px"><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">제목</p><p id="booktitle" th:name="booktitle"></p></div>
-                        <div style="padding-bottom: 10px" ><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">작가</p><p id="authors" th:name="authors"></p></div>
-                        <div style="padding-bottom: 10px" ><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">출판사</p><p id="publisher" th:name="publisher"></p></div>
-                        <div style="padding-bottom: 10px" ><p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">isbn</p><p id="bookisbn" th:name="bookisbn"></p></div>
+                        <div style="padding-bottom: 10px">
+                            <p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">제목</p>
+                            <p><input type="text" id="booktitle" readonly style="border :none;" th:name="booktitle"></p>
+                        </div>
+                        <div style="padding-bottom: 10px" >
+                            <p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">작가</p>
+                            <p>
+                                <input type="text" id="authors" readonly style="border :none;" th:name="authors">
+                            </p>
+                        </div>
+                        <div style="padding-bottom: 10px" >
+                            <p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">출판사</p>
+                            <p >
+                                <input type="text" readonly style="border :none;"  id="publisher" th:name="publisher">
+                            </p>
+                        </div>
+                        <div style="padding-bottom: 10px" >
+                            <p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">isbn</p>
+                            <p>
+                                <input type="text" readonly style="border :none;" id="bookisbn" th:name="bookisbn">
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,8 +108,8 @@
                 <div class="col">공개여부</div>
                 <div class="col">
                     <select name="visibility" class="custom-select mb-3" style="width : 30%; padding-left : 10%;" th:name="visibility">
-                        <option selected value="private">비공개</option>
-                        <option value="public">공개</option>
+                        <option selected value="private" th:name="private">비공개</option>
+                        <option value="public" th:name="public">공개</option>
                     </select>
                 </div>
             </div>
@@ -99,7 +117,7 @@
             <input type="hidden"
                     th:name="${_csrf.parameterName}"
                     th:value="${_csrf.token}" />
-            <input type="submit" value="도전 시작" class="btn btn-dark">
+            <input type="button" value="도전 시작" class="btn btn-dark" onclick="addChallenge()">
             </div>
         </div>
     </form>
@@ -271,12 +289,30 @@
 
             $('#myModal').modal('hide');
             $('#bookinfos').removeClass('d-none');
-            $('#booktitle').text(booktitle);
-            $('#authors').text(bookauthor);
-            $('#publisher').text(bookpub);
-            $('#bookisbn').text(bookisbn);
+            $('#booktitle').val(booktitle);
+            $('#authors').val(bookauthor);
+            $('#publisher').val(bookpub);
+            $('#bookisbn').val(bookisbn);
             $('#thumbnail').attr('src', bookthumb);
             $('#ithumbnail').val(bookthumb);
+        }
+    </script>
+
+    <script>
+        function addChallenge() {
+            var challenge = document.getElementById("#challengeform");
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            if(1==1){
+                $.ajax({
+                    type : "post",
+                    url : "/api/challenges",
+                    data : $(challenge).serialize(),
+                    beforeSend : function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    })
+            }
         }
     </script>
 </div>

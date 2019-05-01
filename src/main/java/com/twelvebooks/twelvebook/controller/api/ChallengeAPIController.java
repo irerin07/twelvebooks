@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.mappers.ModelMapper;
 
+import javax.xml.bind.helpers.PrintConversionEventImpl;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -43,10 +44,9 @@ public class ChallengeAPIController {
 //        return list;
 //    }
     @PostMapping
-    public String addChallege(@RequestBody ChallengeDto challengeDto){
+    public String addChallenge(@RequestBody ChallengeDto challengeDto, Principal principal){
 
-
-
+        System.out.println(challengeDto.toString());
 
         return "ok";
     }
