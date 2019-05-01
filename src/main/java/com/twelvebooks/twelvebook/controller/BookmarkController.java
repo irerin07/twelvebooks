@@ -48,4 +48,15 @@ public class BookmarkController {
         return "bookmark/list";
     }
 
+
+//    @GetMapping("/list")
+//    public String bookmarklist(Model model, Principal principal) {
+//        User user = userService.getUserByEmail(principal.getName());
+//        User username = userService.getUserById(user.getId());
+//        List<Bookmark> bookmarks = bookmarkService.selectAllByUserId(user.getId());
+//        model.addAttribute("username", username);
+//        model.addAttribute("bookmarks",bookmarks);
+//
+//        return "bookmark/list";
+//    }
 }

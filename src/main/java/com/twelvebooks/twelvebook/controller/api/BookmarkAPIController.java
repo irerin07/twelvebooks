@@ -44,7 +44,6 @@ public class BookmarkAPIController {
         User user =  userService.getUserByEmail(principal.getName());
         bookmarkRepository.deleteById(id);
         return bookmarkService.bookmarkList(user.getId()).size();
-//        return "redirect:/bookmark/list";
 
     }
 
@@ -55,9 +54,15 @@ public class BookmarkAPIController {
         bookmarkService.bookmarkDelete(id);
 
         return bookmarkService.bookmarkList(user.getId()).size();
-//        return "redirect:/bookmark/list";
-//        return list;
+
     }
+
+//    @DeleteMapping(value = "/{listId}")
+//    public int delete(@PathVariable(value = "listId") Long id, Principal principal){
+//        User user = userService.getUserByEmail(principal.getName());
+//        bookmarkService.bookmarkDelete(id);
+//        return bookmarkService.selectAllByUserId(user.getId()).size();
+//    }
 
 
     @PostMapping("/add")

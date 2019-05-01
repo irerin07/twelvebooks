@@ -52,6 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bookmark/add").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookmark/delete").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/bookmark/delete").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/bookmark/delete/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/api/bookmark/delete/**").hasAnyRole("USER", "ADMIN")
 
                 .antMatchers("/challenges/**").hasAnyRole("USER", "ADMIN")
 

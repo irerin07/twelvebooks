@@ -13,4 +13,6 @@ public interface BookmarkService {
     public Bookmark bookmarkAdd(Bookmark bookmark);
 
     public void bookmarkDelete(Long id);
+
+//    public List<Bookmark> selectAllByUserId(Long userId);
 }
