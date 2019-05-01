@@ -18,17 +18,18 @@
                 if(confirm_val) {
                 $("input[name=listId]:checked").each(function() {
                     checkedAny = true;
-                    var listId = $(this).val();
-                    checkArr.push($(this).attr("listId"));
+                    // var listId = $(this).val();
+                    checkArr.push($(this).val());
 
                         $.ajax({
                             url: '/api/bookmark/selectdel',
                             method: 'post',
                             data : { chbox : checkArr },
 
-                            success: function (data) {
-                                location.href = "/bookmark/list";
-                                if (data == 0) {
+                            success: function (result) {
+                                if (result == 1) {
+                                location.href = "/bookmark/list";}
+                                else{
                                     alert("삭제 실패! 다시 시도해주세요");
                                 }
                             }
