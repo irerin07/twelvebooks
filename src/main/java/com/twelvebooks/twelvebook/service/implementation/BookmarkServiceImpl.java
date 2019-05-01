@@ -38,9 +38,9 @@ public class BookmarkServiceImpl implements BookmarkService {
         bookmarkRepository.deleteById(id);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Bookmark> selectAllByUserId(Long userId) {
-        return bookmarkRepository.findAllByUserId(userId);
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<Bookmark> selectAllByUserId(Long userId) {
+//        return bookmarkRepository.findAllByUserId(userId);
+//    }
 }

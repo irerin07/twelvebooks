@@ -14,5 +14,5 @@ public interface BookmarkService {
 
     public void bookmarkDelete(Long id);
 
-    public List<Bookmark> selectAllByUserId(Long userId);
+//    public List<Bookmark> selectAllByUserId(Long userId);
 }
