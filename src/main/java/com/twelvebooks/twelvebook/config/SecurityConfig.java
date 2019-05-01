@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/bookmark/selectdel").hasAnyRole("USER", "ADMIN")
 
                 .antMatchers("/challenges/**").hasAnyRole("USER", "ADMIN")
-
+                .antMatchers(HttpMethod.POST, "/challenges/addChallenge").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()
