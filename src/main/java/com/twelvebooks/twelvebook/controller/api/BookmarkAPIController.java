@@ -48,14 +48,41 @@ public class BookmarkAPIController {
     }
 
 
-    @DeleteMapping(value = "/{id}")
-    public int delete(@PathVariable(value = "id") Long id, Principal principal){
-        User user =  userService.getUserByEmail(principal.getName());
-        bookmarkService.bookmarkDelete(id);
+//    @DeleteMapping(value = "/{id}")
+//    public int delete(@PathVariable(value = "id") Long id, Principal principal){
+//        User user =  userService.getUserByEmail(principal.getName());
+//        bookmarkService.bookmarkDelete(id);
+//
+//        return bookmarkService.bookmarkList(user.getId()).size();
+//
+//    }
 
-        return bookmarkService.bookmarkList(user.getId()).size();
+    @PostMapping(value = "/selectdel")
+    public int selectDelete(@RequestParam(value = "chbox[]") List<String> chArr, Bookmark bookmark, Principal principal){
 
+
+        User user = userService.getUserByEmail(principal.getName());
+
+        int result = 0;
+        long bookmarkId = 0;
+
+
+        if(user != null) {
+//            cart.setUserId(userId);
+            for(String i : chArr) {
+                bookmarkId = Integer.parseInt(i);
+                bookmark.setId(bookmarkId);
+//                service.deleteCart(cart);
+                bookmarkService.bookmarkDelete(bookmarkId);
+            }
+            result = 1;
+        }
+        return result;
+
+//
+//        return bookmarkService.bookmarkList(user.getId()).size();
     }
+
 
 //    @DeleteMapping(value = "/{listId}")
 //    public int delete(@PathVariable(value = "listId") Long id, Principal principal){
