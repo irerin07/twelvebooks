@@ -20,4 +20,5 @@ public interface ChallengeService {
 
     public Challenge getChallengeDetail(long id);
 
+    List<Challenge> getChallengesByUserIdStatus(long id, String status);
 }

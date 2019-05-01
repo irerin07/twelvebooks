@@ -46,4 +46,11 @@ public class ChallengeServiceImpl implements ChallengeService {
         return challenge;
 
     }
+
+    @Override
+    public List<Challenge> getChallengesByUserIdStatus(long id, String status) {
+        List<Challenge> list = null;
+        list = challengeRepository.getChallengesByStatus(id, status);
+        return list;
+    }
 }

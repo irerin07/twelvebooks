@@ -34,7 +34,13 @@
                 </tr>
                 </thead>
                 <tbody id="challenge">
-
+                <tr th:if="${challengeList.empty}">
+                    <td colspan="2"> No Challenges Available</td>
+                </tr>
+                <!--                <tr th:each="onGoingChal : ${onGoingChal}">-->
+                <!--                    <td><span th:text="${onGoingChal.booksTitle}"> Title </span></td>-->
+                <!--                    <td><span th:text="${onGoingChal.thumbnailImage}"> thumbnailImage </span></td>-->
+                <!--                </tr>-->
                 </tbody>
             </table>
 
@@ -46,139 +52,195 @@
         var chaldata;
 
         $(document).ready(function() {
-
-            $.ajax({
-                type: 'get',
-                url: '/api/challenges?userId=' + userId,
-                async: false,
-                contentType: "application/json",
-                error: function () {
-                    alert('와!에러!와!일해라!');
-                },
-                success: function (data) {
-                    $('#challenge').html("");
-                    chaldata = data;
-                    console.log(data);
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].bookStatus == '읽는중') {
-                            var dateString2 = moment(data[i].startDate).format('YYYY-MM-DD');
-                            var now2 = moment(new Date()); //todays date
-                            var duration = moment.duration(now2.diff(dateString2));
-                            var days = duration.asDays() + 1;
-                            var string = days.toString().substring(0, days.toString().indexOf('.'));
-
-                            console.log(data[i].days);
-                            console.log(days);
-                            if(data[i].days >= days) {
-                                var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + data[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + data[i].thumbnailImage + '" /></span></td>\n' +
-                                    '                    <td><span style="padding-right: 150px;">' + data[i].booksTitle + '</span></td>\n' +
-                                    '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
-                                    '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>' +
-                                    '                    <tr><td colspan="3"><div id="book' + data[i].id + '" class="collapse"><h3>' + string + ' 일차</h3> <textarea type="text" class="form-control" rows="5" name="review" id="review" placeholder="30자 이상을 남겨주세요"\n' +
-                                    '                                   title="review"></textarea><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn"> 작성</button></div></td></tr>');
-
-                                challengeDiv.appendTo($('#challenge'));
-                            }else {
-                                var chalid = data[i].id;
-                                var status = '완료';
-                                var data = {
-                                    chalid      : chalid,
-                                    status      : status,
-                                };
-                                var jsonData = JSON.stringify(data);
-                                $.ajax({
-                                    type: 'post',
-                                    url: '/api/challenges/updateChallengeStatus',
-                                    data: jsonData,
-                                    async: false,
-                                    contentType: "application/json",
-                                    error: function (err) {
-                                        console.log(err.toString());
-                                        alert("서버가 응답하지 않습니다.");
-                                        return false;
-                                    },
-                                    beforeSend: function (xhr) {
-                                        xhr.setRequestHeader(header, token);
-                                    },
-                                    success: function (data) {
-                                        console.log(data);
-                                    }
-                                })
-                            }
-                            // else{
-                            //     var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + data[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + data[i].thumbnailImage + '" /></span></td>\n' +
-                            //         '                    <td><span style="padding-right: 150px;">' + data[i].booksTitle + '</span></td>\n' +
-                            //         '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
-                            //         '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>' +
-                            //         '                    <tr><td colspan="3"><div id="book' + data[i].id + '" class="collapse"><h3>' + string + ' 일차</h3><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn"> 읽은 책들로 이동</button></div></td></tr>');
-                            //
-                            //     challengeDiv.appendTo($('#challenge'));
-                            // }
-
-                        }
-                    }
-                }
-
-            });
-            $("#demo").on("hide.bs.collapse", function(){
-                $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Open');
-            });
-            $("#demo").on("show.bs.collapse", function(){
-                $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Close');
-            });
-        });
-        function doneread() {
             $('#challenge').html("");
-            document.getElementById("doneread").style.backgroundColor = "cornflowerblue";
-            document.getElementById("reading").style.backgroundColor = "";
-            var comp = '완료';
-            console.log(chaldata);
-            for (var i = 0; i < chaldata.length; i++) {
-                if (chaldata[i].bookStatus == '완료') {
-                    var dateString2 = moment(chaldata[i].startDate).format('YYYY-MM-DD');
-                    var now2 = moment(new Date()); //todays date
-                    var duration = moment.duration(now2.diff(dateString2));
-                    var days = duration.asDays()+1;
-                    var string = days.toString().substring(0,days.toString().indexOf('.'));
-
-                    var challengeDiv = $(' <tr><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + chaldata[i].thumbnailImage + '" /></span></td>\n' +
-                        '                    <td><span style="padding-right: 150px;">'  + chaldata[i].booksTitle + '</span></td>\n' +
-                        '                    <td><span style="padding-right: 150px;">' + chaldata[i].startDate + '</span></td>\n' +
-                        '                    <td><span style="padding-right: 150px;">' + chaldata[i].endDate + '</span></td></tr>');
-                    challengeDiv.appendTo($('#challenge'));
-                }
-
+            document.getElementById("doneread").style.backgroundColor = "";
+            document.getElementById("reading").style.backgroundColor = "cornflowerblue";
+            var val =/*[[${onGoingChal}]]*/ [];
+            console.log(val);
+            for (var i = 0; i < val.length; i++) {
+                console.log(val[i].id);
+                var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + val[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + val[i].thumbnailImage + '" /></span></td>\n' +
+                    '                    <td><span style="padding-right: 150px;">' + val[i].booksTitle + '</span></td>\n' +
+                    '                    <td><span style="padding-right: 150px;">' + val[i].startDate + '</span></td>\n' +
+                    '                    <td><span style="padding-right: 150px;">' + val[i].endDate + '</span></td></tr>' +
+                    '                    <tr><td colspan="3"><div id="book' + val[i].id + '" class="collapse"><h3>' + ' 일차</h3> <textarea type="text" class="form-control" rows="5" name="review" id="review" placeholder="30자 이상을 남겨주세요"\n' +
+                    '                                   title="review"></textarea><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn"> 작성</button></div></td></tr>');
+                challengeDiv.appendTo($('#challenge'));
             }
-        }
+        });
 
         function reading() {
             $('#challenge').html("");
             document.getElementById("doneread").style.backgroundColor = "";
             document.getElementById("reading").style.backgroundColor = "cornflowerblue";
-            var comp = '완료';
-            console.log(chaldata);
-            for (var i = 0; i < chaldata.length; i++) {
-                if (chaldata[i].bookStatus == '읽는중') {
-                    var dateString2 = moment(chaldata[i].startDate).format('YYYY-MM-DD');
-                    var now2 = moment(new Date()); //todays date
-                    var duration = moment.duration(now2.diff(dateString2));
-                    var day = duration.asDays()+1;
-                    var days = day.toString().substring(0,day.toString().indexOf('.'));
-                    var idtest = ("book"+chaldata[i].id + 'a').toString();
-                    var chalid = chaldata[i].id;
-
-                    var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + chaldata[i].id +'" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + chaldata[i].thumbnailImage + '" /></span></td>\n' +
-                        '                    <td><span style="padding-right: 150px;">'  + chaldata[i].booksTitle + '</span></td>\n' +
-                        '                    <td><span style="padding-right: 150px;">' + chaldata[i].startDate + '</span></td>\n' +
-                        '                    <td><span style="padding-right: 150px;">' + chaldata[i].endDate + '</span></td></tr>' +
-                        '                    <tr><td colspan="3"><div id="book'+chaldata[i].id+'" class="collapse"><h3>' + days + ' 일차</h3> <textarea id="' + idtest + '" type="text" class="form-control" rows="5" name="review" id="review" placeholder="30자 이상을 남겨주세요"\n' +
-                        '                                   title="review"></textarea><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn" onclick="postreview(\'' + idtest +'\',\'' + chalid +'\',\'' + days +'\')"> 작성</button></div></td></tr>');
-                    challengeDiv.appendTo($('#challenge'));
-
-                }
+            var val =/*[[${onGoingChal}]]*/ [];
+            console.log(val);
+            for (var i = 0; i < val.length; i++) {
+                var idtest = ("book" + val[i].id + 'a').toString();
+                var chalid = val[i].id;
+                var days = '5';
+                var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + val[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + val[i].thumbnailImage + '" /></span></td>\n' +
+                    '                    <td><span style="padding-right: 150px;">' + val[i].booksTitle + '</span></td>\n' +
+                    '                    <td><span style="padding-right: 150px;">' + val[i].startDate + '</span></td>\n' +
+                    '                    <td><span style="padding-right: 150px;">' + val[i].endDate + '</span></td></tr>' +
+                    '                    <tr><td colspan="3"><div id="book' + val[i].id + '" class="collapse"><h3>' + ' 일차</h3> <textarea type="text" class="form-control" rows="5" name="review" id="review" placeholder="30자 이상을 남겨주세요"\n' +
+                    '                                   title="review"></textarea><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn" onclick="postreview(\'' + idtest + '\',\'' + chalid + '\',\'' + days + '\')"> 작성</button></div></td></tr>');
+                challengeDiv.appendTo($('#challenge'));
             }
-
         }
+
+        function doneread() {
+            $('#challenge').html("");
+            document.getElementById("doneread").style.backgroundColor = "cornflowerblue";
+            document.getElementById("reading").style.backgroundColor = "";
+            var val =/*[[${completedChal}]]*/ [];
+            console.log(val);
+            for (var i = 0; i < val.length; i++) {
+                console.log(val[i].id);
+                var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + val[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + val[i].thumbnailImage + '" /></span></td>\n' +
+                    '                    <td><span style="padding-right: 150px;">' + val[i].booksTitle + '</span></td>\n' +
+                    '                    <td><span style="padding-right: 150px;">' + val[i].startDate + '</span></td>\n' +
+                    '                    <td><span style="padding-right: 150px;">' + val[i].endDate + '</span></td></tr>' +
+                    '                    <tr><td colspan="3"><div id="book' + val[i].id + '" class="collapse"><h3>' + ' 일차</h3> <textarea type="text" class="form-control" rows="5" name="review" id="review" placeholder="30자 이상을 남겨주세요"\n' +
+                    '                                   title="review"></textarea><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn"> 작성</button></div></td></tr>');
+                challengeDiv.appendTo($('#challenge'));
+            }
+        }
+
+        // $(document).ready(function() {
+        //
+        //     $.ajax({
+        //         type: 'get',
+        //         url: '/api/challenges?userId=' + userId,
+        //         async: false,
+        //         contentType: "application/json",
+        //         error: function () {
+        //             alert('와!에러!와!일해라!');
+        //         },
+        //         success: function (data) {
+        //             $('#challenge').html("");
+        //             chaldata = data;
+        //             console.log(data);
+        //             for (var i = 0; i < data.length; i++) {
+        //                 if (data[i].bookStatus == '읽는중') {
+        //                     var dateString2 = moment(data[i].startDate).format('YYYY-MM-DD');
+        //                     var now2 = moment(new Date()); //todays date
+        //                     var duration = moment.duration(now2.diff(dateString2));
+        //                     var days = duration.asDays() + 1;
+        //                     var string = days.toString().substring(0, days.toString().indexOf('.'));
+        //
+        //                     console.log(data[i].days);
+        //                     console.log(days);
+        //                     if(data[i].days >= days) {
+        //                         var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + data[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + data[i].thumbnailImage + '" /></span></td>\n' +
+        //                             '                    <td><span style="padding-right: 150px;">' + data[i].booksTitle + '</span></td>\n' +
+        //                             '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
+        //                             '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>' +
+        //                             '                    <tr><td colspan="3"><div id="book' + data[i].id + '" class="collapse"><h3>' + string + ' 일차</h3> <textarea type="text" class="form-control" rows="5" name="review" id="review" placeholder="30자 이상을 남겨주세요"\n' +
+        //                             '                                   title="review"></textarea><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn"> 작성</button></div></td></tr>');
+        //
+        //                         challengeDiv.appendTo($('#challenge'));
+        //                     }else {
+        //                         var chalid = data[i].id;
+        //                         var status = '완료';
+        //                         var data = {
+        //                             chalid      : chalid,
+        //                             status      : status,
+        //                         };
+        //                         var jsonData = JSON.stringify(data);
+        //                         $.ajax({
+        //                             type: 'post',
+        //                             url: '/api/challenges/updateChallengeStatus',
+        //                             data: jsonData,
+        //                             async: false,
+        //                             contentType: "application/json",
+        //                             error: function (err) {
+        //                                 console.log(err.toString());
+        //                                 alert("서버가 응답하지 않습니다.");
+        //                                 return false;
+        //                             },
+        //                             beforeSend: function (xhr) {
+        //                                 xhr.setRequestHeader(header, token);
+        //                             },
+        //                             success: function (data) {
+        //                                 console.log(data);
+        //                             }
+        //                         })
+        //                     }
+        //                     // else{
+        //                     //     var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + data[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + data[i].thumbnailImage + '" /></span></td>\n' +
+        //                     //         '                    <td><span style="padding-right: 150px;">' + data[i].booksTitle + '</span></td>\n' +
+        //                     //         '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
+        //                     //         '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>' +
+        //                     //         '                    <tr><td colspan="3"><div id="book' + data[i].id + '" class="collapse"><h3>' + string + ' 일차</h3><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn"> 읽은 책들로 이동</button></div></td></tr>');
+        //                     //
+        //                     //     challengeDiv.appendTo($('#challenge'));
+        //                     // }
+        //
+        //                 }
+        //             }
+        //         }
+        //
+        //     });
+        $("#demo").on("hide.bs.collapse", function () {
+            $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Open');
+        });
+        $("#demo").on("show.bs.collapse", function () {
+            $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Close');
+        });
+        // });
+        // function doneread() {
+        //     $('#challenge').html("");
+        //     document.getElementById("doneread").style.backgroundColor = "cornflowerblue";
+        //     document.getElementById("reading").style.backgroundColor = "";
+        //     var comp = '완료';
+        //     console.log(chaldata);
+        //     for (var i = 0; i < chaldata.length; i++) {
+        //         if (chaldata[i].bookStatus == '완료') {
+        //             var dateString2 = moment(chaldata[i].startDate).format('YYYY-MM-DD');
+        //             var now2 = moment(new Date()); //todays date
+        //             var duration = moment.duration(now2.diff(dateString2));
+        //             var days = duration.asDays()+1;
+        //             var string = days.toString().substring(0,days.toString().indexOf('.'));
+        //
+        //             var challengeDiv = $(' <tr><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + chaldata[i].thumbnailImage + '" /></span></td>\n' +
+        //                 '                    <td><span style="padding-right: 150px;">'  + chaldata[i].booksTitle + '</span></td>\n' +
+        //                 '                    <td><span style="padding-right: 150px;">' + chaldata[i].startDate + '</span></td>\n' +
+        //                 '                    <td><span style="padding-right: 150px;">' + chaldata[i].endDate + '</span></td></tr>');
+        //             challengeDiv.appendTo($('#challenge'));
+        //         }
+        //
+        //     }
+        // }
+        //
+        // function reading() {
+        //     $('#challenge').html("");
+        //     document.getElementById("doneread").style.backgroundColor = "";
+        //     document.getElementById("reading").style.backgroundColor = "cornflowerblue";
+        //     var comp = '완료';
+        //     console.log(chaldata);
+        //     for (var i = 0; i < chaldata.length; i++) {
+        //         if (chaldata[i].bookStatus == '읽는중') {
+        //             var dateString2 = moment(chaldata[i].startDate).format('YYYY-MM-DD');
+        //             var now2 = moment(new Date()); //todays date
+        //             var duration = moment.duration(now2.diff(dateString2));
+        //             var day = duration.asDays()+1;
+        //             var days = day.toString().substring(0,day.toString().indexOf('.'));
+        //             var idtest = ("book"+chaldata[i].id + 'a').toString();
+        //             var chalid = chaldata[i].id;
+        //
+        //             var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + chaldata[i].id +'" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + chaldata[i].thumbnailImage + '" /></span></td>\n' +
+        //                 '                    <td><span style="padding-right: 150px;">'  + chaldata[i].booksTitle + '</span></td>\n' +
+        //                 '                    <td><span style="padding-right: 150px;">' + chaldata[i].startDate + '</span></td>\n' +
+        //                 '                    <td><span style="padding-right: 150px;">' + chaldata[i].endDate + '</span></td></tr>' +
+        //                 '                    <tr><td colspan="3"><div id="book'+chaldata[i].id+'" class="collapse"><h3>' + days + ' 일차</h3> <textarea id="' + idtest + '" type="text" class="form-control" rows="5" name="review" id="review" placeholder="30자 이상을 남겨주세요"\n' +
+        //                 '                                   title="review"></textarea><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn" onclick="postreview(\'' + idtest +'\',\'' + chalid +'\',\'' + days +'\')"> 작성</button></div></td></tr>');
+        //             challengeDiv.appendTo($('#challenge'));
+        //
+        //         }
+        //     }
+        //
+        // }
 
         function postreview(idtest, chalid, days) {
             var content = document.getElementById(idtest).value;
@@ -189,6 +251,7 @@
                 chalid      : chalid,
                 days      : days,
             };
+
             var jsonData = JSON.stringify(data);
             console.log(jsonData);
             var token = $("meta[name='_csrf']").attr("content");
@@ -210,12 +273,9 @@
                 },
                 success: function (data) {
                     console.log(data);
-
                 }
             })
-
         }
-
         /*]]>*/
     </script>
 </div>
