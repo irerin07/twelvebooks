@@ -2,8 +2,14 @@ package com.twelvebooks.twelvebook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
+@EnableConfigurationProperties
+@EnableAspectJAutoProxy
+//@EnableAspectAutoProxy를 명시하면 Spring AOP를 사용하기 위한 첫 준비가 끝난다.
+//@EnableAspectAutoProxy은 XML 기반의 ApplicationContext 설정에서의 <aop:aspectj-autoproxy />와 동일한 기능을 한다.
 public class TwelvebookApplication {
 
     public static void main(String[] args) {
