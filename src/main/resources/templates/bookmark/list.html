@@ -14,20 +14,20 @@
             $("#deleteButton").click(function () {
                 var confirm_val = confirm("정말 삭제하시겠습니까?");
                 var checkedAny = false;
+                var checkArr = new Array();
                 if(confirm_val) {
                 $("input[name=listId]:checked").each(function() {
                     checkedAny = true;
-                    var listid = $(this).val();
-                    var arr = new Array();
-
+                    var listId = $(this).val();
+                    checkArr.push($(this).attr("listId"));
 
                         $.ajax({
-                            url: '/api/bookmark/' + listid,
-                            method: 'delete',
+                            url: '/api/bookmark/selectdel',
+                            method: 'post',
+                            data : { chbox : checkArr },
 
                             success: function (data) {
-                                document.getElementById(listid).remove();
-                                // location.href = "/bookmark/list";
+                                location.href = "/bookmark/list";
                                 if (data == 0) {
                                     alert("삭제 실패! 다시 시도해주세요");
                                 }
