@@ -10,12 +10,16 @@
 <div layout:fragment="content">
     <div class="container text-left" style="width: 75%; margin-bottom:5%;">
         <div class="text">
-            <img th:src="@{/images/userprofile/profile-default.png}" height="200" width="200"/>
-        </div>
-        <div class="text-center" style="padding-right: 50%;"><span style="color: black; size: 35px;" th:text="${user.name}"></span></div>
-        <div class="text-center"style="padding-right: 50%;"><span style="color: black; size: 35px;" th:text="${user.comment}"></span></div>
 
-        <div class="text">
+            <div><img th:src="@{/images/userprofile/profile-default.png}" height="200" width="200"/>
+                <b><span style="color: black; font-size: 35px; padding-left: 25px" th:text="${user.name}"></span></b>
+                <span style="color: black; font-size: 25px; padding-left: 20px" th:text="${user.comment}"></span>
+            </div>
+        </div>
+        <!--        <div class="text-center" style="padding-right: 50%;"><span style="color: black; size: 35px;" th:text="${user.name}"></span></div>-->
+        <!--        <div class="text-center"style="padding-right: 50%;"><span style="color: black; size: 35px;" th:text="${user.comment}"></span></div>-->
+
+        <div class="text" style="padding-top: 25px;">
             <button id="reading" class="btn btn-dark" onclick="reading();">읽고 있는 책들</button>
             <button id="doneread" class="btn btn-dark" onclick="doneread();">읽은 책들</button>
         </div>
@@ -57,14 +61,14 @@
                     console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].bookStatus == '읽는중') {
-
                             var dateString2 = moment(data[i].startDate).format('YYYY-MM-DD');
                             var now2 = moment(new Date()); //todays date
                             var duration = moment.duration(now2.diff(dateString2));
                             var days = duration.asDays() + 1;
                             var string = days.toString().substring(0, days.toString().indexOf('.'));
 
-
+                            console.log(data[i].days);
+                            console.log(days);
                             if(data[i].days >= days) {
                                 var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + data[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + data[i].thumbnailImage + '" /></span></td>\n' +
                                     '                    <td><span style="padding-right: 150px;">' + data[i].booksTitle + '</span></td>\n' +
@@ -74,19 +78,46 @@
                                     '                                   title="review"></textarea><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn"> 작성</button></div></td></tr>');
 
                                 challengeDiv.appendTo($('#challenge'));
-                            }else{
-                                var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + data[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + data[i].thumbnailImage + '" /></span></td>\n' +
-                                    '                    <td><span style="padding-right: 150px;">' + data[i].booksTitle + '</span></td>\n' +
-                                    '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
-                                    '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>' +
-                                    '                    <tr><td colspan="3"><div id="book' + data[i].id + '" class="collapse"><h3>' + string + ' 일차</h3><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn"> 읽은 책들로 이동</button></div></td></tr>');
-
-                                challengeDiv.appendTo($('#challenge'));
+                            }else {
+                                var chalid = data[i].id;
+                                var status = '완료';
+                                var data = {
+                                    chalid      : chalid,
+                                    status      : status,
+                                };
+                                var jsonData = JSON.stringify(data);
+                                $.ajax({
+                                    type: 'post',
+                                    url: '/api/challenges/updateChallengeStatus',
+                                    data: jsonData,
+                                    async: false,
+                                    contentType: "application/json",
+                                    error: function (err) {
+                                        console.log(err.toString());
+                                        alert("서버가 응답하지 않습니다.");
+                                        return false;
+                                    },
+                                    beforeSend: function (xhr) {
+                                        xhr.setRequestHeader(header, token);
+                                    },
+                                    success: function (data) {
+                                        console.log(data);
+                                    }
+                                })
                             }
+                            // else{
+                            //     var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + data[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + data[i].thumbnailImage + '" /></span></td>\n' +
+                            //         '                    <td><span style="padding-right: 150px;">' + data[i].booksTitle + '</span></td>\n' +
+                            //         '                    <td><span style="padding-right: 150px;">' + data[i].startDate + '</span></td>\n' +
+                            //         '                    <td><span style="padding-right: 150px;">' + data[i].endDate + '</span></td></tr>' +
+                            //         '                    <tr><td colspan="3"><div id="book' + data[i].id + '" class="collapse"><h3>' + string + ' 일차</h3><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn"> 읽은 책들로 이동</button></div></td></tr>');
+                            //
+                            //     challengeDiv.appendTo($('#challenge'));
+                            // }
 
-                        }
                         }
                     }
+                }
 
             });
             $("#demo").on("hide.bs.collapse", function(){
