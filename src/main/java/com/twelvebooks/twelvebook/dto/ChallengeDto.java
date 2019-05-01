@@ -12,12 +12,12 @@ import java.util.Date;
 public class ChallengeDto {
 
     private String thumbnail;
-    private String bookTitle;
-    private String author;
+    private String booktitle;
+    private String authors;
     private String publisher;
 
-    private String startDate;
-    private String endDate;
+    private String startdate;
+    private String enddate;
     private int days;
     private String visibility;
 

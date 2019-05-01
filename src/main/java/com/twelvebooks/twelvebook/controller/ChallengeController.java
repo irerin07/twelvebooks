@@ -3,6 +3,7 @@ package com.twelvebooks.twelvebook.controller;
 
 import com.twelvebooks.twelvebook.domain.Challenge;
 import com.twelvebooks.twelvebook.domain.User;
+import com.twelvebooks.twelvebook.dto.ChallengeDto;
 import com.twelvebooks.twelvebook.service.ChallengeService;
 import com.twelvebooks.twelvebook.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -42,7 +45,11 @@ public class ChallengeController {
         return "challenges/library";
     }
 
-    @GetMapping("/write")
-    public String writeform(Model model) {
-        return "challenges/writereview";}
+    @PostMapping("/addChallenge")
+    public String addChallenge(@RequestBody ChallengeDto challengeDto) {
+
+        System.out.println(challengeDto.toString());
+
+
+        return "challenges/library";}
     }

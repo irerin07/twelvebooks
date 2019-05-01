@@ -21,5 +21,4 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     public Challenge getChallengeDetail(@Param("id") Long id);
 
 
-
 }
