@@ -20,5 +20,7 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     @Query("SELECT c FROM Challenge c WHERE c.id = :id")
     public Challenge getChallengeDetail(@Param("id") Long id);
 
-
+    @Query("SELECT c FROM Challenge c INNER JOIN FETCH c.user WHERE c.user.id =:id AND c.bookStatus =:status")
+    public List<Challenge> getChallengesByStatus(@Param("id") long id,
+                                                 @Param("status") String status);
 }
