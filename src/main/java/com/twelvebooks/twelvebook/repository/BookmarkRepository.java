@@ -18,4 +18,7 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 //    @Query("SELECT b FROM Bookmark b WHERE b.user.id = ?1 ORDER BY b.id DESC")
 //    public List<Bookmark> findAllByUserId(Long UserId);
 
+    @Query("DELETE FROM Bookmark b WHERE b.id = :bookmark and b.user.id = :userid")
+    public Bookmark selectDel(Bookmark bookmark, long userid);
+
 }

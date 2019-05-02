@@ -16,14 +16,17 @@
                 var checkedAny = false;
                 var checkArr = new Array();
                 if(confirm_val) {
-                $("input[name=listId]:checked").each(function() {
+                $("input[name=check]:checked").each(function() {
                     checkedAny = true;
-                    // var listId = $(this).val();
-                    checkArr.push($(this).val());
 
+                    // var listId = $(this).val();
+                    // checkArr.push($(this).val(listId));
+                    checkArr.push($(this).val());
+                    // // checkArr .push($(this).attr($(this).val()));
                         $.ajax({
-                            url: '/api/bookmark/selectdel',
-                            method: 'post',
+                            url: "/api/bookmark/selectdel",
+                            // method: "post",
+                            type: "post",
                             data : { chbox : checkArr },
 
                             success: function (result) {
@@ -48,10 +51,10 @@
                 if(confirm_val) {
                     var listid = $(this).val();
                     $.ajax({
-                        url : "/api/bookmark/delete"+id,
+                        url : "/api/bookmark/delete"+listid,
                         type : "get",
                         success : function(result){
-                            document.getElementById(listId).remove();
+                            document.getElementById(listid).remove();
                             if(result == 1) {
                                 location.href = "/bookmark/list";
                             } else {
@@ -65,9 +68,9 @@
 
             $("#checkAll").click(function(){
                 if($("#checkAll").prop("checked")){
-                    $("input[name=listId]").prop("checked", true);
+                    $("input[name=check]").prop("checked", true);
                 }else{
-                    $("input[name=listId]").prop("checked", false);
+                    $("input[name=check]").prop("checked", false);
                 }
             });
         });
@@ -96,10 +99,11 @@
             </tr>
 
             <tr th:if="${not #lists.isEmpty(bookmarks)}" th:attrappend="id=${bookmarks.id}" th:each="bookmarks : ${bookmarks}">
-                <td style="text-align: center; vertical-align: middle"><input type='checkbox' name="listId" id="listId"/></td>
+                <td style="text-align: center; vertical-align: middle"><input type='checkbox' name="check" id="listid" th:value="${bookmarks.id}" /></td>
                 <td style="text-align: center;vertical-align: middle" ><img th:src="${bookmarks.thumbnailImage}" style = "width :150px; "></td>
                 <td style ="vertical-align: middle;text-align: center;padding-right: 15%"><a style="color:black; font-size: large"  th:text="${bookmarks.bookTitle}" th:href="@{'/api/challenges/addform/' + ${bookmarks.book.isbn}}">bookTitle</a></td>
-                <td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon" id="deleteicon" name="deleteicon" ></span></a></td>
+                <!--<td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon" id="deleteicon" name="deleteicon" ></span></a></td>-->
+                <td style="vertical-align: middle"><button type="button" class ="css-xicon" id="deleteicon" name="deleteicon" ></button></td>
                 <!--<td style ="vertical-align: middle;text-align: center;"><button  type="button" class ="css-xicon"  id="deleteicon" name="deleteicon" th:data="${bookmarks.id}"></button></td>-->
             </tr>
             </tbody>
