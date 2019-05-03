@@ -1,5 +1,6 @@
 package com.twelvebooks.twelvebook.service.implementation;
 
+import com.twelvebooks.twelvebook.domain.Book;
 import com.twelvebooks.twelvebook.domain.Challenge;
 import com.twelvebooks.twelvebook.repository.ChallengeRepository;
 import com.twelvebooks.twelvebook.service.ChallengeService;
@@ -20,6 +21,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     @Transactional
     public Challenge addChallenge(Challenge challenge) {
+        Book book = new Book();
+        book.setTitle(challenge.getBooksTitle());
+        book.setIsbn(challenge.getIsbn());
+//        book.setAuthor(challenge.get);
         Challenge addChallenge =  challengeRepository.save(challenge);
         return addChallenge;
     }
