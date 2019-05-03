@@ -31,7 +31,7 @@ public class Challenge {
     private String bookStatus;
     private String booksTitle;
     private String thumbnailImage;
-
+    private String isbn;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     @JsonBackReference
@@ -50,6 +50,7 @@ public class Challenge {
         startDate = new Date();
         endDate = new Date();
         diaries = new ArrayList<>();
+        bookStatus = "읽는중";
     }
 
 }

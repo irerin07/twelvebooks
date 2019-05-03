@@ -8,6 +8,19 @@
 </th:block>
 
 <div layout:fragment="content">
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <!— default header name is X-CSRF-TOKEN —>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <script>
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(function () {
+            $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(header, token);
+            });
+        })
+    </script>
 <div class="container-fluid text-center"  style="width: 75%; margin-bottom:5%;">
 
     <!-- The Modal -->
@@ -270,7 +283,6 @@
                             }
                         }
 
-
                     },
                     complete : function() {
                         $(form).find("button[type=button]").text("검색");
@@ -303,16 +315,31 @@
             var challenge = document.getElementById("#challengeform");
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
-            if(1==1){
+
+                $(document).ajaxSend(function (e, xhr, options) {
+                    xhr.setRequestHeader(header, token);
+                });
+
+            var data = {
+                "booktitle"  : challenge.booktitle,
+                "isbn"      :  challenge.isbn,
+                "days"      :  challenge.days
+            };
+            var jsonData = JSON.stringify(data);
                 $.ajax({
                     type : "post",
                     url : "/api/challenges",
-                    data : $(challenge).serialize(),
-                    beforeSend : function (xhr) {
-                        xhr.setRequestHeader(header, token);
+                    data : jsonData,
+                    contentType : "application/json",
+                    success : function(res){
+                        console.log(res);
+                        alert("입력완료")
                     },
+                    error : function(){
+                        alert("에러닷");
+                    }
                     })
-            }
+
         }
     </script>
 </div>
