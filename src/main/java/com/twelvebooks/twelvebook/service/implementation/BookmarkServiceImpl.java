@@ -32,11 +32,11 @@ public class BookmarkServiceImpl implements BookmarkService {
     }
 
 
-//    @Override
-//    @Transactional
-//    public void bookmarkDelete(Long id) {
-//        bookmarkRepository.deleteById(id);
-//    }
+    @Override
+    @Transactional
+    public void bookmarkDelete(Long id) {
+        bookmarkRepository.deleteById(id);
+    }
 
     @Override
     @Transactional

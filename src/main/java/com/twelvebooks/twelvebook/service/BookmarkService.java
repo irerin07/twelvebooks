@@ -12,7 +12,7 @@ public interface BookmarkService {
 
     public Bookmark bookmarkAdd(Bookmark bookmark);
 
-//    public void bookmarkDelete(Long id);
+    public void bookmarkDelete(Long id);
 
     public Bookmark selectDelete(Bookmark bookmark, long userid);
 
