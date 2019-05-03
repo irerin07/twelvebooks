@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<th:block layout:fragment="css"/>
+</th:block>
+<th:block layout:fragment="script"/>
+</th:script>
+
+<div layout:fragment="content">
+    <div class="container-fluid text-center" style="margin-bottom: 25px; width: 100%">
+        <div class="container">
+            <img style="width: 250px;" th:src="${challenge.thumbnailImage}"/>
+            <span style="padding-left: 10%; font-size: 35px;" th:text="${challenge.booksTitle}";></span>
+            <span style="padding-left: 2%; font-size: 35px;" th:text="${challenge.bookStatus}";></span>
+            <div th:each="diary : ${diary}">
+                <div><span th:text="${diary.days}"></span>일차 <span th:text="${diary.content}";></span></div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

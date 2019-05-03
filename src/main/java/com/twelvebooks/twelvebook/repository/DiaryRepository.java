@@ -18,4 +18,9 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
                     "INNER JOIN FETCH c.user u " +
                     "WHERE u.id = :id")
     public List<Diary> getDiariesByCIdAndUid(@Param("id") long id);
+
+    @Query("SELECT count(d.content) FROM Diary d INNER JOIN d.challenge WHERE d.challenge.id = :id AND d.days = :days")
+    public int diaryCheck(@Param("id") long id,
+                          @Param("days") int days);
+
 }

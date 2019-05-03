@@ -20,7 +20,7 @@ public class DiaryAPIController {
     ChallengeService challengeService;
 
     @PostMapping
-    public Diary postReview(@RequestBody DiaryDto diaryDto){
+    public int postReview(@RequestBody DiaryDto diaryDto){
         return diaryService.addDiary(diaryDto);
 
 //        System.out.println("DiaryDto: " + diaryDto.getContent());
