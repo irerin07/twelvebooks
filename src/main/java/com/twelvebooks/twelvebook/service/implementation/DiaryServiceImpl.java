@@ -24,7 +24,7 @@ public class DiaryServiceImpl implements DiaryService {
 
     @Override
     @Transactional
-    public Diary addDiary(DiaryDto diarydto) {
+    public int addDiary(DiaryDto diarydto) {
         long chalId = diarydto.getChalid();
 
         Challenge challenge = challengeRepository.getChallengeDetail(chalId);
@@ -35,14 +35,27 @@ public class DiaryServiceImpl implements DiaryService {
         diary.setDays(diarydto.getDays());
         diary.setChallenge(challenge);
 
-        Diary save = diaryRepository.save(diary);
+        int check = diaryRepository.diaryCheck( chalId, diarydto.getDays());
+        if(check > 0){
+            return check;
+        }else if(check == 0){
+            diaryRepository.save(diary);
+        }
 
-        return save;
+        return check;
     }
 
     @Override
     public List<Diary> getDiariesByChallengeId(long ChallengeId) {
+        List<Diary> list = null;
+        list = diaryRepository.getDiariesByChallengeId(ChallengeId);
+        return list;
+    }
 
-        return null;
+    @Override
+    public int diaryCheck(long id, int days) {
+        int count = 0;
+        count = diaryRepository.diaryCheck(id, days);
+        return count;
     }
 }
