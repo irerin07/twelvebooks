@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface DiaryService {
     //다이어리 등록
-    public Diary addDiary(DiaryDto diarydto);
+    public int addDiary(DiaryDto diarydto);
 
     //챌린지에 따른 다이어리들 가져오기
     public List<Diary> getDiariesByChallengeId(long challengeIdd);
+
+    public int diaryCheck(long id, int days);
 
 }

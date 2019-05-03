@@ -48,10 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/notices/delete").hasAnyRole("ADMIN")
                 .antMatchers("/notices/modify/**").hasAnyRole("ADMIN")
 
+
                 .antMatchers("/api/bookmark/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookmark/list").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookmark/add").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/bookmark/delete").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/api/bookmark/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/bookmark/delete").hasAnyRole("USER", "ADMIN")
 
                 .antMatchers("/challenges/**").hasAnyRole("USER", "ADMIN")

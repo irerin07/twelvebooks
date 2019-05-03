@@ -32,38 +32,15 @@ public class ChallengeAPIController {
 
 
     @GetMapping
-    public List<Challenge> getChallenge(@RequestParam(name = "userId") Long id
-                                        ){
+    public List<Challenge> getChallenge(@RequestParam(name = "userId") Long id){
+
         List<Challenge> list = challengeService.getChallengesByUserId(id);
+
         return list;
 
     }
 
-//    @GetMapping
-//    public List<Challenge> getChallenge(@RequestParam(name = "userId") Long id,
-//                                        @RequestParam(name ="bookStatus") String status){
-//        List<Challenge> list = challengeService.getChallengesByUserId(id, status);
-//        for(Challenge challenge : list){
-//            System.out.println(challenge.getBooksTitle());
-//        }
-//        return list;
-//    }
 
-//    @PostMapping
-//    public String addChallenge(@RequestBody ChallengeDto challengeDto,Principal principal){
-//
-//        System.out.println(challengeDto.getBookTitle());
-//
-//            String email = principal.getName();
-//            User user = userService.getUserByEmail(email);
-//            Challenge challenge = new Challenge();
-//            BeanUtils.copyProperties(challengeDto, challenge);
-//            challenge.setUser(user);
-//            challengeService.addChallenge(challenge);
-//
-//
-//        return new ResponseEntity<>(challengeDto, HttpStatus.OK);
-//    }
     @PostMapping
     public String addChallenge(@RequestBody challengDtoTest cal){
 

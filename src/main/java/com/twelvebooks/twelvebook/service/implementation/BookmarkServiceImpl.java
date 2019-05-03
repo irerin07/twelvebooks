@@ -38,6 +38,12 @@ public class BookmarkServiceImpl implements BookmarkService {
         bookmarkRepository.deleteById(id);
     }
 
+    @Override
+    @Transactional
+    public Bookmark selectDelete(Bookmark bookmark, long userid) {
+        return bookmarkRepository.selectDel(bookmark, userid);
+    }
+
 //    @Override
 //    @Transactional(readOnly = true)
 //    public List<Bookmark> selectAllByUserId(Long userId) {

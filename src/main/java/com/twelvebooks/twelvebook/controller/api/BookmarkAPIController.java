@@ -5,12 +5,15 @@ import com.twelvebooks.twelvebook.controller.BookmarkController;
 import com.twelvebooks.twelvebook.domain.Book;
 import com.twelvebooks.twelvebook.domain.Bookmark;
 import com.twelvebooks.twelvebook.domain.User;
+import com.twelvebooks.twelvebook.dto.BookmarkDto;
 import com.twelvebooks.twelvebook.repository.BookmarkRepository;
 import com.twelvebooks.twelvebook.repository.UserRepository;
 import com.twelvebooks.twelvebook.service.BookmarkService;
 import com.twelvebooks.twelvebook.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,57 +42,17 @@ public class BookmarkAPIController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/delete/{id}")
-    public int bookmarkDelete(@PathVariable(name="id") Long id, Principal principal) {
-        User user =  userService.getUserByEmail(principal.getName());
-        bookmarkRepository.deleteById(id);
-        return bookmarkService.bookmarkList(user.getId()).size();
-
-    }
-
-
-//    @DeleteMapping(value = "/{id}")
-//    public int delete(@PathVariable(value = "id") Long id, Principal principal){
-//        User user =  userService.getUserByEmail(principal.getName());
-//        bookmarkService.bookmarkDelete(id);
-//
-//        return bookmarkService.bookmarkList(user.getId()).size();
-//
-//    }
-
-    @PostMapping(value = "/selectdel")
-    public int selectDelete(@RequestParam(value = "chbox[]") List<String> chArr, Bookmark bookmark, Principal principal){
-
-
+    @DeleteMapping(value = "/{bookmarkId}")
+    public int delete(@PathVariable(value = "bookmarkId") Long id, Principal principal){
         User user = userService.getUserByEmail(principal.getName());
+        bookmarkService.bookmarkDelete(id);
+        bookmarkService.bookmarkList(id);
 
-        int result = 0;
-        long bookmarkId = 0;
-
-
-        if(user != null) {
-//            cart.setUserId(userId);
-            for(String i : chArr) {
-                bookmarkId = Integer.parseInt(i);
-                bookmark.setId(bookmarkId);
-//                service.deleteCart(cart);
-                bookmarkService.bookmarkDelete(bookmarkId);
-            }
-            result = 1;
-        }
-        return result;
-
-//
-//        return bookmarkService.bookmarkList(user.getId()).size();
+        return bookmarkService.bookmarkList(user.getId()).size();
     }
 
 
-//    @DeleteMapping(value = "/{listId}")
-//    public int delete(@PathVariable(value = "listId") Long id, Principal principal){
-//        User user = userService.getUserByEmail(principal.getName());
-//        bookmarkService.bookmarkDelete(id);
-//        return bookmarkService.selectAllByUserId(user.getId()).size();
-//    }
+
 
 
     @PostMapping("/add")
@@ -103,6 +66,16 @@ public class BookmarkAPIController {
         bookmark.setIsbn(isbn);
         bookmark.setThumbnailImage(thumbnailImage);
 
+        bookmarkService.bookmarkAdd(bookmark);
+        return "challenges/addform";
+    }
+
+    @PostMapping("/send")
+    public String bookmarkSend(
+            @RequestParam(name = "isbn") String isbn
+    ){
+        Bookmark bookmark = new Bookmark();
+        bookmark.setIsbn(isbn);
         bookmarkService.bookmarkAdd(bookmark);
         return "challenges/addform";
     }
