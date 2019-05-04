@@ -49,9 +49,8 @@
         </div>
     </form>
 
-    <form  method="post" id="challengeform">
+    <form  id="challengeform">
         <div class="col ">
-        <!--<form action="/challenges/addform"  enctype="multipart/form-data" method="POST">-->
         <div class="bookinfo row d-none" id ="bookinfos">
             <div class="col" style="text-align: center">
                 <img  src="http://placehold.it/200x200" class="img-thumbnail" id="thumbnail" >
@@ -91,9 +90,9 @@
                 <div class="col">도전 날짜</div>
                 <div class="col" >
                     <div class="row" style="padding-left : 15%;">
-                        <input type="text" class="form-control" id="startDate" style="width:30%;" onchange="caldates()" th:name="startdate" name="startDate">
+                        <input type="text" class="form-control" id="startDate" style="width:30%;" onchange="caldates()" th:name="startdate" name="startDate" readonly>
                         <i class="fas fa-arrow-right"style="padding: 10px;"></i>
-                        <input type="text" class="form-control" id="endDate" style="width:30%;" onchange="caldates()"th:name="enddate">
+                        <input type="text" class="form-control" id="endDate" style="width:30%;" onchange="caldates()"th:name="enddate" readonly>
                     </div>
                 </div>
             </div>
@@ -187,7 +186,15 @@
     </script>
 
     <script>
+        $('#searchWord ').on('keypress', function(e){
+            if(e.charCode === 13) {
+                e.preventDefault();
+                bookSearch();
+            }
+        });
         function bookSearch(page){
+            console.log(page);
+            console.log('hello')
             var pg = page ? page : 1;
             var form = document.getElementById("search_form");
             form.page.value = pg;
@@ -262,7 +269,7 @@
                                     });
 
                             if (!res.meta.is_end) {
-                                html += "<li style = 'list-style: none'><button class='btn btn-dark btn-lg btn-block' onclick='bookSearch("
+                                html += "<li style = 'list-style: none'><button class='btn btn-dark btn-lg btn-block' onclick='bookSearch2("
                                     + (pg + 1)
                                     + "); $(this).parent().remove();'>더보기 </button></li>";
                             }
