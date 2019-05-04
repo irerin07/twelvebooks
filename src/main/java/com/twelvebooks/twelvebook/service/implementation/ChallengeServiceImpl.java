@@ -21,11 +21,12 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     @Transactional
     public Challenge addChallenge(Challenge challenge) {
-        Book book = new Book();
-        book.setTitle(challenge.getBooksTitle());
-        book.setIsbn(challenge.getIsbn());
+//        Book book = new Book();
+//        book.setTitle(challenge.getBooksTitle());
+//        book.setIsbn(challenge.getIsbn());
 //        book.setAuthor(challenge.get);
         Challenge addChallenge =  challengeRepository.save(challenge);
+
         return addChallenge;
     }
 

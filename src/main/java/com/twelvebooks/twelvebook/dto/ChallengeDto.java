@@ -13,7 +13,7 @@ import java.util.Date;
 public class ChallengeDto {
 
     private String thumbnailImage;
-    private String bookTitle;
+    private String booksTitle;
     private String authors;
     private String publisher;
     private String isbn;

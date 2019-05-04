@@ -8,19 +8,7 @@
 </th:block>
 
 <div layout:fragment="content">
-    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
-    <!— default header name is X-CSRF-TOKEN —>
-    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 
-    <script>
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-        $(function () {
-            $(document).ajaxSend(function (e, xhr, options) {
-                xhr.setRequestHeader(header, token);
-            });
-        })
-    </script>
 <div class="container-fluid text-center"  style="width: 75%; margin-bottom:5%;">
 
     <!-- The Modal -->
@@ -67,14 +55,14 @@
         <div class="bookinfo row d-none" id ="bookinfos">
             <div class="col" style="text-align: center">
                 <img  src="http://placehold.it/200x200" class="img-thumbnail" id="thumbnail" >
-                <input type="hidden" th:name="thumbnail"  id="ithumbnail">
+                <input type="hidden" th:name="thumbnail"  name = "ithumbnail" id="ithumbnail">
             </div>
             <div class="col">
                 <div class="row">
                     <div class="col" style="text-align:left; ">
                         <div style="padding-bottom: 10px">
                             <p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">제목</p>
-                            <p><input type="text" id="booktitle" readonly style="border :none;" th:name="booktitle"></p>
+                            <p><input type="text" id="booktitle" readonly style="border :none;" name = "booktitle" th:name="booktitle"></p>
                         </div>
                         <div style="padding-bottom: 10px" >
                             <p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">작가</p>
@@ -91,7 +79,7 @@
                         <div style="padding-bottom: 10px" >
                             <p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">isbn</p>
                             <p>
-                                <input type="text" readonly style="border :none;" id="bookisbn" th:name="bookisbn">
+                                <input type="text" readonly style="border :none;" name = "bookisbn" id="bookisbn" th:name="bookisbn">
                             </p>
                         </div>
                     </div>
@@ -103,9 +91,9 @@
                 <div class="col">도전 날짜</div>
                 <div class="col" >
                     <div class="row" style="padding-left : 15%;">
-                        <input type="text" class="form-control" id="datepicker1" style="width:30%;" onchange="caldates()" th:name="startdate">
+                        <input type="text" class="form-control" id="startDate" style="width:30%;" onchange="caldates()" th:name="startdate" name="startDate">
                         <i class="fas fa-arrow-right"style="padding: 10px;"></i>
-                        <input type="text" class="form-control" id="datepicker2" style="width:30%;" onchange="caldates()"th:name="enddate">
+                        <input type="text" class="form-control" id="endDate" style="width:30%;" onchange="caldates()"th:name="enddate">
                     </div>
                 </div>
             </div>
@@ -113,14 +101,14 @@
             <div class = "row" style="padding-top: 5%;">
                 <div class="col">도전 일수</div>
                 <div class="col" >
-                    <input type="text" id="days" size="6" style="text-align:center;" th:name="days">일
+                    <input type="text" id="days" size="6" name = "days" style="text-align:center;" th:name="days">일
                 </div>
             </div>
 
             <div class="row" style="padding-top: 5%;">
                 <div class="col">공개여부</div>
                 <div class="col">
-                    <select name="visibility" class="custom-select mb-3" style="width : 30%; padding-left : 10%;" th:name="visibility">
+                    <select name="visibility" id = "visibility" class="custom-select mb-3" style="width : 30%; padding-left : 10%;" th:name="visibility">
                         <option selected value="private" th:name="private">비공개</option>
                         <option value="public" th:name="public">공개</option>
                     </select>
@@ -132,21 +120,23 @@
                     th:value="${_csrf.token}" />
             <input type="button" value="도전 시작" class="btn btn-dark" onclick="addChallenge()">
             </div>
+            <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+            <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
         </div>
     </form>
 </div>
     <script>
         var picker = new Pikaday({
-            field: document.getElementById('datepicker1'),
-            format: 'yy/mm/dd',
+            field: document.getElementById('startDate'),
+            format: 'yy-mm-dd',
             toString(date, format) {
                 const day = date.getDate();
                 const month = date.getMonth() + 1;
                 const year = date.getFullYear();
-                return `${year}/${month}/${day}`;
+                return `${year}-${month}-${day}`;
             },
             parse(dateString, format) {
-                const parts = dateString.split('/');
+                const parts = dateString.split('-');
                 const day = parseInt(parts[0], 10);
                 const month = parseInt(parts[1], 10) - 1;
                 const year = parseInt(parts[2], 10);
@@ -155,18 +145,18 @@
         });
 
         var picker = new Pikaday({
-            field: document.getElementById('datepicker2'),
-            format: 'yy/mm/dd',
+            field: document.getElementById('endDate'),
+            format: 'yy-mm-dd',
             toString(date, format) {
                 // you should do formatting based on the passed format,
                 // but we will just return 'D/M/YYYY' for simplicity
                 const day = date.getDate();
                 const month = date.getMonth() + 1;
                 const year = date.getFullYear();
-                return `${year}/${month}/${day}`;
+                return `${year}-${month}-${day}`;
             },
             parse(dateString, format) {
-                const parts = dateString.split('/');
+                const parts = dateString.split('-');
                 const day = parseInt(parts[0], 10);
                 const month = parseInt(parts[1], 10) - 1;
                 const year = parseInt(parts[2], 10);
@@ -177,10 +167,10 @@
 
     <script>
         function caldates(){
-            var sdd = document.getElementById("datepicker1").value;
-            var edd = document.getElementById("datepicker2").value;
-            var arr1 = sdd.split('/');
-            var arr2 = edd.split('/');
+            var sdd = document.getElementById("startDate").value;
+            var edd = document.getElementById("endDate").value;
+            var arr1 = sdd.split('-');
+            var arr2 = edd.split('-');
             var da1 = new Date(arr1[0], arr1[1] -1, arr1[2]);
             console.log("da1 : "+da1);
             var da2 = new Date(arr2[0], arr2[1] -1, arr2[2]);
@@ -312,19 +302,34 @@
 
     <script>
         function addChallenge() {
-            var challenge = document.getElementById("#challengeform");
+            var challenge = document.getElementById("challengeform");
+            var booktitle = challenge.booktitle.value;
+            var thumbnail = challenge.ithumbnail.value;
+            var authors = challenge.authors.value;
+            var publisher = challenge.publisher.value;
+            var isbn = challenge.bookisbn.value;
+            var startDate = challenge.startDate.value;
+            var endDate = challenge.endDate.value;
+            var days = challenge.days.value;
+            var visibility = challenge.visibility.value;
+            console.log(startDate);
+            console.log(endDate);
+            console.log(days);
+            console.log(visibility);
+            var data = {
+                "booksTitle"       : booktitle,
+                "thumbnailImage" : thumbnail,
+                "authors" : authors,
+                "publisher" : publisher,
+                "isbn"      : isbn,
+                "startDate" : startDate,
+                "endDate" : endDate,
+                "days"      : days,
+                "visibility" : visibility
+            }
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-                $(document).ajaxSend(function (e, xhr, options) {
-                    xhr.setRequestHeader(header, token);
-                });
-
-            var data = {
-                "booktitle"  : challenge.booktitle,
-                "isbn"      :  challenge.isbn,
-                "days"      :  challenge.days
-            };
             var jsonData = JSON.stringify(data);
                 $.ajax({
                     type : "post",
@@ -333,7 +338,11 @@
                     contentType : "application/json",
                     success : function(res){
                         console.log(res);
-                        alert("입력완료")
+                        alert("도전이 등록되었습니다!")
+                        window.location.href= "/challenges/library";
+                    },
+                    beforeSend : function(xhr){
+                        xhr.setRequestHeader(header, token);
                     },
                     error : function(){
                         alert("에러닷");
