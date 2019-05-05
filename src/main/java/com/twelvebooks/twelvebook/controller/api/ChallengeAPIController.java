@@ -66,6 +66,7 @@ public class ChallengeAPIController {
 
             result = challengeService.addChallenge(challenge);
         }
+
         if(result.getBooksTitle() != null) {
             return "도전등록완료!";
         }else {
