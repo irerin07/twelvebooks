@@ -60,6 +60,7 @@ public class ChallengeAPIController {
             User user = userService.getUserByEmail(email);
             Challenge challenge = new Challenge();
             challenge.setUser(user);
+            System.out.println(challengeDto.toString());
             BeanUtils.copyProperties(challengeDto, challenge);
             System.out.println(challengeDto.toString());
 
