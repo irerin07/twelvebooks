@@ -9,15 +9,27 @@
 </th:script>
 
 <div layout:fragment="content">
-    <div class="container-fluid text-center" style="margin-bottom: 25px; width: 100%">
+    <div class="container-fluid text-left" style="margin-bottom: 25px; width: 100%">
         <div class="container">
-            <img style="width: 250px;" th:src="${challenge.thumbnailImage}"/>
+            <img style="width: 250px; margin-bottom: 55px;" th:src="${challenge.thumbnailImage}"/>
             <span style="padding-left: 10%; font-size: 35px;" th:text="${challenge.booksTitle}";></span>
             <span style="padding-left: 2%; font-size: 35px;" th:text="${challenge.bookStatus}";></span>
             <div th:each="diary : ${diary}">
-                <div><span th:text="${diary.days}"></span>일차 <span th:text="${diary.content}";></span></div>
+                <h4><b>Day: <span th:text="${diary.days}"></span></b></h4>
+                <div>
+                    <textarea disabled class="form-control" id="myTextarea" style="height: 125px; width: 65%; ">[[${diary.content}]]</textarea>
+                    <button class="btn btn-dark" onclick="modifiable()">수정</button>
+                    <button class="btn btn-dark">삭제</button>
+                </div>
             </div>
         </div>
     </div>
+    <script th:inline="javascript">
+
+        function modifiable() {
+            document.getElementById("myTextarea").disabled = false;
+
+        }
+    </script>
 </div>
 </html>
