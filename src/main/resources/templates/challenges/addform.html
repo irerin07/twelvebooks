@@ -368,6 +368,44 @@
                     })
 
         }
+
+        function addBook() {
+            var challenge = document.getElementById("challengeform");
+            var booktitle = challenge.booktitle.value;
+            var thumbnail = challenge.ithumbnail.value;
+            var authors = challenge.authors.value;
+            var publisher = challenge.publisher.value;
+            var isbn = challenge.bookisbn.value;
+            var data = {
+                "booksTitle"       : booktitle,
+                "thumbnailImage" : thumbnail,
+                "authors" : authors,
+                "publisher" : publisher,
+                "isbn"      : isbn
+            }
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var jsonData = JSON.stringify(data);
+            $.ajax({
+                type : "post",
+                url : "/api/challenges",
+                data : jsonData,
+                contentType : "application/json",
+                success : function(res){
+                    console.log(res);
+                    alert("도전이 등록되었습니다!")
+                    window.location.href= "/challenges/library";
+                },
+                beforeSend : function(xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+                error : function(){
+                    alert("에러닷");
+                }
+            })
+
+        }
     </script>
 </div>
 </html>

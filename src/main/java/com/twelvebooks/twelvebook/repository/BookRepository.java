@@ -19,4 +19,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "SELECT b FROM Book b WHERE b.isbn = :isbn")
     public Book getBookByIsbn(@Param("isbn") String isbn);
 
+    //isbn으로 책이 있는지 check
+    @Query(value = " select b.isbn from Book b where b.isbn = :isbn")
+    public Book checkbook(@Param("isbn") String isbn);
+
+
 }

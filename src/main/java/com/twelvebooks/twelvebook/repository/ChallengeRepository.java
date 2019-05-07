@@ -2,9 +2,11 @@ package com.twelvebooks.twelvebook.repository;
 
 import com.twelvebooks.twelvebook.domain.Challenge;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
@@ -23,4 +25,7 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     @Query("SELECT c FROM Challenge c INNER JOIN FETCH c.user WHERE c.user.id =:id AND c.bookStatus =:status")
     public List<Challenge> getChallengesByStatus(@Param("id") long id,
                                                  @Param("status") String status);
+    @Modifying
+    @Query("UPDATE Challenge c SET c.currentDay = currentDay+1 WHERE c.startDate <= :date1")
+    public int updateAllCurrentDays(@Param("date1") Date date1);
 }
