@@ -59,4 +59,10 @@ public class ChallengeServiceImpl implements ChallengeService {
         list = challengeRepository.getChallengesByStatus(id, status);
         return list;
     }
+
+    @Override
+    @Transactional
+    public void updateAllCurrentDays() {
+        challengeRepository.updateAllCurrentDays();
+    }
 }
