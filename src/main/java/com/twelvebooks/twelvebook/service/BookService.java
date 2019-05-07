@@ -6,5 +6,10 @@ import java.util.List;
 
 public interface BookService {
 
-    Book getBookByIsbn(String isbn);
+    public Book getBookByIsbn(String isbn);
+
+    public Book addBook(Book book);
+
+    public Book ckeckBook(String isbn);
+
 }
