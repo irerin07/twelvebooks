@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
@@ -25,6 +26,6 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     public List<Challenge> getChallengesByStatus(@Param("id") long id,
                                                  @Param("status") String status);
     @Modifying
-    @Query("UPDATE Challenge c SET c.currentDay = currentDay+1")
-    public int updateAllCurrentDays();
+    @Query("UPDATE Challenge c SET c.currentDay = currentDay+1 WHERE c.startDate <= :date1")
+    public int updateAllCurrentDays(@Param("date1") Date date1);
 }

@@ -32,9 +32,6 @@
                 </tr>
                 </thead>
                 <tbody id="challenge">
-                <tr th:if="${challengeList.empty}">
-                    <td colspan="2"> No Challenges Available</td>
-                </tr>
 
                 </tbody>
             </table>
@@ -52,18 +49,31 @@
             document.getElementById("reading").style.backgroundColor = "cornflowerblue";
             var val =/*[[${onGoingChal}]]*/ [];
             console.log(val);
+            if (val.length == 0) {
+                var emptyChal = $('<tr><td>읽고있는 책이 없어요!</td>' +
+                    '<td><a href="/challenges/addform">도전 시작하기</a></td></tr>');
+                emptyChal.appendTo($('#challenge'));
+            }
             for (var i = 0; i < val.length; i++) {
                 console.log(val[i].id);
                 var idtest = ("book" + val[i].id + 'a').toString();
                 var chalid = val[i].id;
-                var days = val[i].days;
+                var days = val[i].currentDay;
+                var startdate = val[i].startDate;
+                var today = new Date();
+                var today2 = moment(today).format('YYYY-MM-DD');
+                if (startdate > today2) {
+                    alert('엥?');
+                    days = 0;
+                }
                 var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + val[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + val[i].thumbnailImage + '" /></span></td>\n' +
                     '                    <td><span style="padding-right: 150px;">' + val[i].booksTitle + '</span></td>\n' +
                     '                    <td><span style="padding-right: 150px;">' + val[i].startDate + '</span></td>\n' +
                     '                    <td><span style="padding-right: 150px;">' + val[i].endDate + '</span></td></tr>' +
-                    '                    <tr><td colspan="3"><div id="book' + val[i].id + '" class="collapse"><h3>' + days + ' 일차</h3> <textarea id="' + idtest + '" type="text" class="form-control" rows="5" name="review" id="review" placeholder="30자 이상을 남겨주세요"\n' +
+                    '                    <tr><td colspan="3"><div id="book' + val[i].id + '" class="collapse"><h3>' + days + ' 일차</h3> <textarea id="' + idtest + '" type="text" class="form-control" rows="5" name="review" placeholder="30자 이상을 남겨주세요"\n' +
                     '                                   title="review"></textarea><button type="submit" style="margin-top: 15px" class="btn btn-dark topBtn" onclick="postreview(\'' + idtest + '\',\'' + chalid + '\',\'' + days + '\')"> 작성</button></div></td></tr>');
                 challengeDiv.appendTo($('#challenge'));
+
             }
         });
 
@@ -73,10 +83,15 @@
             document.getElementById("reading").style.backgroundColor = "cornflowerblue";
             var val =/*[[${onGoingChal}]]*/ [];
             console.log(val);
+            if (val.length == 0) {
+                var emptyChal = $('<tr><td>읽고있는 책이 없어요!</td>' +
+                    '<td><a href="/challenges/addform">도전 시작하기</a></td></tr>');
+                emptyChal.appendTo($('#challenge'));
+            }
             for (var i = 0; i < val.length; i++) {
                 var idtest = ("book" + val[i].id + 'a').toString();
                 var chalid = val[i].id;
-                var days = val[i].days;
+                var days = val[i].currentDay;
                 var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + val[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + val[i].thumbnailImage + '" /></span></td>\n' +
                     '                    <td><span style="padding-right: 150px;">' + val[i].booksTitle + '</span></td>\n' +
                     '                    <td><span style="padding-right: 150px;">' + val[i].startDate + '</span></td>\n' +
@@ -93,6 +108,11 @@
             document.getElementById("reading").style.backgroundColor = "";
             var val =/*[[${completedChal}]]*/ [];
             console.log(val);
+            if (val.length == 0) {
+                var emptyChal = $('<tr><td>도전 완료한 책이 없어요!</td>' +
+                    '<td><a href="/challenges/addform">도전 시작하기</a></td></tr>');
+                emptyChal.appendTo($('#challenge'));
+            }
             for (var i = 0; i < val.length; i++) {
                 console.log(val[i].id);
                 var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + val[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + val[i].thumbnailImage + '" /></span></td>\n' +
@@ -117,6 +137,10 @@
             var content = document.getElementById(idtest).value;
             var chalid = chalid;
             var days = days;
+            if(days == 0){
+                alert('글을 작성 할 수 없습니다!');
+                return false;
+            }
             console.log(content);
             console.log(chalid);
             console.log(days);

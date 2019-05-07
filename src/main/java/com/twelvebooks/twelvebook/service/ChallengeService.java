@@ -2,6 +2,7 @@ package com.twelvebooks.twelvebook.service;
 
 import com.twelvebooks.twelvebook.domain.Challenge;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ChallengeService {
@@ -22,5 +23,6 @@ public interface ChallengeService {
 
     List<Challenge> getChallengesByUserIdStatus(long id, String status);
 
-    public void updateAllCurrentDays();
+    public void updateAllCurrentDays(Date date1);
+
 }

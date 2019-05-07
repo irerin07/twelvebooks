@@ -25,21 +25,22 @@ import java.util.stream.Collectors;
 public class RequestLoggingAspect {
     private static final Logger logger = LoggerFactory.getLogger(RequestLoggingAspect.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+    private static final SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     DiaryRepository diaryRepository;
     @Autowired
     ChallengeRepository challengeRepository;
 
-    @Scheduled(cron = "0 0 0 * * *")
-    public void updateChallengeDays() {
+//    @Scheduled(cron = "0 0 0 * * *")
+//    public void updateChallengeDays() {
+//
+//    }
 
-    }
-
-    @Scheduled(cron = "30 * * * * *")
-    public void reportCurrentTime() {
-        logger.info("The time is now {}", dateFormat.format(new Date()));
-    }
+//    @Scheduled(cron = "30 * * * * *")
+//    public void reportCurrentTime() {
+//        logger.info("The time is now {}", dateFormat.format(new Date()));
+//    }
 
     private String paramMapToString(Map<String, String[]> paramMap) {
         return paramMap.entrySet().stream()
