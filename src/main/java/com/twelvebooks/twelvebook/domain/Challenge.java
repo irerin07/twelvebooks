@@ -25,7 +25,7 @@ public class Challenge {
 
     @Type(type="date")
     private Date endDate;
-
+    private int currentDay;
     private int days;
     private String visibility;
     private String bookStatus;
@@ -51,6 +51,7 @@ public class Challenge {
         endDate = new Date();
         diaries = new ArrayList<>();
         bookStatus = "읽는중";
+        currentDay = 1;
     }
 
 }
