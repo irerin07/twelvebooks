@@ -16,9 +16,10 @@ public class ChallengeDto {
 
     private String thumbnailImage;
     private String booksTitle;
-    private String authors;
+    private String author;
     private String publisher;
     private String isbn;
+    private String translator;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date startDate;

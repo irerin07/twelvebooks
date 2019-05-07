@@ -3,6 +3,7 @@ package com.twelvebooks.twelvebook.service.implementation;
 import com.twelvebooks.twelvebook.domain.Book;
 import com.twelvebooks.twelvebook.domain.Challenge;
 import com.twelvebooks.twelvebook.repository.ChallengeRepository;
+import com.twelvebooks.twelvebook.service.BookService;
 import com.twelvebooks.twelvebook.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,17 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Autowired
     private ChallengeRepository challengeRepository;
 
+//    @Autowired
+//    private BookService bookService;
+
     @Override
     @Transactional
     public Challenge addChallenge(Challenge challenge) {
 //        Book book = new Book();
 //        book.setTitle(challenge.getBooksTitle());
 //        book.setIsbn(challenge.getIsbn());
-//        book.setAuthor(challenge.get);
+//        book.setThumbnailImage(challenge.getThumbnailImage());
+
         Challenge addChallenge =  challengeRepository.save(challenge);
 
         return addChallenge;

@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface BookService {
 
-    public Book getBookByIsbn(String isbn);
+    //isbn에 해당하는 책 찾기
+    Book getBookByIsbn(String isbn);
 
-    public Book addBook(Book book);
-
-    public Book ckeckBook(String isbn);
+    //책 등록하기
+    Book addBook(Book book);
 
 }

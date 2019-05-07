@@ -32,6 +32,9 @@ public class ChallengeAPIController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    BookService bookService;
+
 //    @Autowired
 //    BookService bookService;
 
@@ -49,19 +52,47 @@ public class ChallengeAPIController {
     @PostMapping
     public String addChallenge(@RequestBody ChallengeDto challengeDto, Principal principal){
         Challenge result;
+
         if(principal == null){
             return "로그인 해주세여";
         }
         else {
-            String isbn = challengeDto.getIsbn();
-//            Book book = bookService.getBookByIsbn(isbn);
-
             String email = principal.getName();
             User user = userService.getUserByEmail(email);
+
             Challenge challenge = new Challenge();
             challenge.setUser(user);
-            System.out.println(challengeDto.toString());
-            BeanUtils.copyProperties(challengeDto, challenge);
+
+            Book book = bookService.getBookByIsbn(challengeDto.getIsbn());
+
+            if(book == null){
+                Book book1 = new Book();
+                book1.setAuthor(challengeDto.getAuthor());
+                book1.setThumbnailImage(challengeDto.getThumbnailImage());
+                book1.setPublisher(challengeDto.getPublisher());
+                book1.setTitle(challengeDto.getBooksTitle());
+                book1.setTranslator(challengeDto.getTranslator());
+                book1.setIsbn(challengeDto.getIsbn());
+
+                Book resultBook = bookService.addBook(book1);
+                challenge.setBook(resultBook);
+                challenge.setBooksTitle(resultBook.getTitle());
+                challenge.setThumbnailImage(resultBook.getThumbnailImage());
+                challenge.setIsbn(resultBook.getIsbn());
+            }else{
+                challenge.setBook(book);
+                challenge.setBooksTitle(book.getTitle());
+                challenge.setThumbnailImage(book.getThumbnailImage());
+                challenge.setIsbn(book.getIsbn());
+
+            }
+
+            //BeanUtils.copyProperties(challengeDto, challenge);
+            challenge.setStartDate(challengeDto.getStartDate());
+            challenge.setEndDate(challengeDto.getEndDate());
+            challenge.setVisibility(challengeDto.getVisibility());
+            challenge.setDays(challengeDto.getDays());
+
             System.out.println(challengeDto.toString());
 
             result = challengeService.addChallenge(challenge);
