@@ -13,8 +13,6 @@ public class BookServiceImpl implements BookService {
     @Autowired
     BookRepository bookRepository;
 
-    @Autowired
-    private BookRepository bookRepository;
 
     @Override
     public Book getBookByIsbn(String isbn) {
@@ -26,19 +24,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book addBook(Book book) {
-
-        Book result =  bookRepository.save(book);
-
-        return result;
-    }
-
-    @Override
-    public Book addBook(Book book) {
         return bookRepository.save(book);
     }
 
-    @Override
-    public Book ckeckBook(String isbn) {
-        return bookRepository.checkbook(isbn);
-    }
 }
