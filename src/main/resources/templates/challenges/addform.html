@@ -81,6 +81,12 @@
                                 <input type="text" readonly style="border :none;" name = "bookisbn" id="bookisbn" th:name="bookisbn">
                             </p>
                         </div>
+                        <div style="padding-bottom: 10px" >
+                            <p style="border-bottom : 1px solid black; display : inline-block; font-weight:bold;">번역자</p>
+                            <p>
+                                <input type="text" id="trans" readonly style="border :none;" th:name="trans">
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -244,6 +250,7 @@
                                         var iauthor  =  "\""+authors+"\"";
                                         var ipublisher  =  "\""+this.publisher+"\"";
                                         var ithumbnail =  "\""+this.thumbnail+"\"";
+                                        var itrans = "\"" +trans+"\"";
 
 
 
@@ -256,7 +263,7 @@
                                             + authors
                                             + "</div></div>"
                                         html += "<div class='col' style ='padding-top: 5%; width: ' >"
-                                        html += "<a href='javascript:inputBook("+ititle+","+iauthor+","+ipublisher+","+ithumbnail+","+isbn+");'>"
+                                        html += "<a href='javascript:inputBook("+ititle+","+iauthor+","+ipublisher+","+ithumbnail+","+isbn+","+itrans+");'>"
                                             + this.title
                                             + "</a>"
                                             + "  /  "
@@ -289,12 +296,13 @@
             }
         }
 
-        function inputBook(ititle, iauthor, ipublisher, ithumbnail, isbn){
+        function inputBook(ititle, iauthor, ipublisher, ithumbnail, isbn, itrans){
             var booktitle = ititle;
             var bookauthor = iauthor;
             var bookpub = ipublisher;
             var bookthumb = ithumbnail;
             var bookisbn = isbn;
+            var trans = itrans;
 
             $('#myModal').modal('hide');
             $('#bookinfos').removeClass('d-none');
@@ -302,6 +310,7 @@
             $('#authors').val(bookauthor);
             $('#publisher').val(bookpub);
             $('#bookisbn').val(bookisbn);
+            $('#trans').val(itrans);
             $('#thumbnail').attr('src', bookthumb);
             $('#ithumbnail').val(bookthumb);
         }
@@ -315,6 +324,7 @@
             var authors = challenge.authors.value;
             var publisher = challenge.publisher.value;
             var isbn = challenge.bookisbn.value;
+            var trans = challenge.trans.value;
             var startDate = challenge.startDate.value;
             var endDate = challenge.endDate.value;
             var days = challenge.days.value;
@@ -326,9 +336,10 @@
             var data = {
                 "booksTitle"       : booktitle,
                 "thumbnailImage" : thumbnail,
-                "authors" : authors,
+                "author" : authors,
                 "publisher" : publisher,
                 "isbn"      : isbn,
+                "translator" : trans,
                 "startDate" : startDate,
                 "endDate" : endDate,
                 "days"      : days,
