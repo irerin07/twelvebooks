@@ -25,7 +25,7 @@ public class BookAPIController {
 
         System.out.println(checkisbn);
 
-        Book check = bookService.ckeckBook(checkisbn);
+        Book check = bookService.getBookByIsbn(checkisbn);
 
         System.out.println(check);
 
