@@ -55,6 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/api/bookmark/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/bookmark/delete").hasAnyRole("USER", "ADMIN")
 
+                .antMatchers("/api/book/**").hasAnyRole("USER", "ADMIN")
+
                 .antMatchers("/challenges/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and()
