@@ -5,12 +5,14 @@ import com.twelvebooks.twelvebook.controller.BookmarkController;
 import com.twelvebooks.twelvebook.domain.Book;
 import com.twelvebooks.twelvebook.domain.Bookmark;
 import com.twelvebooks.twelvebook.domain.User;
+import com.twelvebooks.twelvebook.dto.BookDto;
 import com.twelvebooks.twelvebook.dto.BookmarkDto;
 import com.twelvebooks.twelvebook.repository.BookmarkRepository;
 import com.twelvebooks.twelvebook.repository.UserRepository;
 import com.twelvebooks.twelvebook.service.BookmarkService;
 import com.twelvebooks.twelvebook.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,19 +58,19 @@ public class BookmarkAPIController {
 
 
     @PostMapping("/add")
-    public String bookmarkAdd(
-            @RequestParam(name = "bookTitle") String bookTitle,
-            @RequestParam(name = "isbn") String isbn,
-            @RequestParam(name = "thumbnailImage") String thumbnailImage
-    ){
-        Bookmark bookmark = new Bookmark();
-        bookmark.setBookTitle(bookTitle);
-        bookmark.setIsbn(isbn);
-        bookmark.setThumbnailImage(thumbnailImage);
+    public int bookmarkAdd(@RequestBody BookmarkDto bookmarkDto, Principal principal){
 
-        bookmarkService.bookmarkAdd(bookmark);
-        return "challenges/addform";
+        User user = userService.getUserByEmail(principal.getName());
+            Bookmark bookmark = new Bookmark();
+            bookmark.setUser(user);
+            BeanUtils.copyProperties(bookmarkDto, bookmark);
+
+            bookmarkService.bookmarkAdd(bookmark);
+
+
+        return bookmarkService.bookmarkList(user.getId()).size();
     }
+
 
     @PostMapping("/send")
     public String bookmarkSend(

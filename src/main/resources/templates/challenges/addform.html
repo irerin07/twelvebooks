@@ -45,7 +45,7 @@
         <div class="col">
             <input type="text" name="searchWord" placeholder="읽을 책을 검색하세요" class="booksearch" id="searchWord">
             <input type="hidden" name="page" id="page">
-            <button type="button" class="btn btn-dark" onclick="bookSearch()" on>검색</button>
+            <button type="button" class="btn btn-dark" onclick="bookSearch()" >검색</button>
         </div>
     </form>
 
@@ -263,7 +263,7 @@
                                             + this.publisher
                                                 +"</div>"
                                                 + "<div class = col style = 'left : 12%;'>"
-                                            +" <button type='button' class='btn btn-dark btn-sm' data-isbn='"+isbn+"'>북마크</button>"
+                                            +" <a href='javascript:inputBook(\"+ititle+\",\"+iauthor+\",\"+ipublisher+\",\"+ithumbnail+\",\"+isbn+\");'><button type='button' class='btn btn-dark btn-sm' data-isbn='"+isbn+" '   onclick='addBookmark(), addBook()'>북마크</button></a>"
                                                 + "</div>"
                                             + "</div></li>";
                                     });
@@ -359,12 +359,12 @@
         }
 
         function addBook() {
-            var challenge = document.getElementById("challengeform");
-            var booktitle = challenge.booktitle.value;
-            var thumbnail = challenge.ithumbnail.value;
-            var authors = challenge.authors.value;
-            var publisher = challenge.publisher.value;
-            var isbn = challenge.bookisbn.value;
+            var book = document.getElementById("challengeform");
+            var booktitle = book.booktitle.value;
+            var thumbnail = book.ithumbnail.value;
+            var authors = book.authors.value;
+            var publisher = book.publisher.value;
+            var isbn = book.bookisbn.value;
             var data = {
                 "booksTitle"       : booktitle,
                 "thumbnailImage" : thumbnail,
@@ -378,19 +378,51 @@
             var jsonData = JSON.stringify(data);
             $.ajax({
                 type : "post",
-                url : "/api/challenges",
+                url : "/api/book/add",
                 data : jsonData,
                 contentType : "application/json",
                 success : function(res){
                     console.log(res);
-                    alert("도전이 등록되었습니다!")
-                    window.location.href= "/challenges/library";
                 },
                 beforeSend : function(xhr){
                     xhr.setRequestHeader(header, token);
                 },
                 error : function(){
-                    alert("에러닷");
+                    alert("db 등록 에러");
+                }
+            })
+
+        }
+
+
+        function addBookmark() {
+            var Bookmark = document.getElementById("challengeform");
+            var booktitle = Bookmark.booktitle.value;
+            var thumbnail = Bookmark.ithumbnail.value;
+            var isbn = Bookmark.bookisbn.value;
+            var data = {
+                "booksTitle"       : booktitle,
+                "thumbnailImage" : thumbnail,
+                "isbn"      : isbn
+            }
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var jsonData = JSON.stringify(data);
+            $.ajax({
+                type : "post",
+                url : "/api/bookmark/add",
+                data : jsonData,
+                contentType : "application/json",
+                success : function(res){
+                    console.log(res);
+                    alert("북마크에 저장했습니다.")
+                },
+                beforeSend : function(xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+                error : function(){
+                    alert("다시 등록해주세요");
                 }
             })
 
