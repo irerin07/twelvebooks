@@ -38,8 +38,7 @@ public class UpdateCurrentDayAspect {
     @Autowired
     ChallengeService challengeService;
 
-    //    @Scheduled(cron = "0 0 0 * * *")
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(cron = "0 0 0 * * *")
     public void updateChallengeDays() {
         challengeService.updateAllCurrentDays(date1, "읽는중");
         challengeService.updateBookStatus();
