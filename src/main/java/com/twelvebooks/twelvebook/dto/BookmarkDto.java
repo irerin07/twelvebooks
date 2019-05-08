@@ -11,11 +11,15 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class BookmarkDto {
-    private String result;
-    private Long BookmarkId;
+//    private String result;
+//    private Long BookmarkId;
 
-    public BookmarkDto(String result) {
-        this.result = result;
+    private String thumbnailImage;
+    private String bookTitle;
+    private String isbn;
 
-    }
+//    public BookmarkDto(String result) {
+//        this.result = result;
+
+//}
 }
