@@ -122,8 +122,8 @@
             <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
             <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
         </div>
-    </form>
-</div>
+    <!--</form>-->
+<!--</div>-->
     <script>
         var picker = new Pikaday({
             field: document.getElementById('startDate'),
@@ -263,7 +263,7 @@
                                             + this.publisher
                                                 +"</div>"
                                                 + "<div class = col style = 'left : 12%;'>"
-                                            +" <a href='javascript:inputBook(\"+ititle+\",\"+iauthor+\",\"+ipublisher+\",\"+ithumbnail+\",\"+isbn+\");'><button type='button' class='btn btn-dark btn-sm' data-isbn='"+isbn+" '   onclick='addBookmark(), addBook()'>북마크</button></a>"
+                                            +" <button type='button' class='btn btn-dark btn-sm' id= 'bookmarks' data-title='"+ititle+"' data-author='"+iauthor+"' data-publisher='"+ipublisher+"' data-thumbnail='"+ithumbnail+"' data-isbn='"+isbn+"' onclick='addBook() ,addBookmark()'>북마크</button>"
                                                 + "</div>"
                                             + "</div></li>";
                                     });
@@ -359,19 +359,31 @@
         }
 
         function addBook() {
-            var book = document.getElementById("challengeform");
-            var booktitle = book.booktitle.value;
-            var thumbnail = book.ithumbnail.value;
-            var authors = book.authors.value;
-            var publisher = book.publisher.value;
-            var isbn = book.bookisbn.value;
+
+
+            var booktitle = document.getElementById( 'bookmarks' ).getAttribute( 'data-title' );
+            var thumbnail = document.getElementById( 'bookmarks' ).getAttribute( 'data-thumbnail' );
+            var authors = document.getElementById( 'bookmarks' ).getAttribute( 'data-author' );
+            var publisher = document.getElementById( 'bookmarks' ).getAttribute( 'data-publisher' );
+            var isbn = document.getElementById( 'bookmarks' ).getAttribute( 'data-isbn' );
+
+            console.log(booktitle);
+            console.log(thumbnail);
+            console.log(authors);
+            console.log(publisher);
+            console.log(isbn);
+
+
+
             var data = {
-                "booksTitle"       : booktitle,
+                "title"       : booktitle,
                 "thumbnailImage" : thumbnail,
                 "authors" : authors,
                 "publisher" : publisher,
                 "isbn"      : isbn
             }
+
+            // data.push($(this).attr("data-book"));
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -387,21 +399,27 @@
                 beforeSend : function(xhr){
                     xhr.setRequestHeader(header, token);
                 },
-                error : function(){
-                    alert("db 등록 에러");
-                }
+                // error : function(){
+                //     alert("db 등록 에러");
+                // }
             })
 
         }
 
 
         function addBookmark() {
-            var Bookmark = document.getElementById("challengeform");
-            var booktitle = Bookmark.booktitle.value;
-            var thumbnail = Bookmark.ithumbnail.value;
-            var isbn = Bookmark.bookisbn.value;
+
+
+            var booktitle = document.getElementById( 'bookmarks' ).getAttribute( 'data-title' );
+            var thumbnail = document.getElementById( 'bookmarks' ).getAttribute( 'data-thumbnail' );
+            var isbn = document.getElementById( 'bookmarks' ).getAttribute( 'data-isbn' );
+
+            console.log(booktitle);
+            console.log(thumbnail);
+            console.log(isbn);
+
             var data = {
-                "booksTitle"       : booktitle,
+                "bookTitle"       : booktitle,
                 "thumbnailImage" : thumbnail,
                 "isbn"      : isbn
             }
@@ -422,11 +440,14 @@
                     xhr.setRequestHeader(header, token);
                 },
                 error : function(){
-                    alert("다시 등록해주세요");
+                    alert("이미 등록된 책입니다.");
                 }
             })
 
         }
     </script>
+
+    </form>
+</div>
 </div>
 </html>

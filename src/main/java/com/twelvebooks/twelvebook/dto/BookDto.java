@@ -12,8 +12,8 @@ public class BookDto {
 
 
     private String thumbnailImage;
-    private String booksTitle;
-    private String authors;
+    private String title;
+    private String author;
     private String publisher;
     private String isbn;
 }

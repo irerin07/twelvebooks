@@ -9,6 +9,7 @@ import com.twelvebooks.twelvebook.dto.BookDto;
 import com.twelvebooks.twelvebook.dto.BookmarkDto;
 import com.twelvebooks.twelvebook.repository.BookmarkRepository;
 import com.twelvebooks.twelvebook.repository.UserRepository;
+import com.twelvebooks.twelvebook.service.BookService;
 import com.twelvebooks.twelvebook.service.BookmarkService;
 import com.twelvebooks.twelvebook.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,9 @@ public class BookmarkAPIController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private BookService bookService;
+
     @DeleteMapping(value = "/{bookmarkId}")
     public int delete(@PathVariable(value = "bookmarkId") Long id, Principal principal){
         User user = userService.getUserByEmail(principal.getName());
@@ -58,9 +62,20 @@ public class BookmarkAPIController {
 
 
     @PostMapping("/add")
-    public int bookmarkAdd(@RequestBody BookmarkDto bookmarkDto, Principal principal){
+    public int bookmarkAdd(@RequestBody BookmarkDto bookmarkDto, Principal principal) {
 
         User user = userService.getUserByEmail(principal.getName());
+
+
+        String checkisbn = bookmarkDto.getIsbn();
+
+        System.out.println(checkisbn);
+
+        Book check = bookService.ckeckBook(checkisbn);
+
+        System.out.println(check);
+
+        if (check == null) {
             Bookmark bookmark = new Bookmark();
             bookmark.setUser(user);
             BeanUtils.copyProperties(bookmarkDto, bookmark);
@@ -68,6 +83,8 @@ public class BookmarkAPIController {
             bookmarkService.bookmarkAdd(bookmark);
 
 
+            return bookmarkService.bookmarkList(user.getId()).size();
+        }
         return bookmarkService.bookmarkList(user.getId()).size();
     }
 

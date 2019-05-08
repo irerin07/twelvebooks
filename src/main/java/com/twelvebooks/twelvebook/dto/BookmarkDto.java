@@ -15,7 +15,7 @@ public class BookmarkDto {
 //    private Long BookmarkId;
 
     private String thumbnailImage;
-    private String booksTitle;
+    private String bookTitle;
     private String isbn;
 
 //    public BookmarkDto(String result) {
