@@ -170,10 +170,12 @@
                 },
                 success: function (data) {
                     console.log(data);
-                    if (data != 0) {
+                    console.log(data.result);
+                    console.log(data.body);
+                    if (data.body != 0) {
                         document.getElementById(idtest).value = "";
                         alert('이미 ' + days + '일차 일지를 작성하셨습니다,');
-                    } else if (data == 0) {
+                    } else if (data.body == 0) {
                         document.getElementById(idtest).value = "";
                         alert(days + '일차 일지를 저장했습니다.')
                     }
