@@ -6,6 +6,9 @@ import com.twelvebooks.twelvebook.repository.DiaryRepository;
 import com.twelvebooks.twelvebook.service.ChallengeService;
 import com.twelvebooks.twelvebook.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,27 +22,21 @@ public class DiaryAPIController {
     @Autowired
     ChallengeService challengeService;
 
+//    @PostMapping
+//    public int postReview(@RequestBody DiaryDto diaryDto){
+//        return diaryService.addDiary(diaryDto);
+//    }
+
     @PostMapping
-    public int postReview(@RequestBody DiaryDto diaryDto){
-        return diaryService.addDiary(diaryDto);
-
-//        System.out.println("DiaryDto: " + diaryDto.getContent());
-//        System.out.println("DiaryDto: " + diaryDto.getChalid());
-//        System.out.println("DiaryDto: " + diaryDto.getDays());
-//        Diary diary = new Diary();
-//        diary.setContent(diaryDto.getContent());
-//        diary.setDays(diaryDto.getDays());
-//        diary.setChallenge(challengeService.getChallengeDetail(diaryDto.getChalid()));
-//        diaryService.addDiary(diary);
-
+    public ResponseEntity postReview(@RequestBody DiaryDto diaryDto){
+        int count = diaryService.addDiary(diaryDto);
+        ResponseEntity<Integer> responseEntity = new ResponseEntity<>(count,
+                HttpStatus.OK);
+        return new ResponseEntity<ResponseEntity>(responseEntity , HttpStatus.OK);
     }
 
     @GetMapping
-    public List<Diary> getDiariesByChallengeId(
-            @RequestParam(name = "challengeId") long id
-    ){
-
-
+    public List<Diary> getDiariesByChallengeId(@RequestParam(name = "challengeId") long id){
         return null;
     }
 }
