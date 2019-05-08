@@ -1,5 +1,6 @@
-package com.twelvebooks.twelvebook.aop;
+package com.twelvebooks.twelvebook.component;
 
+import com.twelvebooks.twelvebook.aop.RequestLoggingAspect;
 import com.twelvebooks.twelvebook.repository.DiaryRepository;
 import com.twelvebooks.twelvebook.service.ChallengeService;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,8 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component // 1
-@Aspect // 2
-public class UpdateCurrentDayAspect {
+public class UpdateCurrentDay {
     private static final Logger logger = LoggerFactory.getLogger(RequestLoggingAspect.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
