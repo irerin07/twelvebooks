@@ -23,6 +23,7 @@ public interface ChallengeService {
 
     List<Challenge> getChallengesByUserIdStatus(long id, String status);
 
-    public void updateAllCurrentDays(Date date1);
+    public void updateAllCurrentDays(Date date1, String status);
 
+    public void updateBookStatus();
 }

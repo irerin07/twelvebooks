@@ -68,7 +68,13 @@ public class ChallengeServiceImpl implements ChallengeService {
 
     @Override
     @Transactional
-    public void updateAllCurrentDays(Date date1) {
-        challengeRepository.updateAllCurrentDays(date1);
+    public void updateAllCurrentDays(Date date1, String status) {
+        challengeRepository.updateAllCurrentDays(date1, status);
+    }
+
+    @Override
+    @Transactional
+    public void updateBookStatus() {
+        challengeRepository.updateBookStatus();
     }
 }

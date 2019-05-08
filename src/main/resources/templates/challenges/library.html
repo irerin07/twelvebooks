@@ -63,7 +63,6 @@
                 var today = new Date();
                 var today2 = moment(today).format('YYYY-MM-DD');
                 if (startdate > today2) {
-                    alert('엥?');
                     days = 0;
                 }
                 var challengeDiv = $(' <tr data-toggle="collapse" data-target="#book' + val[i].id + '" class="clickable" border-bottom: 1px solid black;"><td><span style="padding-right: 150px;"><img style="margin-top: 50px; margin-bottom: 10px; width: 100px;" src="' + val[i].thumbnailImage + '" /></span></td>\n' +
@@ -138,7 +137,7 @@
             var chalid = chalid;
             var days = days;
             if(days == 0){
-                alert('글을 작성 할 수 없습니다!');
+                alert('읽기 시작하지 않은 책에는 일지를 작성 하실 수 없어요!  \n시작 날짜를 확인해주세요!');
                 return false;
             }
             console.log(content);
@@ -173,10 +172,10 @@
                     console.log(data);
                     if (data != 0) {
                         document.getElementById(idtest).value = "";
-                        alert('오늘은 이미 일지를 작성하셨습니다,');
+                        alert('이미 ' + days + '일차 일지를 작성하셨습니다,');
                     } else if (data == 0) {
                         document.getElementById(idtest).value = "";
-                        alert('일지를 저장했습니다.')
+                        alert(days + '일차 일지를 저장했습니다.')
                     }
                 }
             })
