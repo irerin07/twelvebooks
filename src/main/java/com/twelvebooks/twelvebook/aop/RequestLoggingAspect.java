@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Component // 1
 @Aspect // 2
+//TODO 기본적인 요청로깅 외에 에러나 디버그 로그남기기
 public class RequestLoggingAspect {
     private static final Logger logger = LoggerFactory.getLogger(RequestLoggingAspect.class);
 

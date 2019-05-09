@@ -26,4 +26,7 @@ public interface ChallengeService {
     public void updateAllCurrentDays(Date date1, String status);
 
     public void updateBookStatus();
+
+    //TODO Library페이지 Pagination 관련
+    public List<Challenge> getChallegesByUserId(long id, int page);
 }

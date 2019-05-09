@@ -77,4 +77,15 @@ public class ChallengeServiceImpl implements ChallengeService {
     public void updateBookStatus() {
         challengeRepository.updateBookStatus();
     }
+
+    //TODO Library페이지 Pagination 관련
+    @Override
+    @Transactional(readOnly = true)
+    public List<Challenge> getChallegesByUserId(long id, int page) {
+        int limit = 5;
+        int start = page * limit - limit;
+        return challengeRepository.getChallegesByUserId(id, start, limit);
+    }
+
+
 }

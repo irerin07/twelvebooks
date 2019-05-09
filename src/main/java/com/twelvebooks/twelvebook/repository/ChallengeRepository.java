@@ -1,6 +1,9 @@
 package com.twelvebooks.twelvebook.repository;
 
 import com.twelvebooks.twelvebook.domain.Challenge;
+import com.twelvebooks.twelvebook.repository.custom.ChallengeCustomRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Date;
 import java.util.List;
 
-public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
+public interface ChallengeRepository extends JpaRepository<Challenge, Long>, ChallengeCustomRepository {
     //1.User에 해당하는 List<Challenge>가져오는 쿼리
 //    @Query(value = "SELECT c FROM Challenge c INNER JOIN FETCH c.user WHERE c.user.id = :id AND c.bookStatus = :status ORDER BY c.id DESC",
 //            countQuery = "SELECT count(c) FROM Challenge c")
@@ -37,4 +40,10 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     @Modifying
     @Query("UPDATE Challenge  c SET c.bookStatus = '완료' WHERE c.days < c.currentDay")
     public void updateBookStatus();
+
+    //TODO Library페이지 Pagination 관련
+    @Query(value = "SELECT c FROM Challenge c INNER JOIN FETCH c.user WHERE c.user.id = :id ORDER BY c.id DESC",
+            countQuery = "SELECT count(c) FROM Challenge c")
+    public Page<Challenge> getChallegesByUserId(@Param("id") long id,
+                                    Pageable pageable);
 }
