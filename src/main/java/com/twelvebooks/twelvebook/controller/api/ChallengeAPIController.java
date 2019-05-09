@@ -4,6 +4,7 @@ import com.twelvebooks.twelvebook.domain.Book;
 import com.twelvebooks.twelvebook.domain.Challenge;
 import com.twelvebooks.twelvebook.domain.User;
 import com.twelvebooks.twelvebook.dto.ChallengeDto;
+import com.twelvebooks.twelvebook.dto.ChallengeResultDto;
 import com.twelvebooks.twelvebook.service.BookService;
 import com.twelvebooks.twelvebook.service.ChallengeService;
 import com.twelvebooks.twelvebook.service.UserService;
@@ -35,8 +36,6 @@ public class ChallengeAPIController {
     @Autowired
     BookService bookService;
 
-//    @Autowired
-//    BookService bookService;
 
 
     @GetMapping
@@ -50,31 +49,20 @@ public class ChallengeAPIController {
 
 
     @PostMapping
-    public String addChallenge(@RequestBody ChallengeDto challengeDto, Principal principal){
-        Challenge result;
+    public ResponseEntity<ChallengeResultDto> addChallenge(@RequestBody ChallengeDto challengeDto, Principal principal){
+            ChallengeResultDto challengeResultDto = new ChallengeResultDto();
 
-        if(principal == null){
-            return "로그인 해주세여";
-        }
-        else {
+            //Challenge에 user를 저장
             String email = principal.getName();
             User user = userService.getUserByEmail(email);
-
             Challenge challenge = new Challenge();
             challenge.setUser(user);
 
+            //isbn을 통해 책 가져오기
             Book book = bookService.getBookByIsbn(challengeDto.getIsbn());
 
             if(book == null){
-                Book book1 = new Book();
-                book1.setAuthor(challengeDto.getAuthor());
-                book1.setThumbnailImage(challengeDto.getThumbnailImage());
-                book1.setPublisher(challengeDto.getPublisher());
-                book1.setTitle(challengeDto.getBooksTitle());
-                book1.setTranslator(challengeDto.getTranslator());
-                book1.setIsbn(challengeDto.getIsbn());
-
-                Book resultBook = bookService.addBook(book1);
+                Book resultBook = getBook(challengeDto);
                 challenge.setBook(resultBook);
                 challenge.setBooksTitle(resultBook.getTitle());
                 challenge.setThumbnailImage(resultBook.getThumbnailImage());
@@ -84,24 +72,31 @@ public class ChallengeAPIController {
                 challenge.setBooksTitle(book.getTitle());
                 challenge.setThumbnailImage(book.getThumbnailImage());
                 challenge.setIsbn(book.getIsbn());
-
             }
 
-            //BeanUtils.copyProperties(challengeDto, challenge);
-            challenge.setStartDate(challengeDto.getStartDate());
-            challenge.setEndDate(challengeDto.getEndDate());
-            challenge.setVisibility(challengeDto.getVisibility());
-            challenge.setDays(challengeDto.getDays());
+                challenge.setStartDate(challengeDto.getStartDate());
+                challenge.setEndDate(challengeDto.getEndDate());
+                challenge.setVisibility(challengeDto.getVisibility());
+                challenge.setDays(challengeDto.getDays());
 
-            System.out.println(challengeDto.toString());
+                Challenge result = challengeService.addChallenge(challenge);
 
-            result = challengeService.addChallenge(challenge);
-        }
+                if(result != null){
+                    challengeResultDto.setResultMessage("도전이 등록되었습니다.");
+                }else{
+                    challengeResultDto.setResultMessage("등록 실패!");
+                }
+            return new ResponseEntity<>(challengeResultDto, HttpStatus.OK);
+    }
 
-        if(result.getBooksTitle() != null) {
-            return "도전등록완료!";
-        }else {
-            return "실패!";
-        }
+    private Book getBook(@RequestBody ChallengeDto challengeDto) {
+        Book book1 = new Book();
+        book1.setAuthor(challengeDto.getAuthor());
+        book1.setThumbnailImage(challengeDto.getThumbnailImage());
+        book1.setPublisher(challengeDto.getPublisher());
+        book1.setTitle(challengeDto.getBooksTitle());
+        book1.setTranslator(challengeDto.getTranslator());
+        book1.setIsbn(challengeDto.getIsbn());
+        return bookService.addBook(book1);
     }
 }

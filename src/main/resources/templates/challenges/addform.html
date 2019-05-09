@@ -276,7 +276,7 @@
                                     });
 
                             if (!res.meta.is_end) {
-                                html += "<li style = 'list-style: none'><button class='btn btn-dark btn-lg btn-block' onclick='bookSearch2("
+                                html += "<li style = 'list-style: none'><button class='btn btn-dark btn-lg btn-block' onclick='bookSearch("
                                     + (pg + 1)
                                     + "); $(this).parent().remove();'>더보기 </button></li>";
                             }
@@ -356,7 +356,7 @@
                     contentType : "application/json",
                     success : function(res){
                         console.log(res);
-                        alert("도전이 등록되었습니다!")
+                        alert("도전이 등록되었습니다!");
                         window.location.href= "/challenges/library";
                     },
                     beforeSend : function(xhr){
