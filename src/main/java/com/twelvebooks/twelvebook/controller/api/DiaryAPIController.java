@@ -2,12 +2,11 @@ package com.twelvebooks.twelvebook.controller.api;
 
 import com.twelvebooks.twelvebook.domain.Diary;
 import com.twelvebooks.twelvebook.dto.DiaryDto;
-import com.twelvebooks.twelvebook.repository.DiaryRepository;
+import com.twelvebooks.twelvebook.dto.PostReviewResultDto;
 import com.twelvebooks.twelvebook.service.ChallengeService;
 import com.twelvebooks.twelvebook.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +27,24 @@ public class DiaryAPIController {
 //    }
 
     @PostMapping
-    public ResponseEntity postReview(@RequestBody DiaryDto diaryDto){
+    public ResponseEntity<PostReviewResultDto> postReview(@RequestBody DiaryDto diaryDto){
+        PostReviewResultDto postReviewResultDto = new PostReviewResultDto();
+        char[] c = diaryDto.getContent().toCharArray();
+        int length = c.length;
+
+        //TODO 나중에 DTO만들어서 관리하는걸로 변경하기
+        if(length < 30){
+            postReviewResultDto.setResult("일지는 30자 이상 작성해주세요.");
+            return new ResponseEntity<>(postReviewResultDto, HttpStatus.OK);
+        }
+
         int count = diaryService.addDiary(diaryDto);
-        ResponseEntity<Integer> responseEntity = new ResponseEntity<>(count,
-                HttpStatus.OK);
-        return new ResponseEntity<ResponseEntity>(responseEntity , HttpStatus.OK);
+        if(count > 0){
+            postReviewResultDto.setResult("이미 작성된 일지 있음");
+            return new ResponseEntity<>(postReviewResultDto, HttpStatus.OK);
+        }
+        postReviewResultDto.setResult("작성완료");
+        return new ResponseEntity<>(postReviewResultDto, HttpStatus.OK);
     }
 
     @GetMapping

@@ -3,15 +3,17 @@ package com.twelvebooks.twelvebook.component;
 import com.twelvebooks.twelvebook.aop.RequestLoggingAspect;
 import com.twelvebooks.twelvebook.repository.DiaryRepository;
 import com.twelvebooks.twelvebook.service.ChallengeService;
-import org.aspectj.lang.annotation.Aspect;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 @Component // 1
@@ -39,6 +41,7 @@ public class UpdateCurrentDay {
     ChallengeService challengeService;
 
     //매일 24시에 실행되는 스케쥴러
+    //TODO 24시에 update되는 중에 유저가 Challenge를 등록하거나 삭제 했을때 처리는 어떻게 해야하나.
     @Scheduled(cron = "0 0 0 * * *")
     public void updateChallengeDays() {
         //상태가 '읽는중'인 Challenge들의 일차를 1일씩 올려주고
