@@ -23,8 +23,8 @@
                             <th scope="col" style="width: 25%">Registered Date</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr th:each="users : ${users}">
+                        <tbody style="margin-top:10px;">
+                        <tr th:each="users : ${users}" style="border-bottom : 1px solid black; ">
                             <td><span th:text="${users.email}">email</span></td>
                             <td><span th:text="${users.roles}">roles</span></td>
                             <td><span th:text="${users.name}">name</span></td>
