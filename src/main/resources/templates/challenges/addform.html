@@ -270,7 +270,7 @@
                                             + this.publisher
                                                 +"</div>"
                                                 + "<div class = col style = 'left : 12%;'>"
-                                            +" <button type='button' class='btn btn-dark btn-sm' id= 'bookmarks' data-title='"+ititle+"' data-author='"+iauthor+"' data-publisher='"+ipublisher+"' data-thumbnail='"+ithumbnail+"' data-isbn='"+isbn+"' onclick='addBook() ,addBookmark()'>북마크</button>"
+                                            +"<button type='button' class='btn btn-dark btn-sm' name='bookmarks' id= 'bookmarks' data-title='"+ititle+"' data-author='"+iauthor+"' data-publisher='"+ipublisher+"' data-thumbnail='"+ithumbnail+"' data-isbn='"+isbn+"' data-trans='"+itrans+"' onclick='addBook("+isbn+"),addBookmark("+isbn+")'>북마크</button>"
                                                 + "</div>"
                                             + "</div></li>";
                                     });
@@ -369,14 +369,14 @@
 
         }
 
-        function addBook() {
+        function addBook(isbn) {
 
-
-            var booktitle = document.getElementById( 'bookmarks' ).getAttribute( 'data-title' );
-            var thumbnail = document.getElementById( 'bookmarks' ).getAttribute( 'data-thumbnail' );
-            var authors = document.getElementById( 'bookmarks' ).getAttribute( 'data-author' );
-            var publisher = document.getElementById( 'bookmarks' ).getAttribute( 'data-publisher' );
-            var isbn = document.getElementById( 'bookmarks' ).getAttribute( 'data-isbn' );
+            var booktitle = document.getElementById('bookmarks').getAttribute('data-title');
+            var thumbnail = document.getElementById('bookmarks').getAttribute('data-thumbnail');
+            var authors = document.getElementById('bookmarks').getAttribute('data-author');
+            var publisher = document.getElementById('bookmarks').getAttribute('data-publisher');
+            var isbn = document.getElementById('bookmarks').getAttribute('data-isbn');
+            var trans = document.getElementById('bookmarks').getAttribute('data-trans');
 
             console.log(booktitle);
             console.log(thumbnail);
@@ -385,41 +385,36 @@
             console.log(isbn);
 
 
-
             var data = {
-                "title"       : booktitle,
-                "thumbnailImage" : thumbnail,
-                "authors" : authors,
-                "publisher" : publisher,
-                "isbn"      : isbn
+                title: booktitle,
+                thumbnailImage: thumbnail,
+                author: authors,
+                publisher: publisher,
+                isbn: isbn,
+                translator: trans
             }
 
-            // data.push($(this).attr("data-book"));
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
             var jsonData = JSON.stringify(data);
             $.ajax({
-                type : "post",
-                url : "/api/book/add",
-                data : jsonData,
-                contentType : "application/json",
-                success : function(res){
+                type: "post",
+                url: "/api/book/add",
+                data: jsonData,
+                contentType: "application/json",
+                success: function (res) {
                     console.log(res);
                 },
-                beforeSend : function(xhr){
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader(header, token);
                 },
-                // error : function(){
-                //     alert("db 등록 에러");
-                // }
             })
 
-        }
+            }
 
 
-        function addBookmark() {
-
+        function addBookmark(isbn) {
 
             var booktitle = document.getElementById( 'bookmarks' ).getAttribute( 'data-title' );
             var thumbnail = document.getElementById( 'bookmarks' ).getAttribute( 'data-thumbnail' );
@@ -430,9 +425,9 @@
             console.log(isbn);
 
             var data = {
-                "bookTitle"       : booktitle,
-                "thumbnailImage" : thumbnail,
-                "isbn"      : isbn
+                bookTitle       : booktitle,
+                thumbnailImage : thumbnail,
+                isbn      : isbn
             }
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
@@ -445,17 +440,30 @@
                 contentType : "application/json",
                 success : function(res){
                     console.log(res);
-                    alert("북마크에 저장했습니다.")
+
+                    if(res== "save") {
+                        alert("북마크에 저장했습니다.")
+                    }
+                    else if(res == "exist"){
+
+                        alert("이미 저장된 책입니다.")
+                    }
+
+
                 },
+
+
                 beforeSend : function(xhr){
                     xhr.setRequestHeader(header, token);
                 },
                 error : function(){
-                    alert("이미 등록된 책입니다.");
+                    alert("등록 에러.");
                 }
             })
 
         }
+
+            // )};
     </script>
 
     </form>

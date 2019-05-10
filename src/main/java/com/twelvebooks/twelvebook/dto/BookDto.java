@@ -16,4 +16,5 @@ public class BookDto {
     private String author;
     private String publisher;
     private String isbn;
+    private String translator;
 }
