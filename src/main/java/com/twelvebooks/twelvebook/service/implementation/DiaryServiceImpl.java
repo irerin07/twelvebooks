@@ -46,6 +46,7 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
+    @Transactional
     public List<Diary> getDiariesByChallengeId(long ChallengeId) {
         List<Diary> list = null;
         list = diaryRepository.getDiariesByChallengeId(ChallengeId);
@@ -53,6 +54,7 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
     @Override
+    @Transactional
     public int diaryCheck(long id, int days) {
         int count = 0;
         count = diaryRepository.diaryCheck(id, days);

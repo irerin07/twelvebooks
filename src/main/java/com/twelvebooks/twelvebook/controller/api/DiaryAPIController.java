@@ -21,11 +21,6 @@ public class DiaryAPIController {
     @Autowired
     ChallengeService challengeService;
 
-//    @PostMapping
-//    public int postReview(@RequestBody DiaryDto diaryDto){
-//        return diaryService.addDiary(diaryDto);
-//    }
-
     @PostMapping
     public ResponseEntity<PostReviewResultDto> postReview(@RequestBody DiaryDto diaryDto){
         PostReviewResultDto postReviewResultDto = new PostReviewResultDto();
