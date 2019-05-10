@@ -112,46 +112,21 @@ public class UserController {
         return "users/modify";
     }
 
-//    @GetMapping("/modify")
-//    public String modifyform(@ModelAttribute("user") @Valid UserJoinForm userJoinForm, BindingResult result, Model model){
-//
-//        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-//        String email = loggedInUser.getName();
-//
-//        User user = userService.getUserByEmail(email);
-//        String name = user.getName();
-//        String comment = user.getComment();
-//        model.addAttribute("name", name);
-//        model.addAttribute("comment", comment);
-//        model.addAttribute("email", email);
-//
-//
-//        return "users/modify";
-//    }
-
     @PostMapping("/modify")
     public String modify(@RequestParam("name") String name,
                          @RequestParam("comment") String comment){
 
+
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String email = loggedInUser.getName();
 
-        System.out.println(name);
-        System.out.println(comment);
-        System.out.println(email);
+        User user = userService.getUserByEmail(email);
 
-       User user = userService.getUserByEmail(email);
-
-        System.out.println(user.getName());
-        System.out.println(user.getComment());
 
         user.setComment(comment);
         user.setName(name);
 
         userRepository.save(user);
-
-        System.out.println(user.getName());
-        System.out.println(user.getComment());
 
         return "redirect:/users/mypage";
     }
@@ -184,7 +159,6 @@ public class UserController {
         String oldpass = passwordEncoder.encode(oldpasswd);
         String newpass = user.getPasswd();
 
-        System.out.println(passwordEncoder.matches(oldpasswd, newpass));
 
         if(!passwordEncoder.matches(oldpasswd, newpass)){
             FieldError error = new FieldError("passwdDto", "oldpasswd",

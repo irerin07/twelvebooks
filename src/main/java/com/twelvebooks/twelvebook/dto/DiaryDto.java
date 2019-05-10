@@ -14,12 +14,6 @@ import java.util.Date;
 @ToString
 public class DiaryDto {
 
-//    public DiaryDto(String content, int days, long chalid){
-//        this.content = content;
-//        this.days = days;
-//        this.chalid = chalid;
-//    }
-
     @NonNull
     @Size(min = 30)
     private String content;

@@ -1,11 +1,9 @@
-package com.twelvebooks.twelvebook.component;
+package com.twelvebooks.twelvebook.scheduler;
 
-import com.twelvebooks.twelvebook.aop.RequestLoggingAspect;
 import com.twelvebooks.twelvebook.repository.DiaryRepository;
 import com.twelvebooks.twelvebook.service.ChallengeService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,8 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component // 1
-public class UpdateCurrentDay {
-    private static final Logger logger = LoggerFactory.getLogger(RequestLoggingAspect.class);
+@Slf4j
+public class UpdateCurrentDayScheduler {
+    //TODO Bean으로 등록
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     String date = dateFormat.format(new Date());
@@ -34,9 +33,6 @@ public class UpdateCurrentDay {
         }
     }
 
-
-    @Autowired
-    DiaryRepository diaryRepository;
     @Autowired
     ChallengeService challengeService;
 
@@ -49,7 +45,7 @@ public class UpdateCurrentDay {
         //상태를 변경해주기 위한 코드
         challengeService.updateBookStatus();
 
-        logger.info("updated at : {}", dateFormat.format(new Date()));
+        log.info("updated at : {}", dateFormat.format(new Date()));
     }
 
 }

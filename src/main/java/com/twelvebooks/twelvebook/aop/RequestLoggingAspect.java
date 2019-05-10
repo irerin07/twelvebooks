@@ -1,35 +1,21 @@
 package com.twelvebooks.twelvebook.aop;
 
 import com.google.common.base.Joiner;
-import com.twelvebooks.twelvebook.repository.ChallengeRepository;
-import com.twelvebooks.twelvebook.repository.DiaryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component // 1
 @Aspect // 2
+@Slf4j
 //TODO 기본적인 요청로깅 외에 에러나 디버그 로그남기기
 public class RequestLoggingAspect {
-    private static final Logger logger = LoggerFactory.getLogger(RequestLoggingAspect.class);
-
-    @Autowired
-    DiaryRepository diaryRepository;
-    @Autowired
-    ChallengeRepository challengeRepository;
 
     //paramMap을 스트링으로 변환시켜주는 메서드
     //stream().map()를 사용하여 변환시켜준다.
@@ -63,7 +49,7 @@ public class RequestLoggingAspect {
             return joinPoint.getArgs();
         } finally {
             long end = System.currentTimeMillis();
-            logger.info("Request: {} {}{} < {} ({}ms)", request.getMethod(), request.getRequestURI(),
+            log.info("Request: {} {}{} < {} ({}ms)", request.getMethod(), request.getRequestURI(),
                     params, request.getRemoteHost(), end - start);
         }
     }
