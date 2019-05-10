@@ -16,5 +16,9 @@ public interface BookmarkService {
 
     public Bookmark selectDelete(Bookmark bookmark, long userid);
 
-//    public List<Bookmark> selectAllByUserId(Long userId);
+    public Bookmark getBookmark(String isbn);
+
+    public Bookmark getBookmarkbyIsbnUser(String isbn, long id);
+
+
 }

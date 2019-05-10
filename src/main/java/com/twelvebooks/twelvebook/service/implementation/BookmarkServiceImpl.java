@@ -44,7 +44,18 @@ public class BookmarkServiceImpl implements BookmarkService {
         return bookmarkRepository.selectDel(bookmark, userid);
     }
 
-//    @Override
+    @Override
+    public Bookmark getBookmark(String isbn) {
+        return bookmarkRepository.getBookmark(isbn);
+    }
+
+
+    @Override
+    public Bookmark getBookmarkbyIsbnUser(String isbn, long id) {
+        return bookmarkRepository.getBookmarkbyIsbnUser(isbn, id);
+    }
+
+    //    @Override
 //    @Transactional(readOnly = true)
 //    public List<Bookmark> selectAllByUserId(Long userId) {
 //        return bookmarkRepository.findAllByUserId(userId);

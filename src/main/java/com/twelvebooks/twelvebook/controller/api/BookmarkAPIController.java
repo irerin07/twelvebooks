@@ -62,30 +62,39 @@ public class BookmarkAPIController {
 
 
     @PostMapping("/add")
-    public int bookmarkAdd(@RequestBody BookmarkDto bookmarkDto, Principal principal) {
+    public String bookmarkAdd(@RequestBody BookmarkDto bookmarkDto, Principal principal) {
 
         User user = userService.getUserByEmail(principal.getName());
 
 
-        String checkisbn = bookmarkDto.getIsbn();
+        String isbn = bookmarkDto.getIsbn();
 
-        System.out.println(checkisbn);
+        System.out.println("체크isbn" + isbn);
 
-        Book check = bookService.ckeckBook(checkisbn);
+        Bookmark check = bookmarkService.getBookmarkbyIsbnUser(isbn, user.getId());
 
-        System.out.println(check);
+//        Bookmark check = bookmarkService.getBookmark(isbn);
+
+        System.out.println("체크체크" + check);
 
         if (check == null) {
             Bookmark bookmark = new Bookmark();
             bookmark.setUser(user);
-            BeanUtils.copyProperties(bookmarkDto, bookmark);
+            Book book = bookService.getBookByIsbn(isbn);
+
+            bookmark.setIsbn(isbn);
+            bookmark.setThumbnailImage(book.getThumbnailImage());
+            bookmark.setBookTitle(book.getTitle());
+
+//            BeanUtils.copyProperties(bookmarkDto, bookmark);
 
             bookmarkService.bookmarkAdd(bookmark);
 
-
-            return bookmarkService.bookmarkList(user.getId()).size();
+            return "save";
         }
-        return bookmarkService.bookmarkList(user.getId()).size();
+        else {
+            return "exist";
+        }
     }
 
 

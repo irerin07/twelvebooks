@@ -21,8 +21,18 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     public Bookmark selectDel(Bookmark bookmark, long userid);
 
 
-    //book isbn에 해당하는 정보를 가져온다.
-    @Query("SELECT b FROM Bookmark b WHERE b.book.id = :isbn ORDER BY b.id DESC")
-    public Book getBook(@Param("id") Long id);
+    //book isbn에 해당하는 정보를 가져온다. 조인처리해야
+    @Query("SELECT b FROM Bookmark b WHERE b.book.isbn = :isbn ")
+    public Book searchBook(@Param("isbn") Long isbn);
+
+//    bookmark안에 isbn에 해당하는 정보를 가져온다.
+    @Query("SELECT b FROM Bookmark b WHERE b.isbn = : isbn ")
+    public Bookmark getBookmark(String isbn);
+
+
+    //bookmark안에 isbn에 해당하는 정보를 가져온다.
+    @Query("SELECT b FROM Bookmark b WHERE b.isbn =  ?1 and b.user.id=  ?2")
+    public Bookmark getBookmarkbyIsbnUser(String isbn, long id);
+
 
 }
