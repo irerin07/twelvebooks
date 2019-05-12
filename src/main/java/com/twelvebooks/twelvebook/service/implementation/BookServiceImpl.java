@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -17,9 +18,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getBookByIsbn(String isbn) {
 
-        Book book = bookRepository.getBookByIsbn(isbn);
+        Optional<Book> book = Optional.ofNullable(bookRepository.getBookByIsbn(isbn));
 
-        return book;
+        return book.get();
     }
 
     @Override

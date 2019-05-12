@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 @Service
 public class KakaoBookApiServiceImpl implements KakaoBookApiService {
-    private static final String API_REST_API_KEY = "dc0d381e1832f6eaeeb3659950e4d2ac";
+    private static final String API_REST_API_KEY = "";//각자 발급받은 api 키를 입력하세요
     private static final String API_BOOK_URL = "https://dapi.kakao.com/v3/search/book";
 
     @Override
