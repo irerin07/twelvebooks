@@ -17,10 +17,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book getBookByIsbn(String isbn) {
-
+        Book book1 = null;
         Optional<Book> book = Optional.ofNullable(bookRepository.getBookByIsbn(isbn));
-
-        return book.get();
+        if(book.isPresent()){
+             book1 = book.get();
+        }
+        return book1;
     }
 
     @Override
