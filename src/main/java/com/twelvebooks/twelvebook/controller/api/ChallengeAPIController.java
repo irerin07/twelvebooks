@@ -21,6 +21,7 @@ import javax.xml.bind.helpers.PrintConversionEventImpl;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/challenges")
@@ -59,15 +60,17 @@ public class ChallengeAPIController {
             challenge.setUser(user);
 
             //isbn을 통해 책 가져오기
-            Book book = bookService.getBookByIsbn(challengeDto.getIsbn());
+            Optional<Book> OptionalBook = Optional.ofNullable(bookService.getBookByIsbn(challengeDto.getIsbn()));
 
-            if(book == null){
+            if(!OptionalBook.isPresent()){
+
                 Book resultBook = getBook(challengeDto);
                 challenge.setBook(resultBook);
                 challenge.setBooksTitle(resultBook.getTitle());
                 challenge.setThumbnailImage(resultBook.getThumbnailImage());
                 challenge.setIsbn(resultBook.getIsbn());
             }else{
+                Book book = OptionalBook.get();
                 challenge.setBook(book);
                 challenge.setBooksTitle(book.getTitle());
                 challenge.setThumbnailImage(book.getThumbnailImage());
