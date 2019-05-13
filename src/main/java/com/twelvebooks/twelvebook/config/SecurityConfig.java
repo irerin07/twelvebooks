@@ -6,7 +6,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -24,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
@@ -48,7 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/notices/delete").hasAnyRole("ADMIN")
                 .antMatchers("/notices/modify/**").hasAnyRole("ADMIN")
 
-
                 .antMatchers("/api/bookmark/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookmark/list").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/bookmark/add").hasAnyRole("USER", "ADMIN")
@@ -59,6 +63,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/challenges/**").hasAnyRole("USER", "ADMIN")
                 .anyRequest().fullyAuthenticated()
+                .antMatchers(
+                        "/h2-console/**"
+                ).permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .csrf()
+                .ignoringAntMatchers("/h2-console/**")
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/users/login")
@@ -67,5 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("passwd")
                 .defaultSuccessUrl("/",true)
                 .failureUrl("/users/login?fail=true");
+        http.headers().frameOptions().sameOrigin();
     }
 }
