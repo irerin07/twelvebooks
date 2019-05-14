@@ -270,8 +270,8 @@
                                             + this.publisher
                                                 +"</div>"
                                                 + "<div class = col style = 'left : 12%;'>"
-                                            +"<button type='button' class='btn btn-dark btn-sm' name='bookmarks' id= 'bookmarks' data-title='"+ititle+"' data-author='"+iauthor+"' data-publisher='"+ipublisher+"' data-thumbnail='"+ithumbnail+"' data-isbn='"+isbn+"' data-trans='"+itrans+"' onclick='addBook("+isbn+"),addBookmark("+isbn+")'>북마크</button>"
-                                                + "</div>"
+                                            +"<a href='javascript:void(0);' onclick='addBookmark("+ititle+","+iauthor+","+ipublisher+","+ithumbnail+","+isbn+","+itrans+")'  ><span class='bookmarkicon' name='bookmarks' id= 'bookmarks' data-title='"+ititle+"' data-author='"+iauthor+"' data-publisher='"+ipublisher+"' data-thumbnail='"+ithumbnail+"' data-isbn='"+isbn+"' data-trans='"+itrans+"'></span></a>"
+                                            + "</div>"
                                             + "</div></li>";
                                     });
 
@@ -369,7 +369,11 @@
 
         }
 
-        function addBook(isbn) {
+        </script>
+
+        <script>
+
+        function addBook() {
 
             var booktitle = document.getElementById('bookmarks').getAttribute('data-title');
             var thumbnail = document.getElementById('bookmarks').getAttribute('data-thumbnail');
@@ -400,7 +404,7 @@
             var jsonData = JSON.stringify(data);
             $.ajax({
                 type: "post",
-                url: "/api/book/add",
+                url: "/api/books/add",
                 data: jsonData,
                 contentType: "application/json",
                 success: function (res) {
@@ -413,58 +417,79 @@
 
             }
 
+            </script>
 
-        function addBookmark(isbn) {
+        <script>
 
-            var booktitle = document.getElementById( 'bookmarks' ).getAttribute( 'data-title' );
-            var thumbnail = document.getElementById( 'bookmarks' ).getAttribute( 'data-thumbnail' );
-            var isbn = document.getElementById( 'bookmarks' ).getAttribute( 'data-isbn' );
-
-            console.log(booktitle);
-            console.log(thumbnail);
-            console.log(isbn);
-
-            var data = {
-                bookTitle       : booktitle,
-                thumbnailImage : thumbnail,
-                isbn      : isbn
-            }
-            var token = $("meta[name='_csrf']").attr("content");
-            var header = $("meta[name='_csrf_header']").attr("content");
-
-            var jsonData = JSON.stringify(data);
-            $.ajax({
-                type : "post",
-                url : "/api/bookmark/add",
-                data : jsonData,
-                contentType : "application/json",
-                success : function(res){
-                    console.log(res);
-
-                    if(res== "save") {
-                        alert("북마크에 저장했습니다.")
-                    }
-                    else if(res == "exist"){
-
-                        alert("이미 저장된 책입니다.")
-                    }
+        function addBookmark(ititle, iauthor, ipublisher, ithumbnail, isbn, itrans) {
+            var confirm_val = confirm("북마크에 등록할까요?");
+            if (confirm_val) {
 
 
-                },
+                var booktitle = ititle;
+                var bookauthor = iauthor;
+                var bookpub = ipublisher;
+                var thumbnail = ithumbnail;
+                var bookisbn = isbn;
+                var trans = itrans;
 
 
-                beforeSend : function(xhr){
-                    xhr.setRequestHeader(header, token);
-                },
-                error : function(){
-                    alert("등록 에러.");
+                console.log(booktitle);
+                console.log(thumbnail);
+                console.log(isbn);
+
+
+
+                var data = {
+                    bookTitle: booktitle,
+                    thumbnailImage: thumbnail,
+                    isbn: bookisbn
                 }
-            })
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
 
+                var jsonData = JSON.stringify(data);
+                $.ajax({
+                    type: "post",
+                    url: "/api/bookmarks" ,
+                    data: jsonData,
+                    contentType: "application/json",
+                    success: function (res) {
+                        console.log(res);
+
+                        if (res == "save") {
+                            alert("북마크에 저장했습니다.")
+                        } else if (res == "exist") {
+
+                            alert("이미 저장된 책입니다.")
+                        }
+
+
+                    },
+
+
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    error: function () {
+                        alert("등록 에러.");
+                    }
+                })
+
+            }
         }
 
             // )};
     </script>
+
+
+        <script>
+
+            function actionBook() {
+                // href ="javascript:void[0];"
+                th:onclick= "'javascript:addBookmark('+${isbn}+')'"
+            }
+        </script>
 
     </form>
 </div>
