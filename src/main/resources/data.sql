@@ -22,6 +22,8 @@ insert into books(id, isbn ,title, author,  translator, thumbnail_image, publish
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (9, '9788932027268', '사람, 장소, 환대3', '김현경','-', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg', '문학과지성사');
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (10, '9788932027269', '사람, 장소, 환대4', '김현경','-', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg', '문학과지성사');
 insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (11, '9788932027270', '사람, 장소, 환대5', '김현경','-', 'http://www.hanbit.co.kr/data/books/B1460673937_l.jpg', '문학과지성사');
+insert into books(id, isbn ,title, author,  translator, thumbnail_image, publisher) values (12, '9791163030195', 'Do it! 자바 프로그래밍 입문', '김현경','-', 'https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F1606323%3Ftimestamp%3D20190131055230', '문학과지성사');
+
 
 insert into roles(id, name) values(1, 'ADMIN');
 insert into roles(id, name) values(2, 'USER');

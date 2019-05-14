@@ -26,10 +26,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/bookmark")
+@RequestMapping("/api/bookmarks")
 @RequiredArgsConstructor
 public class BookmarkAPIController {
 
@@ -52,7 +53,6 @@ public class BookmarkAPIController {
     public int delete(@PathVariable(value = "bookmarkId") Long id, Principal principal){
         User user = userService.getUserByEmail(principal.getName());
         bookmarkService.bookmarkDelete(id);
-        bookmarkService.bookmarkList(id);
 
         return bookmarkService.bookmarkList(user.getId()).size();
     }
@@ -61,8 +61,8 @@ public class BookmarkAPIController {
 
 
 
-    @PostMapping("/add")
-    public String bookmarkAdd(@RequestBody BookmarkDto bookmarkDto, Principal principal) {
+    @PostMapping
+    public String addBookmark(@RequestBody BookmarkDto bookmarkDto, Principal principal) {
 
         User user = userService.getUserByEmail(principal.getName());
 
@@ -71,13 +71,16 @@ public class BookmarkAPIController {
 
         System.out.println("체크isbn" + isbn);
 
-        Bookmark check = bookmarkService.getBookmarkbyIsbnUser(isbn, user.getId());
+//        Bookmark check = bookmarkService.getBookmarkbyIsbnUser(isbn, user.getId());
 
-//        Bookmark check = bookmarkService.getBookmark(isbn);
+
+        Optional<Bookmark> check = Optional.ofNullable(bookmarkService.getBookmarkbyIsbnUser(isbn, user.getId()));
 
         System.out.println("체크체크" + check);
 
-        if (check == null) {
+        if(!check.isPresent()){
+
+//        if (check == null) {
             Bookmark bookmark = new Bookmark();
             bookmark.setUser(user);
             Book book = bookService.getBookByIsbn(isbn);
@@ -86,20 +89,20 @@ public class BookmarkAPIController {
             bookmark.setThumbnailImage(book.getThumbnailImage());
             bookmark.setBookTitle(book.getTitle());
 
-//            BeanUtils.copyProperties(bookmarkDto, bookmark);
-
             bookmarkService.bookmarkAdd(bookmark);
-
             return "save";
+
+
         }
         else {
+
             return "exist";
         }
     }
 
 
-    @PostMapping("/send")
-    public String bookmarkSend(
+    @PostMapping("/send/{isbnid}")
+    public String sendBookmark(
             @RequestParam(name = "isbn") String isbn
     ){
         Bookmark bookmark = new Bookmark();

@@ -49,24 +49,26 @@
                     $("input[name=check]").prop("checked", false);
                 }
             });
-            $("#deleteicon").click(function () {
-                var confirm_val = confirm("정말 삭제하시겠습니까?");
-                if(confirm_val) {
-                    // $("input[name=deleteicon]").each(function () {
-                    var deleteicon = $(this).val();
-                    $.ajax({
-                        url: '/api/bookmark/' + deleteicon,
-                        method: 'delete',
-                        success: function (data) {
-                            document.getElementById(deleteicon).remove();
-                            if (data == 0) {
-                            }
-                        }
-                    });
-                    // });
-                }
-            });
+
         });
+    </script>
+
+    <script>
+        function deleteicon(deleteiconid) {
+            var confirm_val = confirm("정말 삭제하시겠습니까?");
+            if(confirm_val) {
+                $.ajax({
+                    url: '/api/bookmarks/' + deleteiconid,
+                    method: 'delete',
+                    success: function (data) {
+                        document.getElementById(deleteiconid).remove();
+                        if (data == 0) {
+                        }
+                    }
+                });
+                // });
+            }
+        };
     </script>
 
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
@@ -96,7 +98,8 @@
                     <td style="text-align: center;vertical-align: middle" ><img th:src="${bookmarks.thumbnailImage}" style = "width :150px; "></td>
                     <td style ="vertical-align: middle;text-align: center;padding-right: 15%"><a style="color:black; font-size: large"  th:text="${bookmarks.bookTitle}" th:href="@{'/api/challenges/addform/' + ${bookmarks.book.isbn}}">bookTitle</a></td>
                     <!--<td style="vertical-align: middle"><a th:href="@{'/api/bookmark/delete/' + ${bookmarks.id}}"><span class ="css-xicon" id="deleteicon" name="deleteicon" ></span></a></td>-->
-                    <td style="vertical-align: middle"><button type="button" class ="css-xicon" name="deleteicon" id="deleteicon" th:value="${bookmarks.id}" ></button></td>
+                    <td style="vertical-align: middle"><a href="javascript:void[0];" th:onclick= "'javascript:deleteicon('+${bookmarks.id}+')'" ><span class ="css-xicon" name="deleteicon" id="deleteiconid" th:value="${bookmarks.id}" ></span></a></td>
+                    <!--<td style="vertical-align: middle"><button type="button" class ="css-xicon" name="deleteicon" id="deleteiconid" th:value="${bookmarks.id}" ></button></td>-->
                     <!--<td style="vertical-align: middle"><button class ="css-xicon" onclick="deleteicon" id = "id" th:value="${bookmarks.id}"  ></button></td>-->
                     <!--<td style ="vertical-align: middle;text-align: center;"><button  type="button" class ="css-xicon"  id="deleteicon" name="deleteicon" th:data="${bookmarks.id}"></button></td>-->
                 </tr>

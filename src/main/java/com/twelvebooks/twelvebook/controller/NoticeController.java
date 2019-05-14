@@ -28,6 +28,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoticeController {
 
+
+    //todo  이미지 파일 넣기
 //    @Autowired
 //    private ImageFileService imageFileService;
 
@@ -36,13 +38,6 @@ public class NoticeController {
 
     @Autowired
     private NoticeService noticeService;
-
-//    @GetMapping("/list")
-//    public String noticeList(Model model){
-//        List<Notice> notices = noticeService.noticeList();
-//        model.addAttribute("notices", notices);
-//        return "notices/list";
-//    }
 
     @GetMapping("/list")
     public String noticeList(Model model,@PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC,size = 10 ) Pageable pageable){
