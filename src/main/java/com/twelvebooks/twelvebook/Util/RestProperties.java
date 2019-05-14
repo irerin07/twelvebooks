@@ -18,7 +18,7 @@ public class RestProperties {
         Resource resource = new ClassPathResource("rest.properties");
         InputStream is = null;
         try{
-            is = new FileInputStream(String.valueOf(resource.getInputStream()));
+            is = new FileInputStream(resource.getFile());
             props.load(is);
         }catch(Exception e){
             e.printStackTrace();
