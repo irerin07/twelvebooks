@@ -25,9 +25,6 @@ public class AdminController {
     @GetMapping("/")
     public String userList(Model model){
         List<User> users = userService.getUsers();
-        System.out.println(users.get(10).getRoles());
-
-        System.out.println(users.get(10).getRegdate());
         model.addAttribute("users", users);
 
         return "admin/admin";
