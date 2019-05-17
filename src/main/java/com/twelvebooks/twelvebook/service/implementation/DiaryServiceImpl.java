@@ -60,4 +60,16 @@ public class DiaryServiceImpl implements DiaryService {
         count = diaryRepository.diaryCheck(id, days);
         return count;
     }
+
+    @Override
+    public void deleteDiary(Diary diary) {
+        diaryRepository.delete(diary);
+    }
+
+    @Override
+    public Diary getDiaryById(Long id) {
+        Diary diary = null;
+        diary = diaryRepository.getOne(id);
+        return diary;
+    }
 }

@@ -17,19 +17,42 @@
             <div th:each="diary : ${diary}">
                 <h4><b>Day: <span th:text="${diary.days}"></span></b></h4>
                 <div>
-                    <textarea disabled class="form-control" id="myTextarea" style="height: 125px; width: 65%; ">[[${diary.content}]]</textarea>
-                    <button class="btn btn-dark" onclick="modifiable()">수정</button>
-                    <button class="btn btn-dark">삭제</button>
+                    <textarea disabled class="form-control" th:id="${diary.id}" th:value="${diary.id}" style="height: 125px; width: 65%; ">[[${diary.content}]]</textarea>
+                    <button class="btn btn-dark" th:onclick="'javascript:modifiable(' + ${diary.id} + ');'">수정</button>
+                    <button class="btn btn-dark" th:onclick="'javascript:deleteReview(' + ${diary.id} + ');'">삭제</button>
                 </div>
             </div>
         </div>
     </div>
     <script th:inline="javascript">
-
-        function modifiable() {
-            document.getElementById("myTextarea").disabled = false;
-
+        /*<![CDATA[*/
+        function modifiable(id) {
+            document.getElementById(id).disabled = false;
         }
+
+        function deleteReview(id) {
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            $.ajax({
+                type: 'delete',
+                url: '/api/diaries/'+ id,
+                async: true,
+                contentType: "application/json",
+                error: function (err) {
+                    console.log(err.toString());
+                    alert("서버가 응답하지 않습니다.");
+                    return false;
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                success: function (data) {
+                    console.log(data);
+                    document.getElementById(id).remove();
+                }
+            })
+        }
+        /*]]>*/
     </script>
 </div>
 </html>
