@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 @ToString
 public class DiaryDto {
 
+    private long id;
     @NonNull
     @Size(min = 30)
     private String content;

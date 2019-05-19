@@ -14,4 +14,7 @@ public interface DiaryService {
 
     public int diaryCheck(long id, int days);
 
+    public void deleteDiary(Diary diary);
+
+    public Diary getDiaryById(Long id);
 }

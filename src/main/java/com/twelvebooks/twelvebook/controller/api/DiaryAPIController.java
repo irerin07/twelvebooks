@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -39,6 +40,18 @@ public class DiaryAPIController {
             return new ResponseEntity<>(postReviewResultDto, HttpStatus.OK);
         }
         postReviewResultDto.setResult("작성완료");
+        return new ResponseEntity<>(postReviewResultDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{diaryId}")
+    public ResponseEntity<PostReviewResultDto> deleteReview(@PathVariable(value = "diaryId") Long id, Principal principal){
+        PostReviewResultDto postReviewResultDto = new PostReviewResultDto();
+
+        Diary diary = diaryService.getDiaryById(id);
+
+        diaryService.deleteDiary(diary);
+
+        postReviewResultDto.setResult("삭제완료");
         return new ResponseEntity<>(postReviewResultDto, HttpStatus.OK);
     }
 
