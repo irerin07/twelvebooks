@@ -6,10 +6,10 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "image_files")
+@Table(name = "notice_image_files")
 @Getter
 @Setter
-public class ImageFile {
+public class NoticeImageFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private long id;
@@ -19,7 +19,8 @@ public class ImageFile {
     private String name;
     private String saveFileName;
 
-    @OneToOne(mappedBy = "imageFile")
-    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "notice_id")
+    private Notice notice;
 
 }

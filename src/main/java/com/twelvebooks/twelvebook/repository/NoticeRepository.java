@@ -18,6 +18,6 @@ public interface NoticeRepository extends JpaRepository<Notice, Long>, NoticeRep
     @Query(value = "SELECT n FROM Notice n ORDER BY n.id DESC")
     public List<Notice> getNotices();
 
-    @Query("SELECT distinct n FROM Notice n LEFT JOIN FETCH n.imageFiles WHERE n.id = :id")
+    @Query("SELECT distinct n FROM Notice n LEFT JOIN FETCH n.noticeImageFiles WHERE n.id = :id")
     public Notice getNotice(@Param("id") Long id);
 }
