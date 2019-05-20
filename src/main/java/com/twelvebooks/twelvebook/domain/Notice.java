@@ -35,17 +35,18 @@ public class Notice {
 
     @OneToMany(mappedBy = "notice",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<ImageFile> imageFiles;
+    private List<NoticeImageFile> noticeImageFiles;
 
     public Notice() {
-        imageFiles = new ArrayList<>();
+        noticeImageFiles = new ArrayList<>();
         regdate = new Date();
     }
 
-    public void addImageFile(ImageFile imageFile) {
-        if(imageFiles == null)
-            imageFiles = new ArrayList<>();
-        imageFile.setNotice(this);
-        imageFiles.add(imageFile);
+    public void addImageFile(NoticeImageFile noticeImageFile) {
+        if(noticeImageFiles == null){
+            noticeImageFiles = new ArrayList<>();
+        }
+        noticeImageFile.setNotice(this);
+        noticeImageFiles.add(noticeImageFile);
     }
 }
