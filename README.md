@@ -1,5 +1,6 @@
 # TwelveBooks 
  책 정보와 기간을 입력하고, 매일 일기 형식으로 기록을 남기면서 기간에 맞춰 읽을 수 있도록 하는 웹 서비스입니다.<br/>
+ https://irerin07.tistory.com/109
 
 ## 개발 개요(Development Overview)
 * 1차 개발 기간(1st development period) : 2019/3/6 ~ 2019/5/21
